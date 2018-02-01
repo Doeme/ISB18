@@ -1,0 +1,10 @@
+digraph{
+rankdir=LR;
+"ru5p__D"[shape=circle];
+node[shape=plain];
+"ru5p__D" -> v4;
+"ru5p__D" -> v7;
+"ru5p__D" -> v12;
+v14 -> "ru5p__D";
+"ru5p__D" -> v15;
+}

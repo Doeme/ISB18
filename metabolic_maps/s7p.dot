@@ -1,0 +1,7 @@
+digraph{
+rankdir=LR;
+"s7p"[shape=circle];
+node[shape=plain];
+v12 -> "s7p";
+v13 -> "s7p";
+}

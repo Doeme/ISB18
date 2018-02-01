@@ -1,0 +1,7 @@
+digraph{
+rankdir=LR;
+"ah6p__D"[shape=circle];
+node[shape=plain];
+v6 -> "ah6p__D";
+v7 -> "ah6p__D";
+}

@@ -1,0 +1,6 @@
+digraph{
+rankdir=LR;
+"co2"[shape=circle];
+node[shape=plain];
+"co2" -> v4;
+}

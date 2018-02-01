@@ -1,0 +1,9 @@
+digraph{
+rankdir=LR;
+"g3p"[shape=circle];
+node[shape=plain];
+"g3p" -> v11;
+v12 -> "g3p";
+v13 -> "g3p";
+"g3p" -> v18;
+}

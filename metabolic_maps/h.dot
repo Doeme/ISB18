@@ -1,0 +1,7 @@
+digraph{
+rankdir=LR;
+"h"[shape=circle];
+node[shape=plain];
+"h" -> v1;
+"h" -> v4;
+}

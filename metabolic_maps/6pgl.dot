@@ -1,0 +1,7 @@
+digraph{
+rankdir=LR;
+"6pgl"[shape=circle];
+node[shape=plain];
+"6pgl" -> v1;
+v3 -> "6pgl";
+}

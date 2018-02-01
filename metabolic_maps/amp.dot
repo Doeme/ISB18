@@ -1,0 +1,6 @@
+digraph{
+rankdir=LR;
+"amp"[shape=circle];
+node[shape=plain];
+"amp" -> v10;
+}

@@ -1,0 +1,12 @@
+digraph{
+rankdir=LR;
+"f6p"[shape=circle];
+node[shape=plain];
+"f6p" -> v5;
+"f6p" -> v6;
+"f6p" -> v8;
+v9 -> "f6p";
+v10 -> "f6p";
+"f6p" -> v13;
+"f6p" -> v19;
+}
