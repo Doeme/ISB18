@@ -3,7 +3,9 @@
 import cobra.test 
 from cobra import Model, Reaction, Metabolite 
 import numpy;
- 
+
+import matplotlib.pyplot as plt
+
 model = Model('hd5_3') 
  
 A = Metabolite('A') 
@@ -94,19 +96,27 @@ fva_result = cobra.flux_analysis.flux_variability_analysis(model);
 import pandas
 print(pandas.DataFrame.from_dict(fva_result).T.round(5));
 
-pairs=[];
+results=[];
+points=numpy.linspace(0,14.0,20)
 
 b3=model.reactions.get_by_id("b3"); 
 
-for lb in numpy.linspace(0,14.0,20):
+for lb in points:
 	b3.lower_bound=lb;
 	b3.upper_bound=lb;
 	sol = model.optimize();
-	pairs.append((lb,sol.objective_value))
+	results.append(sol.objective_value)
 
 #import matplotlib.pyplot as plt
-for t in pairs:
-	print("{}, {}".format(t[0],t[1]));
+#for t in pairs:
+#	print("{}, {}".format(t[0],t[1]));
+
+#Plot list
+plt.plot(points, results, 'bo', points, results, 'k')
+plt.title('Varying flux in B3')
+plt.xlabel('flux in B3')
+plt.ylabel('opt. flux in B2')
+plt.show()
 
 # What effect does the "mutation" have on the flow and target values? Slightly twisted
 # Additional Question: Was there any reason why the Population Algorithm finds out
@@ -137,12 +147,21 @@ model.add_reaction(B4)
 print();
 print_model();
 
-pairs=[];
-for lb in numpy.linspace(0,7.0,20):
+results=[];
+points=numpy.linspace(0,7.0,20)
+
+for lb in points:
 	V5.lower_bound=lb;
 	V5.upper_bound=lb;
 	sol = model.optimize();
-	pairs.append((lb,sol.objective_value))
+	results.append(sol.objective_value)
 
-for pair in pairs:
-	print("{}, {}".format(pair[0],pair[1]));
+#for pair in pairs:
+#	print("{}, {}".format(pair[0],pair[1]));
+
+#Plot list
+plt.plot(points, results, 'bo', points, results, 'k')
+plt.title('Varying flux in B5')
+plt.xlabel('flux in B5')
+plt.ylabel('opt. flux in B2')
+plt.show()
