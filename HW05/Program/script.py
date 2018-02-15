@@ -118,11 +118,9 @@ plt.xlabel('flux in B3')
 plt.ylabel('opt. flux in B2')
 plt.show()
 
-# What effect does the "mutation" have on the flow and target values? Slightly twisted
-# Additional Question: Was there any reason why the Population Algorithm finds out
-# This solution before (ie before blocking V1)?
 # f)
 print();
+print("f)");
 model.reactions.get_by_id("V1").lower_bound = 0. 
 model.reactions.get_by_id("V1").upper_bound = 0. 
 b3.upper_bound=1000;
@@ -131,6 +129,7 @@ optimize();
 
 # g)
 
+print("g)");
 print("Adding new reaction");
 D = Metabolite('D') 
 

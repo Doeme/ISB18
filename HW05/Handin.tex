@@ -21,8 +21,13 @@
 \usepackage{float}
 \usepackage[export]{adjustbox}
 \usepackage{amsmath}
+\usepackage{listings}
+\lstset{basicstyle=\ttfamily,breaklines=true}
 \def\dd{\mathrm{d}}
 \def\ml{\mathrm{\frac{mmol}{h}}}
+
+\usepackage{enumitem}
+\setlist[enumerate]{label=\alph*), labelsep=*}
 
 \begin{document}
 \maketitle
@@ -95,31 +100,16 @@
 			Furthermore, if we want to have exponentially growing production of our compound, it is beneficial to couple production an growth together
 	\end{enumerate}
 \section{Python}
-	\begin{enumerate}
-		\item
-			\begin{lstlisting}
-7 reactions
-3 metabolites
-0 genes
-Reactions
----------
-b1 : A <=>
-V1 : A --> B
-V2 : A --> C
-V3 : C --> A
-V4 : C --> B
-b2 : B -->
-b3 : C -->
-Fluxes: b1    0.0
-V1    0.0
-V2    0.0
-V3    0.0
-V4    0.0
-b2    0.0
-b3    0.0
-Name: fluxes, dtype: float64
-Objective Value: 0.0
-Solver Status: optimal
-			\end{lstlisting}
-	\end{enumerate}
+    \lstinputlisting{Program/output.txt}
+	\subsection{Graphs}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[max width=0.8\linewidth]{Program/Figure_1.pdf}
+			\caption{Graph for question d)}
+		\end{figure}
+		\begin{figure}[H]
+			\centering
+	     		\includegraphics[max width=0.8\linewidth]{Program/Figure_2.pdf}
+			\caption{Graph for question g)}
+		\end{figure}
 \end{document}
