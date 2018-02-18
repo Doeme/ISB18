@@ -4,6 +4,7 @@ import os
 from os.path import join
 import matplotlib.pyplot as plt
 import plotly.plotly as py
+import pickle
 
 # path to input files
 input_file_path = "./../"
@@ -49,7 +50,7 @@ def get_ko_gene_ids_from_model(model_file, th_biomass_percent):
 
 ko_gene_ids_lst = []
 gene_ids_lst = []
-organisms = ["Thermotoga maritima", "Synechocystsis", "E. coli", "S. cerevisiae"]
+organisms = ["T. maritima", "Synechocystsis", "E. coli", "S. elongatus", "S. cerevisiae"]
 
 # Investigate ko genes in Thermotoga maritima
 gene_ids, ko_gene_ids = get_ko_gene_ids_from_model(input_file_path + "Thermotoga.mat", 10)
@@ -66,13 +67,18 @@ gene_ids, ko_gene_ids = get_ko_gene_ids_from_model(input_file_path + "EColi.mat"
 ko_gene_ids_lst.append(ko_gene_ids)
 gene_ids_lst.append(gene_ids)
 
-# Investigate ko genes in S. cerevisiae
+# Investigate ko genes in S. elongatus
 gene_ids, ko_gene_ids = get_ko_gene_ids_from_model(input_file_path + "Synechococcus.mat", 10)
 ko_gene_ids_lst.append(ko_gene_ids)
 gene_ids_lst.append(gene_ids)
 
+# Investigate ko genes in S. cerevisiae
+gene_ids, ko_gene_ids = get_ko_gene_ids_from_model(input_file_path + "Model_yeast7.mat", 10)
+ko_gene_ids_lst.append(ko_gene_ids)
+gene_ids_lst.append(gene_ids)
 
-for idx in range(0,4):
+
+for idx in range(0,len(organisms)):
     print("Organism: " + organisms[idx])
     print("KO genes: {}".format(len(ko_gene_ids_lst[idx])))
 
@@ -86,17 +92,12 @@ for idx in range(0,4):
 #print(len(gene_list))
 
 
-# Generate bar chart
-ko_gene_lens = [ len(lst) for lst in ko_gene_ids_lst ]
-gene_lens = [ len(lst) for lst in gene_ids_lst ]
+with open("tmp_objects.p", 'wb') as pickle_file:
+    pickle.dump(ko_gene_ids_lst, pickle_file)
+    pickle.dump(gene_ids_lst, pickle_file)
+    pickle.dump(organisms, pickle_file)
 
-y = []
-for idx in range(0, len(ko_gene_lens)):
-    y.append(ko_gene_lens[idx]/gene_lens[idx])
 
-width = 1/1.5
-
-plt.bar(organisms, y, width, color="blue")
 
 
 
