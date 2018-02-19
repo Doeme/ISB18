@@ -7,18 +7,6 @@ import plotly.plotly as py
 import pickle
 import numpy as np
 
-# path to input files
-input_file_path = "./../"
-output_file_path = "./../"
-
-#model = cobra.io.load_matlab_model(join(input_file_path, "EColi.mat"))
-
-#sol = model.optimize()
-
-#print(sol.fluxes.to_csv())
-
-#with open(output_file_path + "fluxes_test.txt", 'w+') as outfile:
-#   outfile.write(sol.fluxes.to_csv())
 
 def get_ko_gene_ids_from_model(model_file, th_biomass_percent):
     
@@ -49,9 +37,18 @@ def get_ko_gene_ids_from_model(model_file, th_biomass_percent):
 
     return (gene_ids, ko_gene_ids)
 
+
+# path to input files
+input_file_path = "./../"
+output_file_path = "./../"
+
 ko_gene_ids_lst = []
 gene_ids_lst = []
 organisms = ["T. maritima", "Synechocystsis", "E. coli", "S. elongatus", "S. cerevisiae"]
+# Doubling times of organisms in minutes
+doubling_time = [2*60, 12*60, 20, 6.5*60, 105]
+
+
 
 # Investigate ko genes in Thermotoga maritima
 gene_ids, ko_gene_ids = get_ko_gene_ids_from_model(input_file_path + "Thermotoga.mat", 10)
@@ -79,36 +76,12 @@ ko_gene_ids_lst.append(ko_gene_ids)
 gene_ids_lst.append(gene_ids)
 
 
-for idx in range(0,len(organisms)):
-    print("Organism: " + organisms[idx])
-    print("KO genes: {}".format(len(ko_gene_ids_lst[idx])))
+#for idx in range(0,len(organisms)):
+#    print("Organism: " + organisms[idx])
+#    print("KO genes: {}".format(len(ko_gene_ids_lst[idx])))
 
 
-#gene_list = []
-#for lst in ko_gene_ids:
-#    gene_list = gene_list + lst
-
-#gene_list = list(set(gene_list))
-
-#print(len(gene_list))
-
-
-#with open("tmp_objects.p", 'wb') as pickle_file:
-#    pickle.dump(ko_gene_ids_lst, pickle_file)
-#    pickle.dump(gene_ids_lst, pickle_file)
-#    pickle.dump(organisms, pickle_file)
-
-
-#with open("tmp_objects.p", 'rb') as pickle_file:
-#    ko_gene_ids_lst = pickle.load(pickle_file)
-#    gene_ids_lst = pickle.load(pickle_file)
-#    organisms = pickle.load(pickle_file)
-
-
-# Doubling times of organisms in minutes
-doubling_time = [2*60, 12*60, 20, 6.5*60, 105]
-
-# Generate bar chart
+# Draw bar chart
 ko_gene_lens = [ len(lst) for lst in ko_gene_ids_lst ]
 gene_lens = [ len(lst) for lst in gene_ids_lst ]
 
@@ -117,10 +90,10 @@ y = []
 for idx in range(0, len(ko_gene_lens)):
     y.append(ko_gene_lens[idx]/gene_lens[idx]*100)
 
-print("Organism\tgenes\tKO genes")
-print("=================================")
-for idx in range(0, len(organisms)):
-    print("{} \t{}\t{}\t{}\t{}".format(organisms[idx], gene_lens[idx], ko_gene_lens[idx], y[idx], doubling_time[idx]))
+#print("Organism\tgenes\tKO genes")
+#print("=================================")
+#for idx in range(0, len(organisms)):
+#    print("{} \t{}\t{}\t{}\t{}".format(organisms[idx], gene_lens[idx], ko_gene_lens[idx], y[idx], doubling_time[idx]))
 
 
 
