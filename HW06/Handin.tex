@@ -64,9 +64,14 @@ EX_succ_e      8.004907e-02
 \end{enumerate}
 \item 
 \begin{figure}[H]
-	
+	\centering
 	\includegraphics[max width=\linewidth]{src/2_a.pdf}
 	\caption{Flux map for aerobic conditions}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[max width=\linewidth]{src/2_b.pdf}
+	\caption{Flux map for anaerobic conditions}
 \end{figure}
 \end{enumerate}
 \section{(Sensitivity analysis}
@@ -1231,6 +1236,7 @@ VPAMTr       9.998596e+02 -9.998978e+02
 \end{lstlisting}
 \item
 \def\barplot#1#2{\tikz[baseline,x=0.016666\linewidth,y=0.016666\linewidth]{\draw[|-|,thick](#1,0) -- (#2,0); \path(-25,0) -- (35,0);}}
+\def\bardot#1#2{\tikz[baseline,x=0.016666\linewidth,y=0.016666\linewidth]{\fill (#1,0) circle (0.25ex);  \path(-25,0) -- (35,0);}}
 \begin{longtable}{p{0.2\linewidth}p{0.8\linewidth}}
 \input{src/barplot.tex}
 \end{longtable}

@@ -79,5 +79,8 @@ f=open("barplot.tex","w+");
 for a,b,c in res.itertuples():
 	b=min(35,b);
 	c=max(-25,c);
-	print("\\verb|{0}| & \\barplot{{{1:.4f}}}{{{2:.4f}}}\\\\".format(a,b,c),file=f)
+	if abs(b-c)<0.001:
+		print("\\verb|{0}| & \\bardot{{{1:.4f}}}{{{2:.4f}}}\\\\".format(a,b,c),file=f)
+	else:
+		print("\\verb|{0}| & \\barplot{{{1:.4f}}}{{{2:.4f}}}\\\\".format(a,b,c),file=f)
 f.close();
