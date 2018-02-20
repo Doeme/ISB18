@@ -1,10 +1,13 @@
 \documentclass{scrartcl}
 \usepackage[utf8]{inputenc}
-\usepackage[english]{babel}
+\usepackage[british]{babel}
 \usepackage[T1]{fontenc}
 
 \parindent 0pt
 \parskip 0.5em
+
+\usepackage[backend=bibtex8]{biblatex}
+\bibliography{Handin}
 
 \title{Assignment 6}
 \author{Jakob Wittmann\\Dominik Schmidt}
@@ -35,6 +38,30 @@
 \begin{document}
 \maketitle
 \section{Essay}
+Brewing beer is a delicate process. Seemingly unimportant changes can have great effects, like altering the water hardness by adding lactic acid or stirring the malt while adding it to the water\footnote{In deed, this can have an effect, since it prevents the malt from building clusters which are not properly used in the clustering together and reducing the sugar yield from mashing}.
+
+One of these effects is the formation of lactic acid bacteria during fermentation.
+Usually, it is desired for only a single strand of yeast and no other bacteria to exist in the fermentation vessel.
+
+A main culprit in spoiled batches of beer is \emph{Lactobacillus brevis}\cite{JIB:JIB49}.
+This is the antagonist of \emph{Saccharomyces cerevisiae} in this neutralist interspecies interaction we would like to investigate.
+Genome scale models of both organisms are available\cite{GEM:KB290}\cite{GEM:S288c}.
+
+In this project, we want to study favourable start and in-process conditions that yield the best quality. This might include changing conditions during the fermentation to adapt to the changed circumstances in the beer.
+Furthermore, we want to investigate under what conditions beer can turn sour, i.e. why lactic acid bacteria can accumulate in a sufficient amount to make the beer turn sour notably.
+
+We intend to approach this problem by optimizing the two networks on biomass production, simulate their intake and secretion for a certain timestep $\Delta t$ and optimizing again to take the different concentrations in the surroundings into account.
+The concentrations can be modeled by varying the lower bounds of (intake-)exchange reactions.
+
+Additionally, if time allows\footnote{So probably not} we might want to investigate different types of bad bacteria, like acetic acid bacteria or other bacteria mentioned in \cite{JIB:JIB49}.
+
+The motivation lays mainly in understanding how and why a beer can turn sour, and improve our own brewing abilities.
+Because the beer-brewing industry handles the problem of contamination by having a highly sterile environment, this research will not have direct effects on the industry.
+But industry-grade sterility is hard to achieve for amateurs or small craft breweries, hence our results might have benefits for them.
+
+As to our knowledge there have not been many studies exploring genome models to investigate beer brewing, hence we believe our approach to be novel.
+
+\printbibliography
 \section{Flux under aerobic and anaerobic conditions}
 \begin{enumerate}
 \item Aerobic
@@ -62,16 +89,18 @@ EX_meoh_e      4.830031e-07
 EX_succ_e      8.004907e-02
 \end{lstlisting}
 \end{enumerate}
-\item 
+\item See Figures \ref{fig:aerobic} and \ref{fig:anaerobic}
 \begin{figure}[H]
 	\centering
 	\includegraphics[max width=\linewidth]{src/2_a.pdf}
 	\caption{Flux map for aerobic conditions}
+	\label{fig:aerobic}
 \end{figure}
 \begin{figure}[H]
 	\centering
 	\includegraphics[max width=\linewidth]{src/2_b.pdf}
 	\caption{Flux map for anaerobic conditions}
+	\label{fig:anaerobic}
 \end{figure}
 \end{enumerate}
 \section{Sensitivity analysis}
@@ -1235,6 +1264,7 @@ VALTA        9.997574e+02 -1.000000e+03
 VPAMTr       9.998596e+02 -9.998978e+02
 \end{lstlisting}
 \item
+
 \def\barplot#1#2{\tikz[baseline,x=0.016666\linewidth,y=0.016666\linewidth]{\draw[|-|,thick](#1,0) -- (#2,0); \path(-25,0) -- (35,0);}}
 \def\bardot#1#2{\tikz[baseline,x=0.016666\linewidth,y=0.016666\linewidth]{\fill (#1,0) circle (0.25ex);  \path(-25,0) -- (35,0);}}
 \begin{longtable}{p{0.2\linewidth}p{0.8\linewidth}}
