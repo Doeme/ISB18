@@ -31,7 +31,10 @@ def calc_maxmin_of_exchange_reaction(model, gene_pairs, exchange_id, threshold, 
                 (idx, gene_pairs_len, int(math.ceil(idx/gene_pairs_len*100)), '%', hits))
         for gene_pair in gene_pairs:
             with model:
-                #Knock out genes in current pair
+                # Configure solver timeout (milliseconds)
+                model.solver.configuration.timeout = 30 * 1000
+
+                # Knock out genes in current pair
                 for gene in gene_pair:
                     gene.knock_out()
         
