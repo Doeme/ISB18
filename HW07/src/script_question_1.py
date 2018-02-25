@@ -15,9 +15,17 @@ from threading import Lock
 from functools import partial
 import time
 
-class test():
-    def __call__(self, item):
-        print("called")
+# Notes:
+# 
+# How further boost the script?
+#    > in cobrapy implementation of double_gene_deletion() a sub(sub...)call of
+#      _gene_deletion() calls find_gene_knockout_reactions()
+#      (defined in https://github.com/opencobra/cobrapy/blob/devel/cobra/flux_analysis/deletion.py)
+#      to find all reactions which are turned off by knocking out a single gene. 
+#      This function is defined in 
+#      https://github.com/opencobra/cobrapy/blob/devel/cobra/manipulation/delete.py
+#      and shuld boost the script additionally, I don't know why, but it would be
+#      worth a try
 
 def _init_worker(model, threshold, exchange_id, pc):
     global _model
@@ -46,44 +54,46 @@ def _worker_thread(gene_pair):
     # (5) solver status after min flux optimization
     # (6) maximum flux of metabolite when biomass is fixed to maximum
 
-    # Configure solver timeout (milliseconds)
-    _model.solver.configuration.timeout = 30 * 1000
+    with _model:
 
-    # Knock out genes in current pair
-    for gene in gene_pair:
-        gene.knock_out()
-
-    # Opitmize for biomass
-    opt_bio = _model.slim_optimize()
-    opt_bio_status = _model.solver.status
-
-    # Proceed if optimization solver was successful
-    if opt_bio_status == optlang.interface.OPTIMAL:
-        if opt_bio > _threshold:
-
-            # Set minimum value for biomass production
-            reaction = _model.reactions.get_by_id('Ec_biomass_iJO1366_core_53p95M')
-            reaction.lower_bound = opt_bio
-
-            _model.objective = _exchange_id
-            # Optimize for maximum flux of exchange reaction
-            max_flux = _model.slim_optimize()
-            max_flux_status = _model.solver.status
-            # Optimize for minimum flux of exchange reaction
-            _model.objective_direction = 'min'
-            min_flux = model.slim_optimize()
-            min_flux_status = _model.solver.status
+        # Configure solver timeout (milliseconds)
+        _model.solver.configuration.timeout = 30 * 1000
+    
+        # Knock out genes in current pair
+        for gene in gene_pair:
+            gene.knock_out()
+    
+        # Opitmize for biomass
+        opt_bio = _model.slim_optimize()
+        opt_bio_status = _model.solver.status
+    
+        # Proceed if optimization solver was successful
+        if opt_bio_status == optlang.interface.OPTIMAL:
+            if opt_bio > _threshold:
+    
+                # Set minimum value for biomass production
+                reaction = _model.reactions.get_by_id('Ec_biomass_iJO1366_core_53p95M')
+                reaction.lower_bound = opt_bio
+    
+                _model.objective = _exchange_id
+                # Optimize for maximum flux of exchange reaction
+                max_flux = _model.slim_optimize()
+                max_flux_status = _model.solver.status
+                # Optimize for minimum flux of exchange reaction
+                _model.objective_direction = 'min'
+                min_flux = model.slim_optimize()
+                min_flux_status = _model.solver.status
+            else:
+                opt_bio_status = 'threshold'
+                max_flux = 'None'
+                max_flux_status = 'None'
+                min_flux = 'None'
+                min_flux_status = 'None'
         else:
-            opt_bio_status = 'threshold'
             max_flux = 'None'
             max_flux_status = 'None'
             min_flux = 'None'
             min_flux_status = 'None'
-    else:
-        max_flux = 'None'
-        max_flux_status = 'None'
-        min_flux = 'None'
-        min_flux_status = 'None'
 
     with _pc.get_lock():
         _pc.value += 1
@@ -153,7 +163,7 @@ model = cobra.io.load_matlab_model(join(path_to_models, "Model_iJO1366.mat"))
 gene_pairs = list(itertools.combinations(model.genes, 2))
 
 # Shorten the list a bit during debugging
-gene_pairs = gene_pairs[:100]
+#gene_pairs = gene_pairs[:100]
 
 # Exchange reaction     Metabolite name
 # =====================================
