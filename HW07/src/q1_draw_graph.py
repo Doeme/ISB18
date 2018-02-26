@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 
 
 
-def draw_maxmin_by_growth(model, gene_pair, exchange_id):
+def draw_maxmin_by_growth(model, gene_pair, exchange_id, points=10):
 
 
     with model:
@@ -27,10 +27,12 @@ def draw_maxmin_by_growth(model, gene_pair, exchange_id):
         
         if model.solver.status == optlang.interface.OPTIMAL:
             
-            bio_points = 10
+            bio_points = points
             bio_delta = bio_max/(bio_points-1)
             bio_axis = np.arange(0, bio_max+bio_delta/2, bio_delta)
             bio_axis[bio_points-1] = bio_max
+
+            print("bio_axis: {}".format(bio_axis))
 
             min_fluxes = []
             max_fluxes = []
@@ -40,6 +42,8 @@ def draw_maxmin_by_growth(model, gene_pair, exchange_id):
                 reaction = model.reactions.get_by_id('Ec_biomass_iJO1366_core_53p95M')
                 reaction.lower_bound = bio_val
                 reaction.upper_bound = bio_val
+
+                model.objective_direction = 'max'
 
                 # Set exchange_id as new optimization objective
                 model.objective = exchange_id
@@ -80,6 +84,7 @@ def draw_maxmin_by_growth(model, gene_pair, exchange_id):
 
 path_to_models = "./../"
 
+print("Load matlab model...")
 model = cobra.io.load_matlab_model(join(path_to_models, "Model_iJO1366.mat"))
 
 exchanges = {
@@ -88,9 +93,11 @@ exchanges = {
         'l-lactate': 'EX_lac-L(e)',
         'succinate': 'EX_succ(e)',
         'ethanol': 'EX_etoh(e)'}
-for key, exchange_id in exchanges.items():
-    print(key)
-    draw_maxmin_by_growth(model, [], exchange_id)
+#for key, exchange_id in exchanges.items():
+#    print(key)
+
+print("Calculate values...")
+draw_maxmin_by_growth(model, [], exchanges['acetate'], points=100)
 
 
 

@@ -50,9 +50,9 @@ def _worker_thread(gene_pair):
     # (1) solver status after max biomass optimization
     # (2) maximum biomass growth
     # (3) solver status after max flux optimization
-    # (4) minimum flux of metabolite when biomass is fixed to maximum
+    # (4) maximum flux of metabolite when biomass is fixed to maximum
     # (5) solver status after min flux optimization
-    # (6) maximum flux of metabolite when biomass is fixed to maximum
+    # (6) minimum flux of metabolite when biomass is fixed to maximum
 
     with _model:
 
@@ -60,8 +60,9 @@ def _worker_thread(gene_pair):
         _model.solver.configuration.timeout = 30 * 1000
     
         # Knock out genes in current pair
-        for gene in gene_pair:
-            gene.knock_out()
+        for gene_id in gene_pair:
+            cur_gene = _model.genes.get_by_id(gene_id)
+            cur_gene.knock_out()
     
         # Opitmize for biomass
         opt_bio = _model.slim_optimize()
@@ -121,7 +122,7 @@ def calc_maxmin_of_exchange_reaction(model, gene_pairs, exchange_id, threshold, 
 #        pool = ThreadPool(8, initializer=_init_worker, initargs=(model, threshold, exchange_id,))
         pool = ProcessPool(processes=4, initializer=_init_worker, initargs=(model, threshold, exchange_id, pc))
     
-        filename = "results_question_1_{}.dat".format(simulation_id)
+        filename = "results_question_1_{}.dat.test".format(simulation_id)
         with open(filename, 'wb') as results_file:
             print("   Write results to \"{}\"".format(filename))
             pickle.dump(simulation_id, results_file)
@@ -160,7 +161,7 @@ print("Load matlab model...")
 model = cobra.io.load_matlab_model(join(path_to_models, "Model_iJO1366.mat"))
 
 # Create list of knock out gene pairs
-gene_pairs = list(itertools.combinations(model.genes, 2))
+gene_pairs = list(itertools.combinations([ gene.id for gene in model.genes ], 2))
 
 # Shorten the list a bit during debugging
 gene_pairs = gene_pairs[:100]
