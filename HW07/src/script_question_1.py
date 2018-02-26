@@ -163,7 +163,7 @@ model = cobra.io.load_matlab_model(join(path_to_models, "Model_iJO1366.mat"))
 gene_pairs = list(itertools.combinations(model.genes, 2))
 
 # Shorten the list a bit during debugging
-#gene_pairs = gene_pairs[:100]
+gene_pairs = gene_pairs[:100]
 
 # Exchange reaction     Metabolite name
 # =====================================
