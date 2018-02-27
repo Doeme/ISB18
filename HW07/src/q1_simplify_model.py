@@ -50,76 +50,57 @@ def find_unused_reactions(model, threshold=1e-9):
         presults = flux_variability_analysis(model, model.reactions)
         results = pandas_to_list(presults)
 
-        reactions = []
+        reaction_ids = []
         for res in results:
             if math.fabs(res[1]) < threshold and math.fabs(res[2]) < threshold:
-                reactions.append(res[0])
-                print("max: {}, min: {}".format(res[1], res[2]))
+                reaction_ids.append(res[0])
+                #print("max: {}, min: {}".format(res[1], res[2]))
 
-    plt.subplot(1,2,1)
-    n, bins, patches = plt.hist([ r[1] for r in results ])
-    plt.title('max')
-    #plt.xticks(bins)
-    print("max histogram:")
-    print("Frequency:")
-    print(n)
-    print("Values:")
-    print(bins)
-    
-    plt.subplot(1,2,2)
-    n, bins, patches = plt.hist([ r[2] for r in results ])
-    plt.title('min')
-    #plt.xticks(bins)
-    print("min histogram:")
-    print("Frequency:")
-    print(n)
-    print("Values:")
-    print(bins)
-    plt.show()
+    return reaction_ids, results
 
-    return reactions
+def simplify_model_with_fva(model, threshold=1e-9):
 
+    reaction_ids, results = find_unused_reactions(model, threshold)
+    reactions = [ model.reactions.get_by_id(r_id) for r_id in reaction_ids ]
+    model.remove_reactions(reactions, remove_orphans=True)
 
+    return reactions, results
 
+#path_to_models = './../'
+#
+#print("Load model...")
+#model = cobra.io.load_json_model(join(path_to_models, 'ecolicore.json'))
+#
+## Set input fluxes of o2 and gcl to maximum
+#EX_o2 = model.reactions.get_by_id('EX_o2(e)')
+#EX_o2.lower_bound = -1000
+#EX_glc = model.reactions.get_by_id('EX_glc(e)')
+#EX_glc.lower_bound = -1000
+#
+#with model:
+#    results = pandas_to_list(flux_variability_analysis(model, model.reactions))
+#
+#plt.subplot(1,2,1)
+#n, bins, patches = plt.hist([ r[1] for r in results ], histtype='stepfilled')
+#plt.title('max')
+##plt.xticks(bins)
+#print("max histogram:")
+#print("Frequency:")
+#print(n)
+#print("Values:")
+#print(bins)
+#
+#plt.subplot(1,2,2)
+#n, bins, patches = plt.hist([ r[2] for r in results ], bins=1000)
+#plt.title('min')
+##plt.xticks(bins)
+#print("min histogram:")
+#print("Frequency:")
+#print(n)
+#print("Values:")
+#print(bins)
+#plt.show()
 
-path_to_models = './../'
-
-print("Load model...")
-model = cobra.io.load_json_model(join(path_to_models, 'ecolicore.json'))
-
-# Set input fluxes of o2 and gcl to maximum
-EX_o2 = model.reactions.get_by_id('EX_o2(e)')
-EX_o2.lower_bound = -1000
-EX_glc = model.reactions.get_by_id('EX_glc(e)')
-EX_glc.lower_bound = -1000
-
-with model:
-    results = pandas_to_list(flux_variability_analysis(model, model.reactions))
-
-plt.subplot(1,2,1)
-n, bins, patches = plt.hist([ r[1] for r in results ])
-plt.title('max')
-#plt.xticks(bins)
-print("max histogram:")
-print("Frequency:")
-print(n)
-print("Values:")
-print(bins)
-
-plt.subplot(1,2,2)
-n, bins, patches = plt.hist([ r[2] for r in results ])
-plt.title('min')
-#plt.xticks(bins)
-print("min histogram:")
-print("Frequency:")
-print(n)
-print("Values:")
-print(bins)
-plt.show()
-
-reaction_ids = find_unused_reactions(model, 1e-10)
-
-reactions = [ model.reactions.get_by_id(r_id) for r_id in reaction_ids ]
 
 def print_model_properties(model):
     print("genes:              {}".format(len(model.genes)))
@@ -127,16 +108,16 @@ def print_model_properties(model):
     print("exchange reactions: {}".format(len(model.exchanges)))
     print("metabolites:        {}".format(len(model.exchanges)))
 
-print("Model before reaction deletion:")
-print("===============================")
-print_model_properties(model)
-print("\n")
-print("Delete {}/{} reactions".format(len(reactions), len(model.reactions)))
-
-model.remove_reactions(reactions, remove_orphans=True)
-
-print("Model after reaction deletion:")
-print_model_properties(model)
+#print("Model before reaction deletion:")
+#print("===============================")
+#print_model_properties(model)
+#print("\n")
+#print("Delete {}/{} reactions".format(len(reactions), len(model.reactions)))
+#
+#model.remove_reactions(reactions, remove_orphans=True)
+#
+#print("Model after reaction deletion:")
+#print_model_properties(model)
 
 
 

@@ -14,6 +14,7 @@ from multiprocessing import Value
 from threading import Lock
 from functools import partial
 import time
+from q1_simplify_model import simplify_model_with_fva, print_model_properties
 
 # Notes:
 # 
@@ -159,6 +160,22 @@ path_to_models = "./../"
 
 print("Load matlab model...")
 model = cobra.io.load_matlab_model(join(path_to_models, "Model_iJO1366.mat"))
+
+# Set input fluxes of o2 and gcl to maximum
+EX_o2 = model.reactions.get_by_id('EX_o2(e)')
+EX_o2.lower_bound = -1000
+EX_glc = model.reactions.get_by_id('EX_glc(e)')
+EX_glc.lower_bound = -1000
+
+print("Model before reaction deletion:")
+print("===============================")
+print_model_properties(model)
+print("\n")
+print("Simplifying model...")
+del_reactions, fva_results = simplify_model_with_fva(model, threshold=1e-11)
+print("Model after reaction deletion:")
+print("==============================")
+print_model_properties(model)
 
 # Create list of knock out gene pairs
 gene_pairs = list(itertools.combinations([ gene.id for gene in model.genes ], 2))
