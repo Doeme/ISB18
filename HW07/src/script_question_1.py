@@ -122,7 +122,7 @@ def calc_maxmin_of_exchange_reaction(model, gene_pairs, exchange_id, threshold, 
 #        pool = ThreadPool(8, initializer=_init_worker, initargs=(model, threshold, exchange_id,))
         pool = ProcessPool(processes=4, initializer=_init_worker, initargs=(model, threshold, exchange_id, pc))
     
-        filename = "results_question_1_{}.dat.test".format(simulation_id)
+        filename = "results_question_1_{}.dat".format(simulation_id)
         with open(filename, 'wb') as results_file:
             print("   Write results to \"{}\"".format(filename))
             pickle.dump(simulation_id, results_file)
@@ -164,7 +164,7 @@ model = cobra.io.load_matlab_model(join(path_to_models, "Model_iJO1366.mat"))
 gene_pairs = list(itertools.combinations([ gene.id for gene in model.genes ], 2))
 
 # Shorten the list a bit during debugging
-gene_pairs = gene_pairs[:100]
+#gene_pairs = gene_pairs[:100]
 
 # Exchange reaction     Metabolite name
 # =====================================
