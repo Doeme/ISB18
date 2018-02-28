@@ -10,13 +10,15 @@ import matplotlib.pyplot as plt
 
 
 
-def draw_maxmin_by_growth(model, gene_pair, exchange_id, points=10):
+def draw_maxmin_by_growth(model, gene_id_pair, exchange_id, points=10, title='super toller graph', to_pdf=False, pdf_title='graph'):
 
 
     with model:
 
         # Configure solver timeout (milliseconds)
         model.solver.configuration.timeout = 30 * 1000
+
+        gene_pair = [ model.genes.get_by_id(gene_id) for gene_id in gene_id_pair ]
 
         # Knock out genes
         for gene in gene_pair:
@@ -32,7 +34,7 @@ def draw_maxmin_by_growth(model, gene_pair, exchange_id, points=10):
             bio_axis = np.arange(0, bio_max+bio_delta/2, bio_delta)
             bio_axis[bio_points-1] = bio_max
 
-            print("bio_axis: {}".format(bio_axis))
+            #print("bio_axis: {}".format(bio_axis))
 
             min_fluxes = []
             max_fluxes = []
@@ -67,37 +69,42 @@ def draw_maxmin_by_growth(model, gene_pair, exchange_id, points=10):
         else:
             print("Error: Could not optimize for biomass. Solver returned with status \"{}\".".format(model.solver.status))
 
-        print("bio\tmin\tmax")
-        for idx in range(0,bio_points):
-            print("{}\t{}\t{}".format(bio_axis[idx], min_fluxes[idx], max_fluxes[idx]))
+        #print("bio\tmin\tmax")
+        #for idx in range(0,bio_points):
+        #    print("{}\t{}\t{}".format(bio_axis[idx], min_fluxes[idx], max_fluxes[idx]))
 
         #y_pos = np.arange(bio_points)
+        fig = plt.figure(figsize=(4,3))
         plt.plot(bio_axis, max_fluxes, 'r',
                 bio_axis, min_fluxes, 'g')
-        plt.fill_between(bio_axis, max_fluxes, min_fluxes, color='blue', alpha=0.5)
-        plt.title('Super toller plot')
+        plt.fill_between(bio_axis, max_fluxes, min_fluxes, color='blue', alpha=0.2)
+        plt.title(title)
         plt.xlabel('growth')
         plt.ylabel('flux')
-        plt.show()
-
-               
-
-path_to_models = "./../"
-
-print("Load matlab model...")
-model = cobra.io.load_matlab_model(join(path_to_models, "Model_iJO1366.mat"))
-
-exchanges = {
-        'acetate': 'EX_ac(e)',
-        'd-lactate': 'EX_lac-D(e)',
-        'l-lactate': 'EX_lac-L(e)',
-        'succinate': 'EX_succ(e)',
-        'ethanol': 'EX_etoh(e)'}
-#for key, exchange_id in exchanges.items():
-#    print(key)
-
-print("Calculate values...")
-draw_maxmin_by_growth(model, [], exchanges['acetate'], points=100)
+        if to_pdf:
+            fig.savefig(pdf_title + ".pdf", bbox_inches='tight')
+        else:
+            plt.show()
 
 
-
+if __name__ == '__main__':
+    
+    path_to_models = "./../"
+    
+    print("Load matlab model...")
+    model = cobra.io.load_matlab_model(join(path_to_models, "Model_iJO1366.mat"))
+    
+    exchanges = {
+            'acetate': 'EX_ac(e)',
+            'd-lactate': 'EX_lac-D(e)',
+            'l-lactate': 'EX_lac-L(e)',
+            'succinate': 'EX_succ(e)',
+            'ethanol': 'EX_etoh(e)'}
+    #for key, exchange_id in exchanges.items():
+    #    print(key)
+    
+    print("Calculate values...")
+    draw_maxmin_by_growth(model, [], exchanges['acetate'], points=100)
+    
+    
+    

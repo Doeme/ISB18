@@ -28,21 +28,24 @@ from q1_simplify_model import simplify_model_with_fva, print_model_properties
 #      and shuld boost the script additionally, I don't know why, but it would be
 #      worth a try
 
-def _init_worker(model, threshold, exchange_id, pc):
+def _init_worker(model, bio_threshold, exchange_threshold, exchange_id, pc):
     global _model
-    global _threshold
+    global _bio_threshold
+    global _exchange_threshold
     global _exchange_id
     global _pc
 
     _model = model
-    _threshold = threshold
+    _bio_threshold = bio_threshold
+    _exchange_threshold = exchange_threshold
     _exchange_id = exchange_id
     _pc = pc
 
 def _worker_thread(gene_pair):
 
     global _model
-    global _threshold
+    global _bio_threshold
+    global _exchange_threshold
     global _exchange_id
     global _pc
 
@@ -71,7 +74,7 @@ def _worker_thread(gene_pair):
     
         # Proceed if optimization solver was successful
         if opt_bio_status == optlang.interface.OPTIMAL:
-            if opt_bio > _threshold:
+            if opt_bio > _bio_threshold:
     
                 # Set minimum value for biomass production
                 reaction = _model.reactions.get_by_id('Ec_biomass_iJO1366_core_53p95M')
@@ -81,10 +84,19 @@ def _worker_thread(gene_pair):
                 # Optimize for maximum flux of exchange reaction
                 max_flux = _model.slim_optimize()
                 max_flux_status = _model.solver.status
-                # Optimize for minimum flux of exchange reaction
-                _model.objective_direction = 'min'
-                min_flux = model.slim_optimize()
-                min_flux_status = _model.solver.status
+                if max_flux_status == optlang.interface.OPTIMAL:
+                    if max_flux > _exchange_threshold:
+                        # Optimize for minimum flux of exchange reaction
+                        _model.objective_direction = 'min'
+                        min_flux = model.slim_optimize()
+                        min_flux_status = _model.solver.status
+                    else:
+                        max_flux_status = 'threshold'
+                        min_flux = 'None'
+                        min_flux_status = 'None'
+                else:
+                    min_flux = 'None'
+                    min_flux_status = 'None'
             else:
                 opt_bio_status = 'threshold'
                 max_flux = 'None'
@@ -109,7 +121,7 @@ def _worker_thread(gene_pair):
             min_flux]
 
 
-def calc_maxmin_of_exchange_reaction(model, gene_pairs, exchange_id, threshold, simulation_id):
+def calc_maxmin_of_exchange_reaction(model, gene_pairs, exchange_id, bio_threshold, exchange_threshold, simulation_id):
 
     print("Generate max/min values of exchange reaction")
 
@@ -121,7 +133,7 @@ def calc_maxmin_of_exchange_reaction(model, gene_pairs, exchange_id, threshold, 
 
     with model:
 #        pool = ThreadPool(8, initializer=_init_worker, initargs=(model, threshold, exchange_id,))
-        pool = ProcessPool(processes=4, initializer=_init_worker, initargs=(model, threshold, exchange_id, pc))
+        pool = ProcessPool(processes=4, initializer=_init_worker, initargs=(model, bio_threshold, exchange_threshold, exchange_id, pc))
     
         filename = "results_question_1_{}.dat".format(simulation_id)
         with open(filename, 'wb') as results_file:
@@ -155,68 +167,141 @@ def calc_maxmin_of_exchange_reaction(model, gene_pairs, exchange_id, threshold, 
     return results.get()
 
 
+if __name__ == '__main__':
 
-path_to_models = "./../"
+    # Configuration
+    # =======================================
+    path_to_models = "./../"
+    model_filename = "Model_iJO1366.mat"
+    gene_knock_outs = 2
+    include_wild_type_model = True
+    include_lower_order_knock_outs = True
+    # Only mutants with a greater bio growth will be considered
+    # (in percent, relative to max of wild type)
+    bio_threshold = 20
+    # Only mutants with a greater exchange flow will be considered
+    # (in percent, relative to max of wild type)
+    exchange_threshold = 100
+    # Used insead of the thresholds above if one equals zero
+    # (set to zero, if zero should be used)
+    approx_zero_threshold = 1e-9
+    # =======================================
+    
+    print("Load matlab model...")
+    model = cobra.io.load_matlab_model(join(path_to_models, model_filename))
+    
+    # Set input fluxes of o2 and gcl to maximum
+    EX_o2 = model.reactions.get_by_id('EX_o2(e)')
+    EX_o2.lower_bound = -1000
+    EX_glc = model.reactions.get_by_id('EX_glc(e)')
+    EX_glc.lower_bound = -1000
+    
+    print("Model before reaction deletion:")
+    print("===============================")
+    print_model_properties(model)
+    print("\n")
+    print("Simplifying model...")
+    del_reactions, fva_results = simplify_model_with_fva(model, threshold=1e-11)
+    print("Model after reaction deletion:")
+    print("==============================")
+    print_model_properties(model)
+    
+    # Create list of knock out gene pairs
+    gene_pairs = list(itertools.combinations([ gene.id for gene in model.genes ], gene_knock_outs))
+    
+    if include_wild_type_model:
+        gene_pairs.append([])
 
-print("Load matlab model...")
-model = cobra.io.load_matlab_model(join(path_to_models, "Model_iJO1366.mat"))
+    if include_lower_order_knock_outs:
+        for n in range(1,gene_knock_outs):
+            gene_pairs.append(list(itertools.combinations( [ gene.id for gene in model.genes ] )))
+    
+    # Shorten the list a bit during debugging
+    #gene_pairs = gene_pairs[:100]
+    
+    # Exchange reaction     Metabolite name
+    # =====================================
+    # EX_ac(e)              acetate
+    # EX_lac-D(e)           D-Lactate
+    # EX_lac-L(e)           L-Lactate
+    # EX_succ(e)            Succinate
+    # EX_etoh(e)            Ethanol
+    exchanges = {
+            'acetate': 'EX_ac(e)', 
+            'd-lactate': 'EX_lac-D(e)', 
+            'l-lactate': 'EX_lac-L(e)', 
+            'succinate': 'EX_succ(e)', 
+            'ethanol': 'EX_etoh(e)'}
+    
+    
+    # Validate the exchange ids
+    for key, exc in exchanges.items():
+        try:
+            model.reactions.get_by_id(exc)
+        except KeyError:
+            sys.exit("Error: Exchange id \"{}\" is not valid".format(exc))
+    
+    # Create mutual objective for both lactate
+    mutual_lactate = model.problem.Objective(
+            model.reactions.get_by_id("EX_lac-D(e)").flux_expression + 
+            model.reactions.get_by_id("EX_lac-L(e)").flux_expression)
+    exchanges['mutial_lactate'] = mutual_lactate
 
-# Set input fluxes of o2 and gcl to maximum
-EX_o2 = model.reactions.get_by_id('EX_o2(e)')
-EX_o2.lower_bound = -1000
-EX_glc = model.reactions.get_by_id('EX_glc(e)')
-EX_glc.lower_bound = -1000
+    # Save modified model
+    cobra.io.save_json_model(model, 'result_q1_modified_model.json')
 
-print("Model before reaction deletion:")
-print("===============================")
-print_model_properties(model)
-print("\n")
-print("Simplifying model...")
-del_reactions, fva_results = simplify_model_with_fva(model, threshold=1e-11)
-print("Model after reaction deletion:")
-print("==============================")
-print_model_properties(model)
+    # Calculate maximum bio growth of wild type model
+    with model:
+        bio_ref = model.slim_optimize()
+        if not model.solver.status == optlang.interface.OPTIMAL:
+            sys.exit("Error: Solver was not successful when calculating the maximum bio growth of the wild type model")
 
-# Create list of knock out gene pairs
-gene_pairs = list(itertools.combinations([ gene.id for gene in model.genes ], 2))
+    # Calculate maximum fluxes of all exchange reactions
+    exchanges_ref = {}
+    for key, exc in exchanges.items():
+        with model:
+            # Set minimum value for biomass production
+            reaction = model.reactions.get_by_id('Ec_biomass_iJO1366_core_53p95M')
+            reaction.lower_bound = bio_ref
 
-# Shorten the list a bit during debugging
-#gene_pairs = gene_pairs[:100]
+            model.objective = exc
+            exchanges_ref[key] = model.slim_optimize()
+            if not model.solver.status == optlang.interface.OPTIMAL:
+                sys.exit("Error: Solver was not successful when calculating the maximum flux of \"{}\" of the wild type model".format(key))
+    
+    print("Calculated reference fluxes:")
+    print("  bio: {}".format(bio_ref))
+    for key, ref in exchanges_ref.items():
+        print("  {}: {}".format(key, ref))
 
-# Exchange reaction     Metabolite name
-# =====================================
-# EX_ac(e)              acetate
-# EX_lac-D(e)           D-Lactate
-# EX_lac-L(e)           L-Lactate
-# EX_succ(e)            Succinate
-# EX_etoh(e)            Ethanol
-exchanges = {
-        'acetate': 'EX_ac(e)', 
-        'd-lactate': 'EX_lac-D(e)', 
-        'l-lactate': 'EX_lac-L(e)', 
-        'succinate': 'EX_succ(e)', 
-        'ethanol': 'EX_etoh(e)'}
+    # Calculate bio growth threshold value used to kick out bad candidates
+    if bio_threshold > 0:
+        bio_threshold_value = bio_ref*bio_threshold/100
+    else:
+        if approx_zero_threshold > 0:
+            bio_threshold_value = approx_zero_threshold
+        else:
+            bio_threshold_value = 0
+    print("Used threshold values:")
+    print("  bio: {}".format(bio_threshold_value))
 
+    # Calculate exchange flux threshold value used to kick out bad candidates
+    exchange_threshold_value = {}
+    for key, ref in exchanges_ref.items():
+        if exchange_threshold > 0:
+            exchange_threshold_value[key] = exchanges_ref[key]*exchange_threshold/100
+        else:
+            if approx_zero_threshold > 0:
+                exchange_threshold_value[key] = approx_zero_threshold
+            else:
+                exchange_threshold_value[key] = 0
+        print("  {}: {}".format(key, exchange_threshold_value[key]))
 
-# Validate the exchange ids
-for key, exc in exchanges.items():
-    try:
-        model.reactions.get_by_id(exc)
-    except KeyError:
-        sys.exit("Error: Exchange id \"{}\" is not valid".format(exc))
-
-# Create mutual objective for both lactate
-mutual_lactate = model.problem.Objective(
-        model.reactions.get_by_id("EX_lac-D(e)").flux_expression + 
-        model.reactions.get_by_id("EX_lac-L(e)").flux_expression)
-exchanges['mutial_lactate'] = mutual_lactate
-
-
-for key, exc in exchanges.items():
-    print("Load exchange reaction \"{}\"".format(key))
-    calc_maxmin_of_exchange_reaction(model, gene_pairs, exc, 0, key)
-
-print("END")
-
-
-
+    for key, exc in exchanges.items():
+        print("Simulate mutants for exchange reaction \"{}\"".format(key))
+        calc_maxmin_of_exchange_reaction(model, gene_pairs, exc, bio_threshold_value, exchange_threshold_value[key], key)
+    
+    print("END")
+    
+    
+    

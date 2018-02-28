@@ -47,6 +47,38 @@ def compare_fva_results_with():
     
     plt.show()
 
+def plot_fva_with_threshold(results, threshold):
+    
+    res_lst = pandas_to_list(results)
+    maxima = np.abs([ res[1] for res in res_lst ])
+    minima = np.abs([ res[2] for res in res_lst ])
+
+    # Remove all zero elements
+    maxima = np.array([ maxima[idx] for idx in maxima.nonzero() ])
+    maxima_log = np.log10(maxima)
+    minima = np.array([ minima[idx] for idx in minima.nonzero() ])
+    minima_log = np.log10(minima)
+
+    # Prepare axis
+#    max_end = np.ceil(np.log10(maxima.max()))
+#    max_start = np.floor(np.log10(maxima.min()))
+#    min_end = np.ceil(np.log10(minima.max()))
+#    min_start = np.floor(np.log10(minima.min()))
+
+#    max_axis = np.logspace(max_start, max_end, 1000)
+#    min_axis = np.logspace(min_start, min_end, 1000)
+
+    plt.subplot(2,1,1)
+    plt.hist(maxima_log, bins=1000)
+    plt.title('maxima')
+
+    plt.subplot(2,1,2)
+    plt.hist(minima_log, bins=1000)
+    plt.title('minima')
+
+    plt.show()
+
+
 
 def find_unused_reactions(model, threshold=1e-9):
     with model:
