@@ -175,7 +175,7 @@ if __name__ == '__main__':
     # =======================================
     path_to_models = "./../"
     model_filename = "Model_iJO1366.mat"
-    gene_knock_outs = 1
+    gene_knock_outs = 4
     include_wild_type_model = True
     simplify_model = False
     # Only mutants with a greater bio growth will be considered

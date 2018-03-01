@@ -168,8 +168,8 @@ if __name__ == '__main__':
             fig_title = "Mutant optimized for {}, candidate #{}. \nDeactivated genes: ".format(key, idx)
             gene_ids = candidates[-idx][0]
             genes_text = gene_ids[0]
-            for idx in range(1,len(gene_ids)):
-                genes_text += ', ' + gene_id
+            for i in range(1,len(gene_ids)):
+                genes_text += ' ' + gene_ids[i]
             fig_title += genes_text
             pdf_title = "result_q1_{}_{}".format(key, idx)
             print("Save {}.pdf".format(pdf_title))
@@ -180,7 +180,7 @@ if __name__ == '__main__':
         csv_filename = 'result_q1_{}.csv'.format(key)
         print("Export data of {} to file {}".format(key, csv_filename))
         with open(csv_filename, 'w') as csv_f:
-            wr = csv.writer(csv_f, quoting=csv.QUOTE_ALL)
+            wr = csv.writer(csv_f)
             wr.writerows(csv_export_data)
     
     # Calculate data of wild type
@@ -226,9 +226,9 @@ if __name__ == '__main__':
                 print("Error: Could not optimize for max of {}. Solver returned with status \"{}\".".format(key, model.solver.status))
 
     # Export data of wild type
-    csv_filename = 'result_q1_{}_wild_type.csv'.format(key)
+    csv_filename = 'result_q1_w'
     print("Generate figures of wild type bacteria...")
-    csv_export_data = [['ex. reac.', 'max flux', 'min flux']]
+    csv_export_data = [['Metabolite', 'max flux', 'min flux']]
     for key, exc in exchanges.items():
         fig_title = "Results of 'wild type' bacteria, \noptimized for {}. \nMax bio growth={}".format(key, wild_type_bio_max)
         pdf_title = "result_q1_{}_wild_type".format(key)
@@ -239,7 +239,7 @@ if __name__ == '__main__':
     # export csv for current exchange reaction
     print("Export data of wild type bacteria to file {}".format(csv_filename))
     with open(csv_filename, 'w') as csv_f:
-        wr = csv.writer(csv_f, quoting=csv.QUOTE_ALL)
+        wr = csv.writer(csv_f)
         wr.writerows(csv_export_data)
 
     

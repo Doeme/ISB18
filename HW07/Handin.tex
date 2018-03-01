@@ -38,9 +38,181 @@
 \usepackage[shortlabels]{enumitem}
 \setlist[enumerate]{label=\alph*), labelsep=*}
 
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+
+\usepackage{pgfplotstable,filecontents}
+\pgfplotsset{compat=1.9}% supress warning
+
+\usepackage{placeins}
+
 \begin{document}
+   \pgfplotstableset{
+      begin table=\begin{longtable},
+      end table=\end{longtable},
+   }
 \maketitle
 \section{Growth coupling via knockouts}
+   To create new mutants we knocked out genes to indirectly 'deactivate' reactions. We implemented the proposed algorithm in the handout.
+   The proposed algorithm uses n nested loops to generate the set of possible combined knock outs from the set of the model's genes. This
+   is basically the Cartesian product of the model's set of genes with it self in the n-th order. As it doesn't matter if gene A and gene B
+   or gene B and gene A are knocked out we only consider combinations of n genes to reduce this set.
+   
+   \begin{figure}[h]
+      \centering
+      \begin{subfigure}{.49\textwidth}
+         \centering
+         \includegraphics[width=\linewidth]{q1_results/result_q1_acetate_wild_type.pdf}
+         \caption{Wild type e. coli, optimized for acetate}
+         \label{fig:acetate_wild_type}
+      \end{subfigure}%
+      \begin{subfigure}{.49\textwidth}
+         \centering
+         \includegraphics[width=\linewidth]{q1_results/result_q1_d-lactate_wild_type.pdf}
+         \caption{Wild type e. coli, optimized for d-lactate}
+         \label{fig:d-lactate_wild_type}
+      \end{subfigure}
+      \begin{subfigure}{.49\textwidth}
+         \centering
+         \includegraphics[width=\linewidth]{q1_results/result_q1_succinate_wild_type.pdf}
+         \caption{Wild type e. coli, optimized for succinate}
+         \label{fig:succinate_wild_type}
+      \end{subfigure}
+      \begin{subfigure}{.49\textwidth}
+         \centering
+         \includegraphics[width=\linewidth]{q1_results/result_q1_ethanol_wild_type.pdf}
+         \caption{Wild type e. coli, optimized for ethanol}
+         \label{fig:ethanol_wild_type}
+      \end{subfigure}
+      \caption{Results of the wild type e. coli model}
+      \label{fig:results_wild_type}
+   \end{figure}
+   
+   \pgfplotstabletypeset[
+      col sep=comma,
+      columns/Metabolite/.style={string type},
+      every head row/.style={
+         before row={\caption{Results of wild type e. coli}\\\toprule},
+         after row=\midrule,},
+      every last row/.style={
+         after row=\bottomrule}
+      ]{q1_results/result_q1_wild_type.csv}
+   
+   \begin{figure}[h]
+      \centering
+      \begin{subfigure}{.49\textwidth}
+         \centering
+         \includegraphics[width=\linewidth]{q1_results/result_q1_acetate_1.pdf}
+         \caption{1st choice mutant for acetate production}
+         \label{fig:acetate_mutant_1}
+      \end{subfigure}%
+      \begin{subfigure}{.49\textwidth}
+         \centering
+         \includegraphics[width=\linewidth]{q1_results/result_q1_acetate_2.pdf}
+         \caption{2nd choice mutant for acetate production}
+         \label{fig:acetate_mutant_2}
+      \end{subfigure}
+      \caption{Mutants optimized for acetate production}
+      \label{fig:acetate_mutants}
+   \end{figure}
+   
+   \pgfplotstabletypeset[
+      col sep=comma,
+      columns/genes/.style={string type},
+      every head row/.style={
+         before row={\caption{Results of mutants optimized for acetate production}\\\toprule},
+         after row=\midrule,},
+      every last row/.style={
+         after row=\bottomrule}
+      ]{q1_results/result_q1_acetate.csv}
+
+   \begin{figure}[h]
+      \centering
+      \begin{subfigure}{.49\textwidth}
+         \centering
+         \includegraphics[width=\linewidth]{q1_results/result_q1_d-lactate_1.pdf}
+         \caption{1st choice mutant for d-lactate production}
+         \label{fig:d-lactate_mutant_1}
+      \end{subfigure}%
+      \begin{subfigure}{.49\textwidth}
+         \centering
+         \includegraphics[width=\linewidth]{q1_results/result_q1_d-lactate_2.pdf}
+         \caption{2nd choice mutant for d-lactate production}
+         \label{fig:d-lactate_mutant_2}
+      \end{subfigure}
+      \caption{Mutants optimized for d-lactate production}
+      \label{fig:d-lactate_mutants}
+   \end{figure}
+   
+   \pgfplotstabletypeset[
+      col sep=comma,
+      columns/genes/.style={string type},
+      every head row/.style={
+         before row={\caption{Results for mutants optimized for d-lactate production}\\\toprule},
+         after row=\midrule,},
+      every last row/.style={
+         after row=\bottomrule}
+      ]{q1_results/result_q1_d-lactate.csv}
+      
+   \begin{figure}[h]
+      \centering
+      \begin{subfigure}{.49\textwidth}
+         \centering
+         \includegraphics[width=\linewidth]{q1_results/result_q1_succinate_1.pdf}
+         \caption{1st choice mutant for succinate production}
+         \label{fig:succinate_mutant_1}
+      \end{subfigure}%
+      \begin{subfigure}{.49\textwidth}
+         \centering
+         \includegraphics[width=\linewidth]{q1_results/result_q1_succinate_2.pdf}
+         \caption{2nd choice mutant for succinate production}
+         \label{fig:succinate_mutant_2}
+      \end{subfigure}
+      \caption{Mutants optimized for succinate production}
+      \label{fig:succinate_mutants}
+   \end{figure}
+   
+   \pgfplotstabletypeset[
+      col sep=comma,
+      columns/genes/.style={string type},
+      every head row/.style={
+         before row={\caption{Results for mutants optimized for succinate production}\\\toprule},
+         after row=\midrule,},
+      every last row/.style={
+         after row=\bottomrule}
+      ]{q1_results/result_q1_succinate.csv}
+      
+   \begin{figure}[h]
+      \centering
+      \begin{subfigure}{.49\textwidth}
+         \centering
+         \includegraphics[width=\linewidth]{q1_results/result_q1_ethanol_1.pdf}
+         \caption{1st choice mutant for ethanol production}
+         \label{fig:ethanol_mutant_1}
+      \end{subfigure}%
+      \begin{subfigure}{.49\textwidth}
+         \centering
+         \includegraphics[width=\linewidth]{q1_results/result_q1_ethanol_2.pdf}
+         \caption{2nd choice mutant for ethanol production}
+         \label{fig:ethanol_mutant_2}
+      \end{subfigure}
+      \caption{Mutants optimized for ethanol production}
+      \label{fig:ethanol_mutants}
+   \end{figure}
+   
+   \pgfplotstabletypeset[
+      col sep=comma,
+      columns/genes/.style={string type},
+      every head row/.style={
+         before row={\caption{Results for mutants optimized for ethanol production}\\\toprule},
+         after row=\midrule,},
+      every last row/.style={
+         after row=\bottomrule}
+      ]{q1_results/result_q1_ethanol.csv}
+      
+   \FloatBarrier
+      
 \section{Production of a non-native compound}
 	We consider the additional pathway in Figure \ref{fig:pathway} as suggested by \cite{BORODINA201557}.
 	\begin{figure}[h]
