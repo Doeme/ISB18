@@ -65,8 +65,9 @@ def _worker_thread(gene_pair):
     
         # Knock out genes in current pair
         for gene_id in gene_pair:
-            cur_gene = _model.genes.get_by_id(gene_id)
-            cur_gene.knock_out()
+            if not gene_id == '':
+                cur_gene = _model.genes.get_by_id(gene_id)
+                cur_gene.knock_out()
     
         # Opitmize for biomass
         opt_bio = _model.slim_optimize()
@@ -77,7 +78,8 @@ def _worker_thread(gene_pair):
             if opt_bio > _bio_threshold:
     
                 # Set minimum value for biomass production
-                reaction = _model.reactions.get_by_id('Ec_biomass_iJO1366_core_53p95M')
+                #reaction = _model.reactions.get_by_id('Ec_biomass_iJO1366_core_53p95M')
+                reaction = model.reactions.get_by_id('Biomass_Ecoli_core')
                 reaction.lower_bound = opt_bio
     
                 _model.objective = _exchange_id
@@ -173,9 +175,9 @@ if __name__ == '__main__':
     # =======================================
     path_to_models = "./../"
     model_filename = "Model_iJO1366.mat"
-    gene_knock_outs = 2
+    gene_knock_outs = 1
     include_wild_type_model = True
-    include_lower_order_knock_outs = True
+    simplify_model = False
     # Only mutants with a greater bio growth will be considered
     # (in percent, relative to max of wild type)
     bio_threshold = 20
@@ -188,33 +190,39 @@ if __name__ == '__main__':
     # =======================================
     
     print("Load matlab model...")
-    model = cobra.io.load_matlab_model(join(path_to_models, model_filename))
+    #model = cobra.io.load_matlab_model(join(path_to_models, model_filename))
+    model = cobra.test.create_test_model("textbook")
     
     # Set input fluxes of o2 and gcl to maximum
-    EX_o2 = model.reactions.get_by_id('EX_o2(e)')
-    EX_o2.lower_bound = -1000
-    EX_glc = model.reactions.get_by_id('EX_glc(e)')
-    EX_glc.lower_bound = -1000
+#    EX_o2 = model.reactions.get_by_id('EX_o2(e)')
+#    EX_o2.lower_bound = -1000
+#    EX_glc = model.reactions.get_by_id('EX_glc(e)')
+#    EX_glc.lower_bound = -1000
     
-    print("Model before reaction deletion:")
-    print("===============================")
-    print_model_properties(model)
-    print("\n")
-    print("Simplifying model...")
-    del_reactions, fva_results = simplify_model_with_fva(model, threshold=1e-11)
-    print("Model after reaction deletion:")
-    print("==============================")
-    print_model_properties(model)
+    if simplify_model:
+        print("Model before reaction deletion:")
+        print("===============================")
+        print_model_properties(model)
+        print("\n")
+        print("Simplifying model...")
+        del_reactions, fva_results = simplify_model_with_fva(model, threshold=1e-11)
+        print("Model after reaction deletion:")
+        print("==============================")
+        print_model_properties(model)
     
-    # Create list of knock out gene pairs
-    gene_pairs = list(itertools.combinations([ gene.id for gene in model.genes ], gene_knock_outs))
-    
+    # Create list of genes
+    gene_ids = [gene.id for gene in model.genes]
     if include_wild_type_model:
-        gene_pairs.append([])
+        gene_ids.append('')
 
-    if include_lower_order_knock_outs:
-        for n in range(1,gene_knock_outs):
-            gene_pairs.append(list(itertools.combinations( [ gene.id for gene in model.genes ] )))
+#    print(gene_ids)
+    # Create list of knock out gene pairs
+    gene_pairs = list(itertools.combinations(gene_ids, gene_knock_outs))
+#    print(gene_pairs)
+
+#    if include_lower_order_knock_outs:
+#        for n in range(1,gene_knock_outs):
+#            gene_pairs.append(list(itertools.combinations( [ gene.id for gene in model.genes ], n )))
     
     # Shorten the list a bit during debugging
     #gene_pairs = gene_pairs[:100]
@@ -226,12 +234,17 @@ if __name__ == '__main__':
     # EX_lac-L(e)           L-Lactate
     # EX_succ(e)            Succinate
     # EX_etoh(e)            Ethanol
+    #exchanges = {
+    #        'acetate': 'EX_ac(e)', 
+    #        'd-lactate': 'EX_lac-D(e)', 
+    #        'l-lactate': 'EX_lac-L(e)', 
+    #        'succinate': 'EX_succ(e)', 
+    #        'ethanol': 'EX_etoh(e)'}
     exchanges = {
-            'acetate': 'EX_ac(e)', 
-            'd-lactate': 'EX_lac-D(e)', 
-            'l-lactate': 'EX_lac-L(e)', 
-            'succinate': 'EX_succ(e)', 
-            'ethanol': 'EX_etoh(e)'}
+            'acetate': 'EX_ac_e', 
+            'd-lactate': 'EX_lac__D_e', 
+            'succinate': 'EX_succ_e', 
+            'ethanol': 'EX_etoh_e'}
     
     
     # Validate the exchange ids
@@ -242,10 +255,10 @@ if __name__ == '__main__':
             sys.exit("Error: Exchange id \"{}\" is not valid".format(exc))
     
     # Create mutual objective for both lactate
-    mutual_lactate = model.problem.Objective(
-            model.reactions.get_by_id("EX_lac-D(e)").flux_expression + 
-            model.reactions.get_by_id("EX_lac-L(e)").flux_expression)
-    exchanges['mutial_lactate'] = mutual_lactate
+#    mutual_lactate = model.problem.Objective(
+#            model.reactions.get_by_id("EX_lac-D(e)").flux_expression + 
+#            model.reactions.get_by_id("EX_lac-L(e)").flux_expression)
+#    exchanges['mutial_lactate'] = mutual_lactate
 
     # Save modified model
     cobra.io.save_json_model(model, 'result_q1_modified_model.json')
@@ -261,7 +274,8 @@ if __name__ == '__main__':
     for key, exc in exchanges.items():
         with model:
             # Set minimum value for biomass production
-            reaction = model.reactions.get_by_id('Ec_biomass_iJO1366_core_53p95M')
+            #reaction = model.reactions.get_by_id('Ec_biomass_iJO1366_core_53p95M')
+            reaction = model.reactions.get_by_id('Biomass_Ecoli_core')
             reaction.lower_bound = bio_ref
 
             model.objective = exc
