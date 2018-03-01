@@ -30,22 +30,24 @@
 \def\ml{\mathrm{\frac{mmol}{h}}}
 
 \usepackage{longtable}
+\usepackage{xcolor}
 \usepackage{tikz}
 
-\usepackage{enumitem}
-\setlist[enumerate]{label=\alph*), labelsep=*}
+\usepackage{multicol}
 
-\usepackage[version=4]{mhchem}
+\usepackage[shortlabels]{enumitem}
+\setlist[enumerate]{label=\alph*), labelsep=*}
 
 \begin{document}
 \maketitle
 \section{Growth coupling via knockouts}
 \section{Production of a non-native compound}
-	We consider the following pathway as suggested by \cite{BORODINA201557}, i.e. 
+	We consider the additional pathway in Figure \ref{fig:pathway} as suggested by \cite{BORODINA201557}, i.e. 
 	\begin{figure}[h]
 		\centering
-		\includegraphics[max width=\linewidth, max height=0.74\paperheight]{2/new_pathway.pdf}
+		\includegraphics[max width=\linewidth, max height=0.5\paperheight]{2/new_pathway.pdf}
 		\caption{The pathway to be added}
+		\label{fig:pathway}
 	\end{figure}
 	We require the following additional metabolites:
 	\begin{itemize}
@@ -53,18 +55,36 @@
 		\item $\beta$-Alanine, ala\_c
 		\item Malonic Semaldehyde (3-Oxopropanoate), oxo\_c
 		\item 3HP, hpa\_c
-		\item 3HP, hpa\_e
 		\item L-Glutamate, glu\_c
 	\end{itemize}
 	and the following reactions:
-	\begin{align}
-		oaa\_c + glu\_c &\rightarrow asp\_c + akg\_c \\
-		asp\_c &\rightarrow ala\_c + co2\_c\\
-		ala\_c + akg\_c &\rightarrow oxo\_c + glu\_c\\
-		oxo\_c + nadph\_c &\rightarrow hpa\_c + nadp\_c\\
-		hpa\_c &\rightarrow hpa\_e
-	\end{align}
-\section{Flux modulation}
+	\begin{center}
+	\begin{tabular}{r@{$\;\rightarrow\;$}l}
+		oaa\_c + glu\_c & asp\_c + akg\_c \\
+		asp\_c & ala\_c + co2\_c\\
+		ala\_c + akg\_c & oxo\_c + glu\_c\\
+		oxo\_c + nadph\_c & hpa\_c + nadp\_c\\
+		hpa\_c & hpa\_e
+	\end{tabular}
+	\end{center}
+	\subsection{Results}
+		\begin{enumerate}[i)]
+			\item Aerobic conditions yield ($\mathrm{\frac{ex\_hpa}{ex\_glc}}$): 0.09823718127269748
+			\item Anaerobic conditions yield ($\mathrm{\frac{ex\_hpa}{ex\_glc}}$): 0.02415015570973515
 
-\printbibliography
+		\end{enumerate}
+		The pathway is active, and produces HPA, see the phaseplane in Figure \ref{fig:phaseplane}
+		\begin{figure}[h]
+			\centering
+			\includegraphics[max width=0.75\linewidth]{src/phaseplane.pdf}
+			\caption{Phaseplane}
+			\label{fig:phaseplane}
+		\end{figure}
+\section{Flux modulation}
+	The flux modulation reveals the following ranges, with the non-overlapping ones coloured in red:
+	\def\barplot#1#2{\tikz[baseline,x=0.02\linewidth,y=0.02\linewidth]{\begin{scope}[yshift=-0.25ex]\filldraw[thick, red]#1;\end{scope}\begin{scope}[yshift=0.25ex]\filldraw[thick, blue]#2;\end{scope} \path(-16.7,0) -- (29.15,0);\draw (0,-0.75ex) -- (0,0.75ex);}}
+	\begin{longtable}{p{0.2\linewidth}p{0.8\linewidth}}
+		\input{src/barplot.tex}
+	\end{longtable}
+	\printbibliography
 \end{document}
