@@ -1,7 +1,6 @@
 import cobra;
 
-#m=cobra.io.load_matlab_model("../Model_iJO1366.mat")
-m=cobra.io.load_json_model("../ecolicore.json")
+m=cobra.io.load_json_model("../Model_iJO1366.json")
 asp_c=cobra.Metabolite('asp_c')
 ala_c=cobra.Metabolite('ala_c')
 oxo_c=cobra.Metabolite('oxo_c')
