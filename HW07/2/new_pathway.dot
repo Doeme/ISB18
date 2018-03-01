@@ -1,0 +1,26 @@
+digraph{
+Oxaloacetate;
+Aspartate;
+Betaalanine[label="β-Alanine"];
+Malonic[label="Malonic semialdehyde"];
+"3HP";
+node[shape=rectangle];
+"CO2";
+"GLU";
+"AKG";
+"NAD(P)H";
+"NAD(P)+";
+node[shape=none,margin="0,0"]
+AAT;
+PAND;
+GABT;
+HPDH;
+
+edge[weight=10];
+Oxaloacetate -> AAT -> Aspartate -> PAND -> Betaalanine -> GABT -> Malonic -> HPDH -> "3HP"
+edge[weight=1];
+GLU -> AAT -> AKG;
+PAND -> "CO2";
+AKG -> GABT -> GLU;
+"NAD(P)H" -> HPDH -> "NAD(P)+";
+}
