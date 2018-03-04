@@ -18,7 +18,7 @@ def draw_maxmin_by_growth(model, gene_id_pair, exchange_id, points=10, title='su
         # Configure solver timeout (milliseconds)
         model.solver.configuration.timeout = 30 * 1000
 
-        gene_pair = [ model.genes.get_by_id(gene_id) for gene_id in gene_id_pair ]
+        gene_pair = [ model.genes.get_by_id(gene_id) for gene_id in gene_id_pair if not gene_id == '']
 
         # Knock out genes
         for gene in gene_pair:
@@ -41,7 +41,8 @@ def draw_maxmin_by_growth(model, gene_id_pair, exchange_id, points=10, title='su
 
             for bio_val in bio_axis:
                 # Set min/max value for biomass production
-                reaction = model.reactions.get_by_id('Ec_biomass_iJO1366_core_53p95M')
+                #reaction = model.reactions.get_by_id('Ec_biomass_iJO1366_core_53p95M')
+                reaction = model.reactions.get_by_id('Biomass_Ecoli_core')
                 reaction.lower_bound = bio_val
                 reaction.upper_bound = bio_val
 

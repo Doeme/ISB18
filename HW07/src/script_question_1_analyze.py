@@ -1,4 +1,5 @@
 
+import cobra
 import cobra.test
 import os
 from os.path import join
@@ -10,6 +11,7 @@ import matplotlib.pyplot as plt
 from q1_draw_graph import draw_maxmin_by_growth
 import numpy as np
 import csv
+import optlang.interface
 
 
 def load_pickle_file(filename, ftype='lst'):
@@ -52,7 +54,7 @@ def inspect_data(data, row_delta=20):
         start_idx = offset
         end_idx = min(start_idx + row_delta - 1, len(data))
         for idx in range(start_idx, end_idx + 1):
-            print("{}\t{}\t{}\t{}\t{}\t{}\t{}".format(idx, data[idx][1], data[idx][2], data[idx][3], data[idx][4], data[idx][5], data[idx][6]))
+            print("{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}".format(idx, data[idx][0], data[idx][1], data[idx][2], data[idx][3], data[idx][4], data[idx][5], data[idx][6]))
 
         if end_idx == len(data):
             print("End of file")
@@ -114,8 +116,8 @@ if __name__ == '__main__':
         'results_question_1_acetate.dat',
         'results_question_1_d-lactate.dat',
         'results_question_1_ethanol.dat',
-        'results_question_1_l-lactate.dat',
-        'results_question_1_mutial_lactate.dat',
+#        'results_question_1_l-lactate.dat',
+#        'results_question_1_mutial_lactate.dat',
         'results_question_1_succinate.dat']
     
     # Exchange reaction     Metabolite name
@@ -125,57 +127,119 @@ if __name__ == '__main__':
     # EX_lac-L(e)           L-Lactate
     # EX_succ(e)            Succinate
     # EX_etoh(e)            Ethanol
+#    exchanges = {
+#            'acetate': 'EX_ac(e)',
+#            'd-lactate': 'EX_lac-D(e)',
+#            'l-lactate': 'EX_lac-L(e)',
+#            'succinate': 'EX_succ(e)',
+#            'ethanol': 'EX_etoh(e)'}
     exchanges = {
-            'acetate': 'EX_ac(e)',
-            'd-lactate': 'EX_lac-D(e)',
-            'l-lactate': 'EX_lac-L(e)',
-            'succinate': 'EX_succ(e)',
-            'ethanol': 'EX_etoh(e)'}
+            'acetate': 'EX_ac_e',
+            'd-lactate': 'EX_lac__D_e',
+            'succinate': 'EX_succ_e',
+            'ethanol': 'EX_etoh_e'}
 
     print("Load modified model...")
     model = cobra.io.load_json_model('result_q1_modified_model.json')
+    #model = cobra.test.create_test_model("textbook")
 
     # Create mutual objective for both lactate
-    mutual_lactate = model.problem.Objective(
-            model.reactions.get_by_id("EX_lac-D(e)").flux_expression +
-            model.reactions.get_by_id("EX_lac-L(e)").flux_expression)
-    exchanges['mutial_lactate'] = mutual_lactate
+#    mutual_lactate = model.problem.Objective(
+#            model.reactions.get_by_id("EX_lac-D(e)").flux_expression +
+#            model.reactions.get_by_id("EX_lac-L(e)").flux_expression)
+#    exchanges['mutial_lactate'] = mutual_lactate
 
     #inspect_file(filenames[0])
 
-    name, data = load_pickle_file(filenames[0])
-    candidates = clean_and_sort_mutants(data)
+    #name, data = load_pickle_file(filenames[0])
+    #inspect_data(data)
+    #candidates = clean_and_sort_mutants(data)
 
     num_export_candidates = 2
-    for key, exc in exchanges.items():
+    for filename in filenames:
+        print("Open file {}".format(filename))
+        key, data = load_pickle_file(filename)
+        print("Sort mutants for {}".format(key))
+        candidates = clean_and_sort_mutants(data)
+
+        print("Draw figures for {}".format(key))
         csv_export_data = [['candidate', 'genes', 'max growth', 'max flux', 'min flux']]
         for idx in range(1,num_export_candidates+1):
             fig_title = "Mutant optimized for {}, candidate #{}. \nDeactivated genes: ".format(key, idx)
             gene_ids = candidates[-idx][0]
             genes_text = gene_ids[0]
-            for idx in range(1,len(gene_ids)):
-                genes_text += ', ' + gene_id
+            for i in range(1,len(gene_ids)):
+                genes_text += ' ' + gene_ids[i]
             fig_title += genes_text
             pdf_title = "result_q1_{}_{}".format(key, idx)
-            draw_maxmin_by_growth(model, candidates[-idx][0], exc, 100, title=fig_title, to_pdf=True, pdf_title=pdf_title)
+            print("Save {}.pdf".format(pdf_title))
+            draw_maxmin_by_growth(model, candidates[-idx][0], exchanges[key], 100, title=fig_title, to_pdf=True, pdf_title=pdf_title)
             csv_export_data.append([idx, genes_text, candidates[-idx][2], candidates[-idx][4], candidates[-idx][6]])
         
         # export csv for current exchange reaction
-        with open('result_q1_{}.csv'.format(key), 'w') as csv_f:
-            wr = csv.writer(csv_f, quoting=csv.QUOTE_ALL)
+        csv_filename = 'result_q1_{}.csv'.format(key)
+        print("Export data of {} to file {}".format(key, csv_filename))
+        with open(csv_filename, 'w') as csv_f:
+            wr = csv.writer(csv_f)
             wr.writerows(csv_export_data)
-        
+    
+    # Calculate data of wild type
+    print("Calculate export data for wild type...")
+    wild_type_max_fluxes = {}
+    wild_type_min_fluxes = {}
+    for key, exchange_id in exchanges.items():
+       with model:
+
+        # Configure solver timeout (milliseconds)
+        model.solver.configuration.timeout = 30 * 1000
+
+        # Optimize for biomass
+        wild_type_bio_max = model.slim_optimize()
+
+        if model.solver.status == optlang.interface.OPTIMAL:
+
+            # Set min/max value for biomass production
+            #reaction = model.reactions.get_by_id('Ec_biomass_iJO1366_core_53p95M')
+            reaction = model.reactions.get_by_id('Biomass_Ecoli_core')
+            reaction.lower_bound = wild_type_bio_max
+            reaction.upper_bound = wild_type_bio_max
+
+            model.objective_direction = 'max'
+
+            # Set exchange_id as new optimization objective
+            model.objective = exchange_id
+            # Optimize for max flux of given exchange reaction
+            max_flux = model.slim_optimize()
+            if model.solver.status == optlang.interface.OPTIMAL:
+                wild_type_max_fluxes[key] = max_flux
+            else:
+                wild_type_max_fluxes[key] = float('nan')
+                print("Error: Could not optimize for max of {}. Solver returned with status \"{}\".".format(key, model.solver.status))
+
+            # Optimize for min flux of given exchange reaction
+            model.objective_direction = 'min'
+            min_flux = model.slim_optimize()
+            if model.solver.status == optlang.interface.OPTIMAL:
+                wild_type_min_fluxes[key] = min_flux
+            else:
+                wild_type_min_fluxes[key] = float('nan')
+                print("Error: Could not optimize for max of {}. Solver returned with status \"{}\".".format(key, model.solver.status))
+
     # Export data of wild type
-    csv_export_data = [['ex. reac.', 'max flux', 'min flux']]
+    csv_filename = 'result_q1_w'
+    print("Generate figures of wild type bacteria...")
+    csv_export_data = [['Metabolite', 'max flux', 'min flux']]
     for key, exc in exchanges.items():
-        fig_title = "Results of 'wild type' bacteria, \noptimized for {}".format(key)
+        fig_title = "Results of 'wild type' bacteria, \noptimized for {}. \nMax bio growth={}".format(key, wild_type_bio_max)
         pdf_title = "result_q1_{}_wild_type".format(key)
+        print("Save {}.pdf".format(pdf_title))
         draw_maxmin_by_growth(model, [], exc, 100, title=fig_title, to_pdf=True, pdf_title=pdf_title)
-        #csv_export_data.append([idx, genes_text, candidates[-idx][2], candidates[-idx][4], candidates[-idx][6]])
+        csv_export_data.append([key, wild_type_max_fluxes[key], wild_type_min_fluxes[key]])
     
     # export csv for current exchange reaction
-    with open('result_q1_wild_type.csv', 'w') as csv_f:
-        wr = csv.writer(csv_f, quoting=csv.QUOTE_ALL)
+    print("Export data of wild type bacteria to file {}".format(csv_filename))
+    with open(csv_filename, 'w') as csv_f:
+        wr = csv.writer(csv_f)
         wr.writerows(csv_export_data)
 
     
