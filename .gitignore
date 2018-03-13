@@ -1,1 +1,9 @@
 HW07/**/*.dat
+
+**/*.swp
+final_project/grant_application_document/*.aux
+final_project/grant_application_document/*.bbl
+final_project/grant_application_document/*.blg
+final_project/grant_application_document/*.log
+final_project/grant_application_document/*.run.xml
+final_project/grant_application_document/*-blx.bib

@@ -1,0 +1,66 @@
+\documentclass[11pt]{article} % Loads settings for the document layout
+
+\usepackage[backend=bibtex8]{biblatex}
+\bibliography{grant_application_doc}
+
+
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ left=25mm,
+ right=25mm,
+ top=25mm,
+ bottom=25mm,
+ }
+
+\title{Application for the Technology Development Fund}
+\date{\today}
+\author{Dominik Schmidt//Jakob Wittmann}
+
+% Main document
+
+\begin{document} % The document starts here
+
+\begin{titlepage}
+
+\begin{center}
+\LARGE{\textbf{Application for the Technology Development Fund}}
+
+\large{\textbf{Spring 2018}}
+\vspace{1.5cm}
+
+\large{\textbf{Grands for applied research projects}}
+\end{center}
+\vspace{2cm}
+
+\noindent
+\large{PROJECT DESCRIPTION}
+\vspace{5cm}
+
+\noindent
+Name of applicant: Dominik Schmidt, Jakob Wittmann\\
+Project title: Biotech Beer Brewing
+\vspace{2cm}
+
+\noindent
+\large{SUMMARY}
+
+ 
+\end{titlepage}
+
+
+\section{Project description}
+
+\input{./s_description.tex}
+
+\section{Novelty}
+
+\input{./s_novelty.tex}
+
+\section{Market – Future vision}
+
+\input{./s_market.tex}
+
+\printbibliography
+
+\end{document} % The document ends here
