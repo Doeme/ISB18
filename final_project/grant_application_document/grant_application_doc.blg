@@ -1,5 +1,5 @@
-[0] Config.pm:354> INFO - This is Biber 2.6
+[1] Config.pm:354> INFO - This is Biber 2.6
 [1] Config.pm:357> INFO - Logfile is 'grant_application_doc.blg'
-[53] biber:302> INFO - === Tue Mar 13, 2018, 18:23:34
-[86] Utils.pm:180> ERROR - Cannot find control file 'grant_application_doc.bcf'! - did you pass the "backend=biber" option to BibLaTeX?
-[87] Biber.pm:113> INFO - ERRORS: 1
+[55] biber:302> INFO - === Tue Mar 13, 2018, 18:41:41
+[92] Utils.pm:180> ERROR - Cannot find control file 'grant_application_doc.bcf'! - did you pass the "backend=biber" option to BibLaTeX?
+[92] Biber.pm:113> INFO - ERRORS: 1

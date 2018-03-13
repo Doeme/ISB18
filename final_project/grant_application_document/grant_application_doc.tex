@@ -12,17 +12,7 @@
  top=25mm,
  bottom=25mm,
  }
-%\usepackage{setspace}
-% \doublespacing
-% 
-%\usepackage{gensymb}
-%
-%\usepackage{graphicx}
 
-% Preamble
-
-% The following settings are used for title generation and will show up in the
-% main document where the \maketitle command is set.
 \title{Application for the Technology Development Fund}
 \date{\today}
 \author{Dominik Schmidt//Jakob Wittmann}
@@ -30,10 +20,6 @@
 % Main document
 
 \begin{document} % The document starts here
-
-%\maketitle % Creates the titlepage
-
-%\pagenumbering{arabic} % Turns on page numbering
 
 \begin{titlepage}
 
@@ -65,45 +51,15 @@ Project title: Bla blub
 
 \section{Project description}
 
-\noindent
-\textbf{Describe the project and its objectives}
-
-\noindent
-\textit{Text}
-
-\noindent
-\textbf{Desribe the state of the art in the field}
-
-\noindent
-\textit{Text}
-
-\noindent
-\textbf{Describe how the project can advance the state of the art in the field}
-
-\noindent
-\textit{Text}
+\input{./s_description.tex}
 
 \section{Novelty}
 
-\noindent
-\textbf{Describe the novelty of the project and how the results from it can be applied to the benefit of society. Address how the project can lead to the development of goods, processes or services}
-
-\noindent
-\textit{Text}
-
-\noindent
-\textbf{Which technological and design challenges are posed by the project}
-
-\noindent
-\textit{Text}
+\input{./s_novelty.tex}
 
 \section{Market – Future vision}
 
-\noindent
-\textbf{Describe financial benefits which the product can create in the market}
-
-\noindent
-\textit{Text}
+\input{./s_market.tex}
 
 \printbibliography
 
