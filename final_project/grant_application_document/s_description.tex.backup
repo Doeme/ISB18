@@ -3,30 +3,30 @@
 \noindent
 \textbf{Describe the project and its objectives}
 
-%What is our goal?
-%\begin{itemize}
-% \item Create a simulation framework and use fermentation as proof of concept?
-% \item Goal here:
-% \begin{itemize}
-%  \item Implement a simulation framework
-%  \item The simulation is just a by-product but can be enhanced
-% \end{itemize}
-% \item Advantages:
-% \begin{itemize}
-%  \item a realistic simulation of the conterminated fermentation needs a lot of knowledge about real medium conditions
-%  \item conditions must most probably be measured somehow
-%  \item conditions vary from setup to setup, so a stochastic model of the starting conditions must be created
-%  \item many modelling constants in the dynamic model must be measured as they are n
- % \item define values to quantify the quality of the product after fermentation
-%  \item investigate correlations between starting conditions and the quality of the productot available in publications (e.g. gas saturation, metabolite input ratios / saturation,...)
-%  \item temperatur dependency is often not modeled in GEMs
-%  \item GEMs are not accurate enough to generate realistic data from scratch (results must be compared with real cultures)
-%  \item it is very unrealistic to get to real results in this work if a fermentation simulation shall be the goal
-%  \item if the simulation framework is the goal, it is much easier to argue why a simplified model was used
-%  \item the simulation can still be enhanced to a more realistic setup
-% \end{itemize}
-% \item Simulate the fermentation and implement a simplified model as proof of concept?
-%\end{itemize}
+What is our goal?
+\begin{itemize}
+ \item Create a simulation framework and use fermentation as proof of concept?
+ \item Goal here:
+ \begin{itemize}
+  \item Implement a simulation framework
+  \item The simulation is just a by-product but can be enhanced
+ \end{itemize}
+ \item Advantages:
+ \begin{itemize}
+  \item a realistic simulation of the conterminated fermentation needs a lot of knowledge about real medium conditions
+  \item conditions must most probably be measured somehow
+  \item conditions vary from setup to setup, so a stochastic model of the starting conditions must be created
+  \item many modelling constants in the dynamic model must be measured as they are n
+  \item define values to quantify the quality of the product after fermentation
+  \item investigate correlations between starting conditions and the quality of the productot available in publications (e.g. gas saturation, metabolite input ratios / saturation,...)
+  \item temperatur dependency is often not modeled in GEMs
+  \item GEMs are not accurate enough to generate realistic data from scratch (results must be compared with real cultures)
+  \item it is very unrealistic to get to real results in this work if a fermentation simulation shall be the goal
+  \item if the simulation framework is the goal, it is much easier to argue why a simplified model was used
+  \item the simulation can still be enhanced to a more realistic setup
+ \end{itemize}
+ \item Simulate the fermentation and implement a simplified model as proof of concept?
+\end{itemize}
 
 Traditional beer brewing is done in a batch process by fermenting glucose to alcohol using Saccharomyces cerevisiae. In a first step wort
 is produced by mixing water, malt and hop and applying different enzymatical processes. As in a batch process
@@ -53,54 +53,53 @@ In a first step detailed requirements to the simulation framework will be elabor
 a software design and simulation algorithm will be chosen which fulfill the previously defined requirements. The third step consists of the
 implementation of the software what will be done in a software development typical iterative manner. The iterations include implementation,
 test and refinement until all requirements are met. In a final step the framework will be applied to a simplified fermentation process setup
-and will serve as a proof of concept. The simplified setup contains only Lactobacillus Brevisas as contamination bacteria. As a measure of
-the product quality the density of ethanol and lactic acids shall be used. The contamination with Lactobacillus Brevisas is a typical
-scenario which can lead to the effect that the beer turns sour under certain conditions \cite{JIB:JIB49}.
-If the project progress allows further development, additional design goals can be implemented like an generic or automated integration of
-bacteria models, an optimized user interface, a graphical user interface or an enhanced model of the fermentation process.
+and will serve as a proof of concept. The simplified setup contains only Lactobacillus Brevisas as contamination bacteria. The density of 
+ethanol and lactic acids shall be used as a the quality of the product
+   \item this simplified setup shall simulate the most common contamination and the effect that the beer turns sour under certain starting conditions
+   \item \cite{JIB:JIB49}
 
-%Strategy:
-%\begin{enumerate}
-% \item What is the problem?
-% \begin{itemize}
-%  \item In many breweries the beer is fermented in a batch culture
-%  \item the quality of the product is highly dependent on the starting conditions before the fermentation starts
-% \end{itemize}
-% \item What can solve the Problem?
-% \begin{itemize}
-%  \item Ideal starting conditions must be found
-%  \item experimental approach is very time and cost intensive
-%  \item simulation of fermentation is better
-% \end{itemize}
-% \item What must be simulated?
-% \begin{itemize}
-%  \item growth and metabolite production of Saccharomyces cerevisiae in a beer-brewery typical environment shall be analysed
-%  \item the yeast shall be simulated together with typical contamination bacteria to create realistic fermentation conditions
-%  \item the simulation of the fermentation shall be dependent of starting conditions
- % \item define values to quantify the quality of the product after fermentation
-%  \item investigate correlations between starting conditions and the quality of the product
-% \end{itemize}
-% \item What is the goal of this project?
-% \begin{enumerate}
-%  \item define requirements to framework
-%  \item view publications about possible algorithms and choose one
-%  \item implement chosen algorithm
-%  \item Proof of concept:
-%  \begin{itemize}
-%   \item proof the concept of the implemented simulation framework with a simplified setup of the described experiment
-%   \item the simplified setup contains only Lactobacillus Brevisas as contamination bacteria
-%   \item the density of ethanol and lactic acids shall be used to rate the quality of the product
-%   \item this simplified setup shall simulate the most common contamination and the effect that the beer turns sour under certain starting conditions
-%   \item \cite{JIB:JIB49}
-%  \end{itemize}
-%  \item Nice to have
-%  \begin{itemize}
-%   \item generic/automatic GEM integration
-%   \item nice UI/GUI
-%   \item enhancing the simplified model of the contaminated fermentation to a more realistic one
-%  \end{itemize}
-% \end{enumerate}
-%\end{enumerate}
+Strategy:
+\begin{enumerate}
+ \item What is the problem?
+ \begin{itemize}
+  \item In many breweries the beer is fermented in a batch culture
+  \item the quality of the product is highly dependent on the starting conditions before the fermentation starts
+ \end{itemize}
+ \item What can solve the Problem?
+ \begin{itemize}
+  \item Ideal starting conditions must be found
+  \item experimental approach is very time and cost intensive
+  \item simulation of fermentation is better
+ \end{itemize}
+ \item What must be simulated?
+ \begin{itemize}
+  \item growth and metabolite production of Saccharomyces cerevisiae in a beer-brewery typical environment shall be analysed
+  \item the yeast shall be simulated together with typical contamination bacteria to create realistic fermentation conditions
+  \item the simulation of the fermentation shall be dependent of starting conditions
+  \item define values to quantify the quality of the product after fermentation
+  \item investigate correlations between starting conditions and the quality of the product
+ \end{itemize}
+ \item What is the goal of this project?
+ \begin{enumerate}
+  \item define requirements to framework
+  \item view publications about possible algorithms and choose one
+  \item implement chosen algorithm
+  \item Proof of concept:
+  \begin{itemize}
+   \item proof the concept of the implemented simulation framework with a simplified setup of the described experiment
+   \item the simplified setup contains only Lactobacillus Brevisas as contamination bacteria
+   \item the density of ethanol and lactic acids shall be used to rate the quality of the product
+   \item this simplified setup shall simulate the most common contamination and the effect that the beer turns sour under certain starting conditions
+   \item \cite{JIB:JIB49}
+  \end{itemize}
+  \item Nice to have
+  \begin{itemize}
+   \item generic/automatic GEM integration
+   \item nice UI/GUI
+   \item enhancing the simplified model of the contaminated fermentation to a more realistic one
+  \end{itemize}
+ \end{enumerate}
+\end{enumerate}
 
 \noindent
 \textbf{Desribe the state of the art in the field}

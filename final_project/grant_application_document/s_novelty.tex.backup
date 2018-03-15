@@ -42,28 +42,16 @@ Application of results:
 \end{itemize}
 
 
+
 \noindent
 \textbf{Which technological and design challenges are posed by the project}
 
 \begin{itemize}
- \item Framework:
- \begin{itemize}
-  \item the most implementations are in matlab, ours will be in python
-  \item python does not provide many libraries as they are available in matlab
-  \item it will be neccessary to find alternative ways for implementation / adapt existing algorithms to available ressorces in python
-  \item to gurantee the stability of the algorithm (cite paper)
-  \item find a compromise between a simple implementation which is still flexible and modular enough that it can be easily extended to refine the simulation setup/environment
-  \item dynamic simulation using GEMs is still under research
-  \item there are still many open problems
-  \item ...maybe you find some disadvantages you could mention here. Maybe some of them could be a implementation goal to solve them...?
- \end{itemize}
- \item Simulation (setup):
- \begin{itemize}
-  \item a realistic simulation of the conterminated fermentation needs a lot of knowledge about real medium conditions
-  \item conditions must most probably be measured somehow
-  \item conditions vary from setup to setup, so a stochastic model of the starting conditions must be created
-  \item many modelling constants in the dynamic model must be measured as they are not available in publications (e.g. gas saturation, metabolite input ratios / saturation,...)
-  \item temperatur dependency is often not modeled in GEMs
-  \item GEMs are not accurate enough to generate realistic data from scratch (results must be compared with real cultures)
- \end{itemize}
+ \item the most implementations are in matlab, ours will be in python
+ \item python does not provide many libraries as they are available in matlab
+ \item it will be neccessary to find alternative ways for implementation / adapt existing algorithms to available ressorces in python
 \end{itemize}
+
+
+\noindent
+\textit{Text}
