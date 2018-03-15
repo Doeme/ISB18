@@ -102,12 +102,12 @@ bacteria models, an optimized user interface, a graphical user interface or an e
 % \end{enumerate}
 %\end{enumerate}
 
-\noindent
-\textbf{Describe the state of the art in the field}
-\begin{itemize}
- \item short overview over available techniques
- \item discuss advantages and disadvantages of available techniques
-\end{itemize}
+%\noindent
+%\textbf{Describe the state of the art in the field}
+%\begin{itemize}
+% \item short overview over available techniques
+% \item discuss advantages and disadvantages of available techniques
+%\end{itemize}
 
 There have been many approaches to simulate microbial communities \cite{ZOMORRODI2016837}. To model the behavior of the simulated bacteria
 genome-scale models (GEM) are used as their usability in similar applications has been often proven and a variety of models are publicly
@@ -120,7 +120,15 @@ Steady-state models like compartmentalized community-level metabolic modeling us
 \cite{Stolyar92} which is optimized using a mutual objective function. Other approaches as in OptCom use nested optimizations where again
 a mutual objective function is used to connect the bacteria's models to each other \cite{zomorrodi2012optcom}. The principle to use a mutual
 objective function has the disadvantage that these models can only by applied to microbial communities which has a common objective and does
-not purely compete with each other \cite{ZOMORRODI2016837}.
+not purely compete with each other \cite{ZOMORRODI2016837}. As such a behavior can not be excluded in fermentation processes with bacteria
+contamination this approach can not be used in this project.
+Another requirement is that the simulation algorithm must be able to simulate batch cultures. Steady-state models are only partly usable in
+such simulations. A better option are here spatio-temporal and dynamic models. Both are able to take the varying densities of metabolites
+into account. Spatio-temporal models additionally uses spatial distributions of the bacteria to predict their behavior. As such simulations
+have a very high computational complexity\cite{ZOMORRODI2016837} these methods must also be excluded in practical approaches as in this project.
+Dynamic models use differential equations to embed the bacteria's models into the environment and to predict its temporal dynamics
+dependent on the bacteria's behavior which is modeled using GEMs and FBA. This approach has already been used in a competitive setup \cite{zhuang2011genome}
+and several implementations with different optimizations of the algorithm are available \cite{6915830}.
 
 
 
@@ -129,6 +137,8 @@ not purely compete with each other \cite{ZOMORRODI2016837}.
 \noindent
 \textbf{Describe how the project can advance the state of the art in the field}
 
+Simulating microbial communities is a young and evolving field which enables completely new ways in bio engineering. There have been many 
+applications e.g. in biofuel production \cite{hanly2011dynamic} \cite{chiu2014emergent}. This framework
 \begin{itemize}
  \item The simulation framework:
  \begin{itemize}

@@ -102,12 +102,12 @@ bacteria models, an optimized user interface, a graphical user interface or an e
 % \end{enumerate}
 %\end{enumerate}
 
-\noindent
-\textbf{Describe the state of the art in the field}
-\begin{itemize}
- \item short overview over available techniques
- \item discuss advantages and disadvantages of available techniques
-\end{itemize}
+%\noindent
+%\textbf{Describe the state of the art in the field}
+%\begin{itemize}
+% \item short overview over available techniques
+% \item discuss advantages and disadvantages of available techniques
+%\end{itemize}
 
 There have been many approaches to simulate microbial communities \cite{ZOMORRODI2016837}. To model the behavior of the simulated bacteria
 genome-scale models (GEM) are used as their usability in similar applications has been often proven and a variety of models are publicly
@@ -125,9 +125,10 @@ contamination this approach can not be used in this project.
 Another requirement is that the simulation algorithm must be able to simulate batch cultures. Steady-state models are only partly usable in
 such simulations. A better option are here spatio-temporal and dynamic models. Both are able to take the varying densities of metabolites
 into account. Spatio-temporal models additionally uses spatial distributions of the bacteria to predict their behavior. As such simulations
-as a very high computational complexity this method must also be excluded in practical approaches as in this project \cite{ZOMORRODI2016837}.
-Dynamic models use differential equations to predict the temporal behavior of the environment where the behavior of the bacteria is modeled
-using GEMs and FBA.
+have a very high computational complexity\cite{ZOMORRODI2016837} these methods must also be excluded in practical approaches as in this project.
+Dynamic models use differential equations to embed the bacteria's models into the environment and to predict its temporal dynamics
+dependent on the bacteria's behavior which is modeled using GEMs and FBA. This approach has already been used in a competitive setup \cite{zhuang2011genome}
+and several implementations with different optimizations of the algorithm are available \cite{6915830}.
 
 
 
@@ -136,24 +137,36 @@ using GEMs and FBA.
 \noindent
 \textbf{Describe how the project can advance the state of the art in the field}
 
-\begin{itemize}
- \item The simulation framework:
- \begin{itemize}
-  \item simulation of co-culture is interesting for many areas
-  \item (list a few examples)
-  \item this framework is not dedicated to only one setup
-  \item builds a basis for future simulation projects
-  \item python has a bit programmers community which makes it easy to customize or enhance the framework
-  \item framework can be used to implement new approaches
- \end{itemize}
- \item The simulation results:
- \begin{itemize}
-  \item new and detailed knowledge about fermentation setup
-  \item better control of fermentation process and product quality
-  \item new solutions to ensure product quality
-  \item estimation of product quality (max/min ratio of bad fermentation products)
-  \item reduction of chemicals for cleaning
- \end{itemize}
-\end{itemize}
+Simulating microbial communities is a young and evolving field which enables completely new ways in bio engineering. There have been many 
+applications e.g. in biofuel production \cite{hanly2011dynamic} \cite{chiu2014emergent}. Although in this project a fermentation process
+shall be the use case this framework is not dedicated to one application. Also other combinations of bacteria GEMs can be simulated with
+another set of simulation parameters. It builds a basis for future projects and applications and due to its modularity and open-source access
+it can be enhanced by other scientists and python programmers to adapt it to their own very special applications.
+
+The simulation setup used as concept of proof can be refined and used as a basis to a more enhanced model which can give a more detailed
+insight into the fermentation process. The results of the simulation leads to new and a more detailed knowledge about the fermentation
+process and can be correlated to the simulations starting conditions. This knowledge leads to better control of the fermentation process
+and helps to enhance the quality of the produced beer by reducing the production effort. The gained data can also be used for a better
+estimation and control of unwanted fermentation byproducts which leads to a longer or refined estimation of the durability of the produced
+beer. Process enhancements can e.g. lead to a reduction of used chemicals for cleaning.
+%\begin{itemize}
+% \item The simulation framework:
+% \begin{itemize}
+%  \item simulation of co-culture is interesting for many areas
+%  \item (list a few examples)
+%  \item this framework is not dedicated to only one setup
+%  \item builds a basis for future simulation projects
+%  \item python has a bit programmers community which makes it easy to customize or enhance the framework
+%  \item framework can be used to implement new approaches
+% \end{itemize}
+% \item The simulation results:
+% \begin{itemize}
+%  \item new and detailed knowledge about fermentation setup
+%  \item better control of fermentation process and product quality
+%  \item new solutions to ensure product quality
+%  \item estimation of product quality (max/min ratio of bad fermentation products)
+%  \item reduction of chemicals for cleaning
+% \end{itemize}
+%\end{itemize}
 
 
