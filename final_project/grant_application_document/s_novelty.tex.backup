@@ -49,19 +49,29 @@ produced beer. Furthermore it has the potential to reduces the need for high agg
 lowers the environmental impact.
 
 
-\noindent
-\textbf{Describe how the project can lead to the development of goods, processes or services}
-\begin{itemize}
- \item some natural co-cultures are not culturable due to dependencies \cite{d2010siderophores}
- \item can help to find solutions how to treat human diseases \cite{ZOMORRODI2016837}
- \item reduce uranium concentration in contaminated areas \cite{zhuang2011genome}
- \item biofuel \cite{hanly2011dynamic} \cite{chiu2014emergent}
-\end{itemize}
+%\noindent
+%\textbf{Describe how the project can lead to the development of goods, processes or services}
+%\begin{itemize}
+% \item some natural co-cultures are not culturable due to dependencies \cite{d2010siderophores}
+% \item can help to find solutions how to treat human diseases \cite{ZOMORRODI2016837}
+% \item reduce uranium concentration in contaminated areas \cite{zhuang2011genome}
+% \item biofuel \cite{hanly2011dynamic} \cite{chiu2014emergent}
+%\end{itemize}
 
+Interspecies communication and dependencies in microbial co-cultures are widely unexplored and some natural co-cultures are still not
+culturable due to missing knowledge about their dependencies \cite{d2010siderophores}. Online services provide GEMs to a variety of bacteria.
+This simulation framework can predict the growth and substrate dynamics of such cultures based on these GEMs. The results can be compared to
+lab experiments and used to refine the interspecies models iteratively. Also other highly sustainable areas can be addressed with this
+framework like the development of treatments of human diseases \cite{ZOMORRODI2016837}, the reduction of uranium concentrations in
+conterminated areas \cite{zhuang2011genome} or to produce biofuel \cite{hanly2011dynamic} \cite{chiu2014emergent}.
 
 \noindent
 \textbf{Which technological and design challenges are posed by the project}
 
+As most of the existing implementations of simulation algorithms are in matlab we will have to find new solutions to replace commercial
+third-party software with open source projects. As the field of simulation of microbial communities is still under research, the available
+algorithms are error prone and not optimal. As pointed out by Hanson et al. \cite{6915830} some available algorithms are prone to numerical 
+instabilities. Another important 
 \begin{itemize}
  \item Framework:
  \begin{itemize}

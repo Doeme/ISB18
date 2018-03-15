@@ -1,7 +1,6 @@
 % section: description
 
-\noindent
-\textbf{Describe the project and its objectives}
+\subsection*{Describe the project and its objectives}
 
 %What is our goal?
 %\begin{itemize}
@@ -37,17 +36,20 @@ intensive. Especially high effort is needed to reproduce starting conditions and
 bacteria shall be tested. These experiments are very costly and are not affordable for smaller breweries. A simulation approach to test
 different starting conditions will reduce the amount of experiments and so the costs and will enable development of new production methods
 also for smaller companies.
+
 To be able to simulate the fermentation outcome three major requirements must be fulfilled: (1) The starting conditions and dynamic environment
 constants must be determined, (2) the involved bacteria and internal (enzymatical) processes must be modeled sufficiently and (3) a proper
 simulation framework must be available which combines all information of (1) and (2) and calculates the fermentation outcome. As the 
 formulation of sufficient models for (1) and (2) depends on the production process, so the applied yest and wort, this project will
 concentrate on the development of a simulation framework to enable the simulation of the fermentation products dependent on the fermentation's
 starting conditions.
+
 To be usable to enhance the fermentation process the simulation framework will enable the access to different process and product parameters.
 The growth and metabolite production of Saccharomyces cerevisiae in a typical environment including contamination with other bacteria in a
 batch process will be simulated. The simulation will be parameterised by the used bacteria models and environmental constants which defines
 the composition and dynamics of the wort (starting conditions). The simulation results are used to formulate quality measures of the fermentation
 product to finally investigate correlations to the simulation's starting conditions.
+
 In order to find an optimal solution for the design and implementation of the simulation framework the project is divided into several steps.
 In a first step detailed requirements to the simulation framework will be elaborated based on the goals described above. In a second step
 a software design and simulation algorithm will be chosen which fulfill the previously defined requirements. The third step consists of the
@@ -56,6 +58,7 @@ test and refinement until all requirements are met. In a final step the framewor
 and will serve as a proof of concept. The simplified setup contains only Lactobacillus Brevisas as contamination bacteria. As a measure of
 the product quality the density of ethanol and lactic acids shall be used. The contamination with Lactobacillus Brevisas is a typical
 scenario which can lead to the effect that the beer turns sour under certain conditions \cite{JIB:JIB49}.
+
 If the project progress allows further development, additional design goals can be implemented like an generic or automated integration of
 bacteria models, an optimized user interface, a graphical user interface or an enhanced model of the fermentation process.
 
@@ -112,16 +115,19 @@ bacteria models, an optimized user interface, a graphical user interface or an e
 There have been many approaches to simulate microbial communities \cite{ZOMORRODI2016837}. To model the behavior of the simulated bacteria
 genome-scale models (GEM) are used as their usability in similar applications has been often proven and a variety of models are publicly
 available \cite{6915830}.
+
 Zomorrodi et al. presents in \cite{ZOMORRODI2016837} a comprehensive overview over different simulation approaches of microbial communities.
 The methods ranges from steady-state models to dynamic models and spatio-temporal models. They all have in common that they use GEMs and
 flux balance analysis (FBA) to evaluate the behavior of the involved bacteria for certain environmental conditions but they differ in the
 variety of result aspects and so also in their computational effort.
+
 Steady-state models like compartmentalized community-level metabolic modeling uses a multispecies stoichiometric metabolic model
 \cite{Stolyar92} which is optimized using a mutual objective function. Other approaches as in OptCom use nested optimizations where again
 a mutual objective function is used to connect the bacteria's models to each other \cite{zomorrodi2012optcom}. The principle to use a mutual
 objective function has the disadvantage that these models can only by applied to microbial communities which has a common objective and does
 not purely compete with each other \cite{ZOMORRODI2016837}. As such a behavior can not be excluded in fermentation processes with bacteria
 contamination this approach can not be used in this project.
+
 Another requirement is that the simulation algorithm must be able to simulate batch cultures. Steady-state models are only partly usable in
 such simulations. A better option are here spatio-temporal and dynamic models. Both are able to take the varying densities of metabolites
 into account. Spatio-temporal models additionally uses spatial distributions of the bacteria to predict their behavior. As such simulations
@@ -134,8 +140,7 @@ and several implementations with different optimizations of the algorithm are av
 
 
 
-\noindent
-\textbf{Describe how the project can advance the state of the art in the field}
+\subsection*{Describe how the project can advance the state of the art in the field}
 
 Simulating microbial communities is a young and evolving field which enables completely new ways in bio engineering. There have been many 
 applications e.g. in biofuel production \cite{hanly2011dynamic} \cite{chiu2014emergent}. Although in this project a fermentation process
