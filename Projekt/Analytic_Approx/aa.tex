@@ -1,0 +1,60 @@
+\documentclass{scrreprt}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+
+\usepackage{microtype}
+
+\usepackage{amsmath}
+
+\parindent 0pt
+\parskip 0.5em
+\usepackage[margin=2cm, bottom=2.5cm]{geometry}
+
+\usepackage{hyperref}
+\usepackage[all]{hypcap}
+\hypersetup{pdfborder = {0 0 0}, colorlinks=true, allcolors=black, urlcolor=blue}
+
+\title{Analytic Approximation}
+\author{Dominik Schmidt}
+\date{\today}
+
+\let\v\vec
+\let\mul\cdot
+\def\dd{\mathrm{d}}
+\def\DD{\;\dd}
+
+\begin{document}
+\maketitle
+	We have:
+	\begin{itemize}
+		\item A medium $\v M(t)$
+		\item A model of our organism that produces metabolite changes in the exterior $\v m(\v M)$ and has a biomass production $b(\v M)$ that maps the medium to fluxes in $\mathrm{\frac{mmol}{h}}$
+		\item A population $N(t)$
+		\item A growth parameter $\alpha$ with $\alpha \geq 0$
+		\item A mortality rate $d = \left[\mathrm{\frac{bacteria}{h}}\right]$ with $d\geq 0$
+	\end{itemize}
+
+	We first look at the population growth $N(t)$. One individual bacterium produces $b(\v M)$ mmol of molecules used for biomass.
+	Since this is not automatically a new organism, we have to introduce $\alpha=\left[\mathrm{\frac{mmol}{bacterium}}\right]$
+	Hence, our individuum produces $\frac{b(\v M)}{\alpha}=\left[\mathrm{\frac{bacteria}{h}}\right]$ inside the medium $\v M$
+
+	We now consider a timestep $\Delta t$. Assuming that the population and the medium (hence also the biomass-production $b(\v M)$) stays constant during the timestep $\Delta t$, it produces $N(t) \mul \frac{b(\v M)}{\alpha} \mul \Delta t$ new bacteria, and $N(t) \mul \Delta t \mul d$ bacteria die.
+	\begin{align}
+		N(t+\Delta t) &= N(t) + N(t) \mul \Delta t \mul \frac{b(\v M)}{\alpha} - N(t) \mul \Delta t \mul d
+		\intertext{We can then reformulate this equation to:}
+		\frac{N(t+\Delta t)-N(t)}{\Delta t} &= N(t)\mul \frac{b(\v M)}{\alpha} - N(t) \mul \Delta t \mul d
+		\intertext{Taking the limit of $\Delta t \to 0$, the differential quotient becomes a differential and the error of our assumption becomes zero.}
+		\frac{\dd N}{\dd t} &= N(t) \left(\frac{b(\v M)}{\alpha} - d\right)
+		\intertext{This differential equation can be solved analytically if we assume $b(\v M(t))$ to be a constant (which reintroduces some of the prior error)}
+		N(t) &= N(0) e^{\left(\frac{b(\v M)}{\alpha} - d\right)\mul t}
+	\end{align}
+
+	Now, we want to know the change in the medium $\v M$. This change can be calculated with:
+	\begin{align}
+		\v M(t) &= \int_0^t N(t) \v m(t) \DD t
+		\intertext{If we assume $m(t)$ to be constant again, we can calculate it using our previous approximation of the population $N(t)$:}
+		\v M(t) &= \v m(0) \int_0^t N(0) e^{\left(\frac{b(\v M)}{\alpha} - d\right)\mul t} \DD t\\
+		\v M(t) &= \v m(0) N(0) \frac{1}{\frac{b(\v M(0))}{\alpha} - d} e^{\left(\frac{b(\v M)}{\alpha} - d\right)\mul t} + \v M(0)
+	\end{align}
+\end{document}
