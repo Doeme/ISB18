@@ -1,0 +1,572 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 2.8 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated as
+% required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+\sortlist[entry]{nty/global/}
+  \entry{henson_dynamic_2014}{article}{}
+    \name{author}{2}{}{%
+      {{hash=HMA}{%
+         family={Henson},
+         familyi={H\bibinitperiod},
+         given={Michael\bibnamedelima A.},
+         giveni={M\bibinitperiod\bibinitdelim A\bibinitperiod},
+      }}%
+      {{hash=HTJ}{%
+         family={Hanly},
+         familyi={H\bibinitperiod},
+         given={Timothy\bibnamedelima J.},
+         giveni={T\bibinitperiod\bibinitdelim J\bibinitperiod},
+      }}%
+    }
+    \list{language}{1}{%
+      {en}%
+    }
+    \strng{namehash}{HMAHTJ1}
+    \strng{fullhash}{HMAHTJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{H}
+    \field{sortinithash}{H}
+    \field{abstract}{%
+    Dynamic ﬂux balance analysis (DFBA) is an extension of classical ﬂux
+  balance analysis that allows the dynamic effects of the extracellular
+  environment on microbial metabolism to be predicted and optimised. Recently
+  this computational framework has been extended to microbial communities for
+  which the individual species are known and genome-scale metabolic
+  reconstructions are available. In this review, the authors provide an
+  overview of the emerging DFBA approach with a focus on two case studies
+  involving the conversion of mixed hexose/pentose sugar mixtures by synthetic
+  microbial coculture systems. These case studies illustrate the key
+  requirements of the DFBA approach, including the incorporation of individual
+  species metabolic reconstructions, formulation of extracellular mass
+  balances, identiﬁcation of substrate uptake kinetics, numerical solution of
+  the coupled linear program/differential equations and model adaptation for
+  common, suboptimal growth conditions and identiﬁed species interactions.
+  The review concludes with a summary of progress to date and possible
+  directions for future research.%
+    }
+    \verb{doi}
+    \verb 10.1049/iet-syb.2013.0021
+    \endverb
+    \field{issn}{1751-8849, 1751-8857}
+    \field{number}{5}
+    \field{pages}{214\bibrangedash 229}
+    \field{title}{Dynamic flux balance analysis for synthetic microbial
+  communities}
+    \verb{url}
+    \verb http://digital-library.theiet.org/content/journals/10.1049/iet-syb.20
+    \verb 13.0021
+    \endverb
+    \field{volume}{8}
+    \verb{file}
+    \verb Henson and Hanly - 2014 - Dynamic flux balance analysis for synthetic
+    \verb  microb.pdf:/home/jakob/Zotero/storage/GCBXNRD8/Henson and Hanly - 20
+    \verb 14 - Dynamic flux balance analysis for synthetic microb.pdf:applicati
+    \verb on/pdf
+    \endverb
+    \field{journaltitle}{IET Systems Biology}
+    \field{month}{10}
+    \field{year}{2014}
+    \field{urlday}{23}
+    \field{urlmonth}{03}
+    \field{urlyear}{2018}
+  \endentry
+
+  \entry{hoffner_reliable_2013}{article}{}
+    \name{author}{3}{}{%
+      {{hash=HK}{%
+         family={Höffner},
+         familyi={H\bibinitperiod},
+         given={K.},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=HSM}{%
+         family={Harwood},
+         familyi={H\bibinitperiod},
+         given={S.\bibnamedelima M.},
+         giveni={S\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
+      {{hash=BPI}{%
+         family={Barton},
+         familyi={B\bibinitperiod},
+         given={P.\bibnamedelima I.},
+         giveni={P\bibinitperiod\bibinitdelim I\bibinitperiod},
+      }}%
+    }
+    \list{language}{1}{%
+      {en}%
+    }
+    \strng{namehash}{HKHSMBPI1}
+    \strng{fullhash}{HKHSMBPI1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{H}
+    \field{sortinithash}{H}
+    \field{abstract}{%
+    Dynamic ﬂux balance analysis (DFBA) provides a platform for detailed
+  design, control and optimization of biochemical process technologies. It is a
+  promising modeling framework that combines genome-scale metabolic network
+  analysis with dynamic simulation of the extracellular environment. Dynamic
+  ﬂux balance analysis assumes that the intracellular species concentrations
+  are in equilibrium with the extracellular environment. The resulting
+  underdetermined stoichiometric model is solved under the assumption of a
+  biochemical objective such as growth rate maximization. The model of the
+  metabolism is coupled with the dynamic mass balance equations of the
+  extracellular environment via expressions for the rates of substrate uptake
+  and product excretion, which imposes additional constraints on the linear
+  program (LP) deﬁned by growth rate maximization of the metabolism. The
+  linear program is embedded into the dynamic model of the bioreactor, and
+  together with the additional constraints this provides an accurate model of
+  the substrate consumption, product secretion, and biomass production during
+  operation. A DFBA model consists of a system of ordinary differential
+  equations for which the evaluation of the right-hand side requires not only
+  function evaluations, but also the solution of one or more linear programs.
+  The numerical tool presented here accurately and efﬁciently simulates
+  large-scale dynamic ﬂux balance models. The main advantages that this
+  approach has over existing implementation are that the integration scheme has
+  a variable step size, that the linear program only has to be solved when
+  qualitative changes in the optimal ﬂux distribution of the metabolic
+  network occur, and that it can reliably simulate behavior near the boundary
+  of the domain where the model is deﬁned. This is illustrated through
+  large-scale examples taken from the literature.%
+    }
+    \verb{doi}
+    \verb 10.1002/bit.24748
+    \endverb
+    \field{issn}{00063592}
+    \field{number}{3}
+    \field{pages}{792\bibrangedash 802}
+    \field{title}{A reliable simulator for dynamic flux balance analysis}
+    \verb{url}
+    \verb http://doi.wiley.com/10.1002/bit.24748
+    \endverb
+    \field{volume}{110}
+    \verb{file}
+    \verb Höffner et al. - 2013 - A reliable simulator for dynamic flux balanc
+    \verb e anal.pdf:/home/jakob/Zotero/storage/9E2GJ4FQ/Höffner et al. - 2013
+    \verb  - A reliable simulator for dynamic flux balance anal.pdf:application
+    \verb /pdf
+    \endverb
+    \field{journaltitle}{Biotechnology and Bioengineering}
+    \field{month}{03}
+    \field{year}{2013}
+    \field{urlday}{22}
+    \field{urlmonth}{03}
+    \field{urlyear}{2018}
+  \endentry
+
+  \entry{luo_photosynthetic_2009}{article}{}
+    \name{author}{12}{}{%
+      {{hash=LR}{%
+         family={Luo},
+         familyi={L\bibinitperiod},
+         given={R.},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=WH}{%
+         family={Wei},
+         familyi={W\bibinitperiod},
+         given={H.},
+         giveni={H\bibinitperiod},
+      }}%
+      {{hash=YL}{%
+         family={Ye},
+         familyi={Y\bibinitperiod},
+         given={L.},
+         giveni={L\bibinitperiod},
+      }}%
+      {{hash=WK}{%
+         family={Wang},
+         familyi={W\bibinitperiod},
+         given={K.},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=CF}{%
+         family={Chen},
+         familyi={C\bibinitperiod},
+         given={F.},
+         giveni={F\bibinitperiod},
+      }}%
+      {{hash=LL}{%
+         family={Luo},
+         familyi={L\bibinitperiod},
+         given={L.},
+         giveni={L\bibinitperiod},
+      }}%
+      {{hash=LL}{%
+         family={Liu},
+         familyi={L\bibinitperiod},
+         given={L.},
+         giveni={L\bibinitperiod},
+      }}%
+      {{hash=LY}{%
+         family={Li},
+         familyi={L\bibinitperiod},
+         given={Y.},
+         giveni={Y\bibinitperiod},
+      }}%
+      {{hash=CMJC}{%
+         family={Crabbe},
+         familyi={C\bibinitperiod},
+         given={M.\bibnamedelima J.\bibnamedelima C.},
+         giveni={M\bibinitperiod\bibinitdelim J\bibinitperiod\bibinitdelim
+  C\bibinitperiod},
+      }}%
+      {{hash=JL}{%
+         family={Jin},
+         familyi={J\bibinitperiod},
+         given={L.},
+         giveni={L\bibinitperiod},
+      }}%
+      {{hash=LY}{%
+         family={Li},
+         familyi={L\bibinitperiod},
+         given={Y.},
+         giveni={Y\bibinitperiod},
+      }}%
+      {{hash=ZY}{%
+         family={Zhong},
+         familyi={Z\bibinitperiod},
+         given={Y.},
+         giveni={Y\bibinitperiod},
+      }}%
+    }
+    \list{language}{1}{%
+      {en}%
+    }
+    \strng{namehash}{LR+1}
+    \strng{fullhash}{LRWHYLWKCFLLLLLYCMJCJLLYZY1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{shorttitle}
+    \field{sortinit}{L}
+    \field{sortinithash}{L}
+    \verb{doi}
+    \verb 10.1073/pnas.0810731105
+    \endverb
+    \field{issn}{0027-8424, 1091-6490}
+    \field{number}{3}
+    \field{pages}{847\bibrangedash 852}
+    \field{shorttitle}{Photosynthetic metabolism of {C}3 plants shows highly
+  cooperative regulation under changing environments}
+    \field{title}{Photosynthetic metabolism of {C}3 plants shows highly
+  cooperative regulation under changing environments: {A} systems biological
+  analysis}
+    \verb{url}
+    \verb http://www.pnas.org/cgi/doi/10.1073/pnas.0810731105
+    \endverb
+    \field{volume}{106}
+    \verb{file}
+    \verb Luo et al. - 2009 - Photosynthetic metabolism of C3 plants shows high
+    \verb l.pdf:/home/jakob/Zotero/storage/R3PCXRGA/Luo et al. - 2009 - Photosy
+    \verb nthetic metabolism of C3 plants shows highl.pdf:application/pdf
+    \endverb
+    \field{journaltitle}{Proceedings of the National Academy of Sciences}
+    \field{month}{01}
+    \field{year}{2009}
+    \field{urlday}{24}
+    \field{urlmonth}{03}
+    \field{urlyear}{2018}
+  \endentry
+
+  \entry{luo_dynamic_2006}{article}{}
+    \name{author}{7}{}{%
+      {{hash=LRY}{%
+         family={Luo},
+         familyi={L\bibinitperiod},
+         given={Ruo-Yu},
+         giveni={R\bibinitperiod-Y\bibinitperiod},
+      }}%
+      {{hash=LS}{%
+         family={Liao},
+         familyi={L\bibinitperiod},
+         given={Sha},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=TGY}{%
+         family={Tao},
+         familyi={T\bibinitperiod},
+         given={Guan-Yang},
+         giveni={G\bibinitperiod-Y\bibinitperiod},
+      }}%
+      {{hash=LYY}{%
+         family={Li},
+         familyi={L\bibinitperiod},
+         given={Yuan-Yuan},
+         giveni={Y\bibinitperiod-Y\bibinitperiod},
+      }}%
+      {{hash=ZS}{%
+         family={Zeng},
+         familyi={Z\bibinitperiod},
+         given={Shaoqun},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=LYX}{%
+         family={Li},
+         familyi={L\bibinitperiod},
+         given={Yi-Xue},
+         giveni={Y\bibinitperiod-X\bibinitperiod},
+      }}%
+      {{hash=LQ}{%
+         family={Luo},
+         familyi={L\bibinitperiod},
+         given={Qingming},
+         giveni={Q\bibinitperiod},
+      }}%
+    }
+    \list{language}{1}{%
+      {en}%
+    }
+    \strng{namehash}{LRY+1}
+    \strng{fullhash}{LRYLSTGYLYYZSLYXLQ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{L}
+    \field{sortinithash}{L}
+    \verb{doi}
+    \verb 10.1038/msb4100071
+    \endverb
+    \field{issn}{1744-4292}
+    \field{title}{Dynamic analysis of optimality in myocardial energy
+  metabolism under normal and ischemic conditions}
+    \verb{url}
+    \verb http://msb.embopress.org/cgi/doi/10.1038/msb4100071
+    \endverb
+    \field{volume}{2}
+    \verb{file}
+    \verb Luo et al. - 2006 - Dynamic analysis of optimality in myocardial ener
+    \verb g.pdf:/home/jakob/Zotero/storage/VBMG6WBT/Luo et al. - 2006 - Dynamic
+    \verb  analysis of optimality in myocardial energ.pdf:application/pdf
+    \endverb
+    \field{journaltitle}{Molecular Systems Biology}
+    \field{month}{06}
+    \field{year}{2006}
+    \field{urlday}{24}
+    \field{urlmonth}{03}
+    \field{urlyear}{2018}
+  \endentry
+
+  \entry{mahadevan_dynamic_2002}{article}{}
+    \name{author}{3}{}{%
+      {{hash=MR}{%
+         family={Mahadevan},
+         familyi={M\bibinitperiod},
+         given={Radhakrishnan},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=EJS}{%
+         family={Edwards},
+         familyi={E\bibinitperiod},
+         given={Jeremy\bibnamedelima S.},
+         giveni={J\bibinitperiod\bibinitdelim S\bibinitperiod},
+      }}%
+      {{hash=DFJ}{%
+         family={Doyle},
+         familyi={D\bibinitperiod},
+         given={Francis\bibnamedelima J.},
+         giveni={F\bibinitperiod\bibinitdelim J\bibinitperiod},
+      }}%
+    }
+    \list{language}{1}{%
+      {en}%
+    }
+    \strng{namehash}{MREJSDFJ1}
+    \strng{fullhash}{MREJSDFJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{M}
+    \field{sortinithash}{M}
+    \field{abstract}{%
+    Flux Balance Analysis (FBA) has been used in the past to analyze microbial
+  metabolic networks. Typically, FBA is used to study the metabolic flux at a
+  particular steady state of the system. However, there are many situations
+  where the reprogramming of the metabolic network is important. Therefore, the
+  dynamics of these metabolic networks have to be studied. In this paper, we
+  have extended FBA to account for dynamics and present two different
+  formulations for dynamic FBA. These two approaches were used in the analysis
+  of diauxic growth in Escherichia coli. Dynamic FBA was used to simulate the
+  batch growth of E. coli on glucose, and the predictions were found to
+  qualitatively match experimental data. The dynamic FBA formalism was also
+  used to study the sensitivity to the objective function. It was found that an
+  instantaneous objective function resulted in better predictions than a
+  terminal-type objective function. The constraints that govern the growth at
+  different phases in the batch culture were also identified. Therefore,
+  dynamic FBA provides a framework for analyzing the transience of metabolism
+  due to metabolic reprogramming and for obtaining insights for the design of
+  metabolic networks.%
+    }
+    \verb{doi}
+    \verb 10.1016/S0006-3495(02)73903-9
+    \endverb
+    \field{issn}{00063495}
+    \field{number}{3}
+    \field{pages}{1331\bibrangedash 1340}
+    \field{title}{Dynamic {Flux} {Balance} {Analysis} of {Diauxic} {Growth} in
+  {Escherichia} coli}
+    \verb{url}
+    \verb http://linkinghub.elsevier.com/retrieve/pii/S0006349502739039
+    \endverb
+    \field{volume}{83}
+    \verb{file}
+    \verb Mahadevan et al. - 2002 - Dynamic Flux Balance Analysis of Diauxic Gr
+    \verb owth in.pdf:/home/jakob/Zotero/storage/UWSYDEPA/Mahadevan et al. - 20
+    \verb 02 - Dynamic Flux Balance Analysis of Diauxic Growth in.pdf:applicati
+    \verb on/pdf
+    \endverb
+    \field{journaltitle}{Biophysical Journal}
+    \field{month}{09}
+    \field{year}{2002}
+    \field{urlday}{23}
+    \field{urlmonth}{03}
+    \field{urlyear}{2018}
+  \endentry
+
+  \entry{zhuang_design_2012}{article}{}
+    \name{author}{4}{}{%
+      {{hash=ZK}{%
+         family={Zhuang},
+         familyi={Z\bibinitperiod},
+         given={K.},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=ME}{%
+         family={Ma},
+         familyi={M\bibinitperiod},
+         given={E.},
+         giveni={E\bibinitperiod},
+      }}%
+      {{hash=LDR}{%
+         family={Lovley},
+         familyi={L\bibinitperiod},
+         given={Derek\bibnamedelima R.},
+         giveni={D\bibinitperiod\bibinitdelim R\bibinitperiod},
+      }}%
+      {{hash=MR}{%
+         family={Mahadevan},
+         familyi={M\bibinitperiod},
+         given={Radhakrishnan},
+         giveni={R\bibinitperiod},
+      }}%
+    }
+    \list{language}{1}{%
+      {en}%
+    }
+    \strng{namehash}{ZK+1}
+    \strng{fullhash}{ZKMELDRMR1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{Z}
+    \field{sortinithash}{Z}
+    \verb{doi}
+    \verb 10.1002/bit.24528
+    \endverb
+    \field{issn}{00063592}
+    \field{number}{10}
+    \field{pages}{2475\bibrangedash 2483}
+    \field{title}{The design of long-term effective uranium bioremediation
+  strategy using a community metabolic model}
+    \verb{url}
+    \verb http://doi.wiley.com/10.1002/bit.24528
+    \endverb
+    \field{volume}{109}
+    \verb{file}
+    \verb DyMMM_math_downloaded-on-23-03-2018.zip:/home/jakob/Zotero/storage/5M
+    \verb QD4AF2/DyMMM_math_downloaded-on-23-03-2018.zip:application/zip;DyMMM.
+    \verb 1.3.1.zip:/home/jakob/Zotero/storage/PXTNQF9V/DyMMM.1.3.1.zip:applica
+    \verb tion/zip;supporting_information.doc:/home/jakob/Zotero/storage/3GIH9F
+    \verb ER/supporting_information.doc:application/msword;Zhuang et al_2012_Th
+    \verb e design of long-term effective uranium bioremediation strategy using
+    \verb  a.pdf:/home/jakob/Zotero/storage/TC9VWVUU/Zhuang et al_2012_The desi
+    \verb gn of long-term effective uranium bioremediation strategy using a.pdf
+    \verb :application/pdf
+    \endverb
+    \field{journaltitle}{Biotechnology and Bioengineering}
+    \field{month}{10}
+    \field{year}{2012}
+    \field{urlday}{23}
+    \field{urlmonth}{03}
+    \field{urlyear}{2018}
+  \endentry
+
+  \entry{zomorrodi_synthetic_2016}{article}{}
+    \name{author}{2}{}{%
+      {{hash=ZAR}{%
+         family={Zomorrodi},
+         familyi={Z\bibinitperiod},
+         given={Ali\bibnamedelima R.},
+         giveni={A\bibinitperiod\bibinitdelim R\bibinitperiod},
+      }}%
+      {{hash=SD}{%
+         family={Segrè},
+         familyi={S\bibinitperiod},
+         given={Daniel},
+         giveni={D\bibinitperiod},
+      }}%
+    }
+    \list{language}{1}{%
+      {en}%
+    }
+    \strng{namehash}{ZARSD1}
+    \strng{fullhash}{ZARSD1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{shorttitle}
+    \field{sortinit}{Z}
+    \field{sortinithash}{Z}
+    \field{abstract}{%
+    As the indispensable role of natural microbial communities in many aspects
+  of life on Earth is uncovered, the bottom-up engineering of synthetic
+  microbial consortia with novel functions is becoming an attractive
+  alternative to engineering single-species systems. Here, we summarize recent
+  work on synthetic microbial communities with a particular emphasis on open
+  challenges and opportunities in environmental sustainability and human
+  health. We next provide a critical overview of mathematical approaches,
+  ranging from phenomenological to mechanistic, to decipher the principles that
+  govern the function, dynamics and evolution of microbial ecosystems. Finally,
+  we present our outlook on key aspects of microbial ecosystems and synthetic
+  ecology that require further developments, including the need for more
+  efficient computational algorithms, a better integration of empirical methods
+  and model-driven analysis, the importance of improving gene function
+  annotation, and the value of a standardized library of well-characterized
+  organisms to be used as building blocks of synthetic communities.%
+    }
+    \verb{doi}
+    \verb 10.1016/j.jmb.2015.10.019
+    \endverb
+    \field{issn}{00222836}
+    \field{number}{5}
+    \field{pages}{837\bibrangedash 861}
+    \field{shorttitle}{Synthetic {Ecology} of {Microbes}}
+    \field{title}{Synthetic {Ecology} of {Microbes}: {Mathematical} {Models}
+  and {Applications}}
+    \verb{url}
+    \verb http://linkinghub.elsevier.com/retrieve/pii/S0022283615006129
+    \endverb
+    \field{volume}{428}
+    \verb{file}
+    \verb 2016_zomorrodi_segrè_synthetic_ecology_of_microbes_-_mathematical_mo
+    \verb dels_and_applications.pdf:/home/jakob/Zotero/storage/5SHTXQWM/2016_zo
+    \verb morrodi_segrè_synthetic_ecology_of_microbes_-_mathematical_models_an
+    \verb d_applications.pdf:application/pdf
+    \endverb
+    \field{journaltitle}{Journal of Molecular Biology}
+    \field{month}{02}
+    \field{year}{2016}
+    \field{urlday}{23}
+    \field{urlmonth}{03}
+    \field{urlyear}{2018}
+  \endentry
+\endsortlist
+\endinput
