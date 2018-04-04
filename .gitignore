@@ -8,10 +8,10 @@ final_project/grant_application_document/*.log
 final_project/grant_application_document/*.run.xml
 final_project/grant_application_document/*-blx.bib
 
-final_project/status_report_0/*.aux
-final_project/status_report_0/*.bbl
-final_project/status_report_0/*.blg
-final_project/status_report_0/*.log
-final_project/status_report_0/*.run.xml
-final_project/status_report_0/*-blx.bib
-final_project/status_report_0/*.tex.backup
+final_project/status_report_*/*.aux
+final_project/status_report_*/*.bbl
+final_project/status_report_*/*.blg
+final_project/status_report_*/*.log
+final_project/status_report_*/*.run.xml
+final_project/status_report_*/*-blx.bib
+final_project/status_report_*/*.tex.backup
