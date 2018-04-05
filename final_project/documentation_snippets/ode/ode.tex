@@ -1,0 +1,87 @@
+\documentclass{scrartcl}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage[T1]{fontenc}
+
+
+\parindent 0pt
+\parskip 0.5em
+\usepackage[margin=2cm, bottom=2.5cm]{geometry}
+
+\usepackage{hyperref}
+\usepackage[all]{hypcap}
+\hypersetup{pdfborder = {0 0 0}, colorlinks=true, allcolors=black, urlcolor=blue}
+
+%\usepackage{nameref}
+%\usepackage{float}
+%\usepackage{graphicx}
+
+\title{ODEs}
+\author{Dominik Schmidt}
+\date{\today}
+
+\usepackage{amsmath}
+\let\v\vec
+\let\mul\cdot
+\def\dd{\mathrm{d}}
+\def\enq#1{,,#1''}
+
+\begin{document}
+\maketitle
+	We have $n$ organisms with $m$ metabolites in the medium.
+	Each organism has a \enq{population} of $X$ grams biomass and each metabolite has a mol-count of $S_i$
+	Each organism has a mortality $d_i$  and a metabolite production rate of $v_i(\v M)$
+
+	\section{Population Dynamics}
+	
+	We first look at the population growth $X_i(t)$. One individual bacterium produces $b_i(\v S)$ grams of molecules used for biomass per gram of already existing biomass per hour.
+	
+	We now consider a timestep $\Delta t$. Assuming that the population and the medium (hence also the biomass-production $b_i(\v M)$) stays constant during the timestep $\Delta t$, it produces $X_i(t) \mul b_i(\v S) \mul \Delta t$ new bacteria, and $X_i(t) \mul \Delta t \mul d_i$ bacteria die.
+	\begin{align}
+		X_i(t+\Delta t) &= X_i(t) + X_i(t) \mul \Delta t \mul b_i(\v M) - X_i(t) \mul \Delta t \mul d_i
+		\intertext{We can then reformulate this equation to:}
+		\frac{X_i(t+\Delta t)-X_i(t)}{\Delta t} &= X_i(t)\mul b_i(\v M) - X_i(t) \mul \Delta t \mul d_i
+		\intertext{Taking the limit of $\Delta t \to 0$, the differential quotient becomes a differential and the error of our assumption becomes zero.}
+		\frac{\dd X_i}{\dd t} &= X(t) \left(b_i(\v M) - d_i\right)
+	\end{align}
+	
+	\section{Metabolite Change}
+	
+	\begin{equation}
+		\dot{S}_i = \sum_{j=1}^n v_{ij}(\v M) \mul X_j
+	\end{equation}
+	
+	\section{Differential Equation System}
+	
+	We hence we define our state $\v y$ as:
+	
+	\begin{equation}
+		y = \left[
+		\begin{matrix}
+			X_1\\
+			\vdots\\
+			X_n\\
+			S_1\\
+			\vdots\\
+			S_m
+		\end{matrix}
+		\right]
+	\end{equation}
+	
+	And the differential is:
+	
+	\begin{equation}
+		\frac{\partial y}{\partial t} = \v f(\v y) = \left[
+		\begin{matrix}
+			y_1 \mul (b_1(\v y_{n+1:m}) - d_1)\\
+			\vdots\\
+			y_n \mul (b_n(\v y_{n+1:m}) - d_n)\\
+			\sum_{j=1}^n v_{1,j}(\v y_{n+1:m}) y_1\\
+			\vdots\\
+			\sum_{j=1}^n v_{m,j}(\v y_{n+1:m}) y_m
+		\end{matrix}
+		\right]
+	\end{equation}
+	
+	This is an ordinary differential equation which can be solved numerically with a wide variety of solvers.
+\end{document}
