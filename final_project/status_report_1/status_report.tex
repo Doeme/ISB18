@@ -12,6 +12,9 @@
 \usepackage[table,xcdraw]{xcolor}
 
 \usepackage{mathtools}
+\usepackage{bm}
+
+\usepackage[linesnumbered,ruled]{algorithm2e}
 
 % Title Page
 \title{Biotech Beer Brewing\\Project status report}
@@ -174,6 +177,31 @@ To-Do:
  \item giesse die Optimierung in eine mathematische Beschreibung
  \item erstelle Pseudocode um den Algorithmus zu beschreiben
 \end{itemize}
+
+\begin{algorithm}
+    \SetKwInOut{Input}{Input}
+    \SetKwInOut{Output}{Output}
+
+    \underline{function next\_step} $(\bm{A}, \bm{v_{min}}), \bm{v_{max}}, $\;
+    \Input{}
+    \Output{$\gcd(a,b)$}
+    \For{$j := 1$ \KwTo M}{
+      \For{$m \in model_j$}{
+	$\bm{v_{max,j}}[m] := michaelis\_menten(\bm{vmm_{j}}[m], \bm{kmm_{j}}[m], s[m])$
+      }
+    }
+    \For{$j := 1$ \KwTo M}{
+      $\mu_j, \bm{v_j} := FBA(model_j, obj=max growth)$
+    }
+    $\bm{\mu} := \bm{\mu} - \bm{\mu_{mort}}$\\
+    $\dot{\bm{x}} := diag(\bm{\mu}) \, \bm{x}$\\
+    \For{$m \in model_j$}{
+      \For{$j := 1$ \KwTo M}{
+        $\bm{\dot{s}}[m] := \bm{\dot{s}}[m] + v_j[m] x_j$
+      }
+    }
+    \caption{Differential equation with embedded FBA}
+\end{algorithm}
 
 
 
