@@ -25,9 +25,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.979899"
-     inkscape:cx="234.28146"
-     inkscape:cy="166.00169"
+     inkscape:zoom="0.9899495"
+     inkscape:cx="388.52585"
+     inkscape:cy="515.20735"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -53,92 +53,74 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(-23.875572,-100.58328)">
-    <ellipse
-       style="fill:#000000;fill-opacity:0;stroke:#ff0006;stroke-width:0.40000004;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       id="path1492"
-       cx="111.74014"
-       cy="248.60451"
-       rx="1.4749854"
-       ry="1.474954" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="128.8261"
+       x="103.95528"
        y="222.08673"
        id="text819-6"><tspan
          sodipodi:role="line"
-         x="128.8261"
+         x="103.95528"
          y="222.08673"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.26458332"
          id="tspan1374-5">implementation</tspan></text>
     <path
        style="fill:none;stroke:#0034ff;stroke-width:0.39999998;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 122.55729,215.49711 h 4.52569"
+       d="m 97.686315,215.49711 h 4.525675"
        id="path815-79-99"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
     <path
        style="fill:none;stroke:#59ff00;stroke-width:0.39999998;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 122.55729,226.51195 h 4.52569"
+       d="m 97.686315,226.51195 h 4.525675"
        id="path815-79-7-4-0"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
     <path
        style="fill:none;stroke:#ff6b00;stroke-width:0.39999998;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 127.08298,232.01939 h -4.52569"
+       d="M 102.21199,232.01939 H 97.686315"
        id="path815-79-7-4-9-7"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
     <path
        style="fill:none;stroke:#00ffd5;stroke-width:0.39999998;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 122.55729,221.00453 h 4.52569"
+       d="m 97.686315,221.00453 h 4.525675"
        id="path815-79-7-6"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="128.99146"
+       x="104.12064"
        y="216.61084"
        id="text819-6-3"><tspan
          sodipodi:role="line"
-         x="128.99146"
+         x="104.12064"
          y="216.61084"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.26458332"
          id="tspan1374-5-7">conceptional design</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="128.99561"
+       x="104.12481"
        y="227.9729"
        id="text819-6-6"><tspan
          sodipodi:role="line"
-         x="128.99561"
+         x="104.12481"
          y="227.9729"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.26458332"
          id="tspan1374-5-1">simulation</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="128.99146"
+       x="104.12064"
        y="233.44881"
        id="text819-6-5"><tspan
          sodipodi:role="line"
-         x="128.99146"
+         x="104.12064"
          y="233.44881"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.26458332"
          id="tspan1374-5-0">documentation</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ff0006;fill-opacity:1;stroke:none;stroke-width:0.26458332;stroke-opacity:1"
-       x="97.756721"
-       y="245.90038"
-       id="text819-7-9-6"><tspan
-         sodipodi:role="line"
-         x="97.756721"
-         y="245.90038"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#ff0006;fill-opacity:1;stroke:none;stroke-width:0.26458332;stroke-opacity:1"
-         id="tspan1604">27.03.</tspan></text>
     <path
        style="fill:none;stroke:#020703;stroke-width:0.39999998;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 61.437885,248.97887 v -0.94485"
@@ -1143,18 +1125,18 @@
        sodipodi:nodetypes="cc" />
     <path
        style="fill:none;stroke:#ff0006;stroke-width:0.39999998;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 127.103,237.28041 h -4.52569"
+       d="M 102.23201,237.28041 H 97.706335"
        id="path815-79-7-4-9-7-4"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="129.01147"
+       x="104.14066"
        y="238.70982"
        id="text819-6-5-7"><tspan
          sodipodi:role="line"
-         x="129.01147"
+         x="104.14066"
          y="238.70982"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.26458332"
          id="tspan1374-5-0-2">total</tspan></text>
@@ -1235,5 +1217,29 @@
          y="27.091913"
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4.23333311px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.26458332"
          id="tspan1374-5-7-1-5">Process due date</tspan></text>
+    <ellipse
+       style="fill:#000000;fill-opacity:0;stroke:#ff0006;stroke-width:0.40000004;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path1492-7"
+       cx="150.44086"
+       cy="248.57382"
+       rx="1.4749854"
+       ry="1.474954" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ff0006;fill-opacity:1;stroke:none;stroke-width:0.26458332;stroke-opacity:1"
+       x="136.52443"
+       y="245.97002"
+       id="text819-7-9-6-6"><tspan
+         sodipodi:role="line"
+         x="136.52443"
+         y="245.97002"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#ff0006;fill-opacity:1;stroke:none;stroke-width:0.26458332;stroke-opacity:1"
+         id="tspan1604-0">10.04.</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.40000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 150.43881,101.72184 V 248.03402"
+       id="path815-79-7-4-9-7-4-3-9"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
   </g>
 </svg>
