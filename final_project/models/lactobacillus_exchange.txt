@@ -1,0 +1,113 @@
+R_EX_2aeppn_e_	 2 Aminoethyl phosphonate exchange
+R_EX_2hxic_L_e_	 L 2 hydroxyisocaproate exchange
+R_EX_2mba_e_	 2 methyl butanoic acid exchange
+R_EX_2mbal_e_	 2 Methylbutanal exchange
+R_EX_2mbol_e_	 2 methylbutanol exchange
+R_EX_2mpa_e_	 2 methylpropanoic acid exchange
+R_EX_2mpal_e_	 2 methylpropanal exchange
+R_EX_2mpol_e_	 2 methylpropanol exchange
+R_EX_34hplac_e_	 R 3 4 Hydroxyphenyl lactate exchange
+R_EX_3mba_e_	 3 methylbutanoic acid exchange
+R_EX_3mbal_e_	 3 methylbutanal exchange
+R_EX_3mbol_e_	 3 methylbutanol exchange
+R_EX_4abut_e_	 4 Aminobutanoate exchange
+R_EX_4abz_e_	 4 Aminobenzoate exchange
+R_EX_ac_e_	 Acetate exchange
+R_EX_acald_e_	 Acetaldehyde exchange
+R_EX_acgala_e_	 N Acetyl D galactosamine exchange
+R_EX_acgam_e_	 N Acetyl D glucosamine exchange
+R_EX_actn_R_e_	 R Acetoin exchange
+R_EX_ade_e_	 Adenine exchange
+R_EX_ala_L_e_	 L Alanine exchange
+R_EX_arab_L_e_	 L Arabinose exchange
+R_EX_arg_L_e_	 L Arginine exchange
+R_EX_asn_L_e_	 L Asparagine exchange
+R_EX_asp_L_e_	 L Aspartate exchange
+R_EX_btd_RR_e_	 R R 2 3 Butanediol exchange
+R_EX_btn_e_	 Biotin exchange
+R_EX_bzal_e_	 Benzaldehyde exchange
+R_EX_cellb_e_	 cellobiose exchange
+R_EX_chol_e_	 Choline exchange
+R_EX_cit_e_	 Citrate exchange
+R_EX_co2_e_	 CO2 exchange
+R_EX_csn_e_	 Cytosine exchange
+R_EX_cys_L_e_	 L Cysteine exchange
+R_EX_dcyt_e_	 Deoxycytidine exchange
+R_EX_dha_e_	 Dihydroxyacetone exchange
+R_EX_diact_e_	 Diacetyl exchange
+R_EX_drib_e_	 Deoxyribose exchange
+R_EX_etoh_e_	 Ethanol exchange
+R_EX_fol_e_	 Folate exchange
+R_EX_for_e_	 Formate exchange
+R_EX_fru_e_	 D Fructose exchange
+R_EX_fuc_L_e_	 L Fucose exchange
+R_EX_galt_e_	 Galactitol exchange
+R_EX_glc_e_	 D Glucose exchange
+R_EX_glcn_D_e_	 D Gluconate exchange
+R_EX_gln_L_e_	 L Glutamine exchange
+R_EX_glu_L_e_	 L Glutamate exchange
+R_EX_gly_e_	 Glycine exchange
+R_EX_glyb_e_	 Glycine betaine exchange
+R_EX_glyc_e_	 Glycerol exchange
+R_EX_glyclt_e_	 Glycolate exchange
+R_EX_glycogen_e_	 glycogen exchange
+R_EX_gua_e_	 Guanine exchange
+R_EX_h_e_	 H exchange
+R_EX_h2o_e_	 H2O exchange
+R_EX_his_L_e_	 L Histidine exchange
+R_EX_hista_e_	 Histamine exchange
+R_EX_hmfurn	 AI 2 exchange
+R_EX_hxan_e_	 Hypoxanthine exchange
+R_EX_ile_L_e_	 L Isoleucine exchange
+R_EX_imlac_e_	 imidazole lactate exchange
+R_EX_indlac_e_	 Indolelactate exchange
+R_EX_ins_e_	 Inosine exchange
+R_EX_lac_D_e_	 D lactate exchange
+R_EX_lac_L_e_	 L Lactate exchange
+R_EX_lcts_e_	 Lactose exchange
+R_EX_leu_L_e_	 L Leucine exchange
+R_EX_lys_L_e_	 L Lysine exchange
+R_EX_mal_L_e_	 L Malate exchange
+R_EX_malt_e_	 Maltose exchange
+R_EX_man_e_	 D Mannose exchange
+R_EX_melib_e_	 Melibiose exchange
+R_EX_met_L_e_	 L Methionine exchange
+R_EX_methal_e_	 Methional exchange
+R_EX_mn2_e_	 Mn2 exchange
+R_EX_mnl_e_	 D Mannitol exchange
+R_EX_na1_e_	 Sodium exchange
+R_EX_nac_e_	 Nicotinate exchange
+R_EX_nh4_e_	 Ammonium exchange
+R_EX_no2_e_	 Nitrite exchange
+R_EX_no3_e_	 Nitrate exchange
+R_EX_o2_e_	 O2 exchange
+R_EX_orot_e_	 Orotate exchange
+R_EX_pacald_e_	 Phenylacetaldehyde exchange
+R_EX_pea_e_	 Phenylethyl alcohol exchange
+R_EX_phe_L_e_	 L Phenylalanine exchange
+R_EX_phenol_e_	 Phenol exchange
+R_EX_phlac_e_	 Phenyl lactate exchange
+R_EX_pi_e_	 Phosphate exchange
+R_EX_pnto_R_e_	 R Pantothenate exchange
+R_EX_pro_L_e_	 L Proline exchange
+R_EX_ptrc_e_	 Putrescine exchange
+R_EX_pydam_e_	 Pyridoxamine exchange
+R_EX_pydxn_e_	 Pyridoxine exchange
+R_EX_pyr_e_	 Pyruvate exchange
+R_EX_rib_D_e_	 D Ribose exchange
+R_EX_ribflv_e_	 Riboflavin exchange
+R_EX_sbt_D_e_	 D Sorbitol exchange
+R_EX_ser_L_e_	 Exchange for Serine
+R_EX_so4_e_	 Sulfate exchange
+R_EX_spmd_e_	 Spermidine exchange
+R_EX_succ_e_	 Succinate exchange
+R_EX_sucr_e_	 Sucrose exchange
+R_EX_thm_e_	 Thiamin exchange
+R_EX_thr_L_e_	 L Threonine exchange
+R_EX_thymd_e_	 Thymidine exchange
+R_EX_tre_e_	 Trehalose exchange
+R_EX_trp_L_e_	 L Tryptophan exchange
+R_EX_tyr_L_e_	 L Tyrosine exchange
+R_EX_ura_e_	 Uracil exchange
+R_EX_val_L_e_	 L Valine exchange
+R_EX_xan_e_	 Xanthine exchange
