@@ -29,13 +29,13 @@
 
 \section{Project status}
 
-To-Do:
-\begin{itemize}
- \item Start with introduction of processes, the figure with the project timeline does not point out the processes well enough
- \item update table ``project processes''
- \item update figure ``project progress''
- \item update text in this section
-\end{itemize}
+% To-Do:
+% \begin{itemize}
+%  \item Start with introduction of processes, the figure with the project timeline does not point out the processes well enough
+%  \item update table ``project processes''
+%  \item update figure ``project progress''
+%  \item update text in this section
+% \end{itemize}
 
 
 \subsection{Milestones}
@@ -135,19 +135,19 @@ Algorithm &  &  \\
 % \item Show implementation as pseudocode
 %\end{itemize}
 
-Open Questions:
-\begin{itemize}
-% \item How to model mortality?
-% \item How did Zhuang implement it?
- \item How to determin the actual input and output fluxes of the GEMs in one timestep? - What did Zhuang do?
-\end{itemize}
+% Open Questions:
+% \begin{itemize}
+% % \item How to model mortality?
+% % \item How did Zhuang implement it?
+%  \item How to determin the actual input and output fluxes of the GEMs in one timestep? - What did Zhuang do?
+% \end{itemize}
 
 As described by Zhuang et al. in \cite{zhuang_genome-scale_2011} the algorithm uses a ODE solver with embedded FBA. A FBA is solved
 for each GEM in the model and for each time step in the discretised simulation time interval considering the changed metabolite and
 bacteria densities in the shared environment. The results of the FBAs are used by the ODE solver to solve the differential equations
 
 \begin{equation} \label{eq:diff_eq_x}
- \frac{\mathrm d x_j}{\mathrm d t} = \mu_j \alpha_j x_j
+ \frac{\mathrm d x_j}{\mathrm d t} = \mu_j x_j
 \end{equation}
 \begin{equation} \label{eq:diff_eq_s}
  \frac{\mathrm d s_i}{\mathrm d t} = \displaystyle\sum_{j=1}^{N} v_{i,j} x_j
@@ -155,7 +155,6 @@ bacteria densities in the shared environment. The results of the FBAs are used b
 
 which models the dynamics of the bacteria's environment \cite{zhuang_design_2012} where $i = 1...N$ is the index of metabolites in the shared environment and $j = 1...M$ is the index of bacteria.
 The bacteria density is modeled in $x_j$ with $\left[ x_j \right] = \frac{g}{l}$ and $\mu_j$ is the bacteria's growth rate with $\left[ \mu_j \right] = \frac{mmol}{g_{DW} h}$.
-$\left[ \alpha_j \right] = \frac{g}{mmol}$ are constants which defines the weight of one mmol of bactera.
 Input and output fluxes of the bacteria's models are modeled in $v_{i,j}$ with $\left[ v_{i,j} \right] = \frac{mmol}{g_{DW} h}$,
 the densities of metabolites in the shared environment in $s_i$ with $\left[ s_i \right] = \frac{mmol}{l}$.
 
@@ -189,9 +188,8 @@ solver during the simulation similar to DMMM \cite{zhuang_genome-scale_2011}.
 The algorithm expects a list of bacteria models consisting of
 \begin{itemize}
  \item GEM of this bacteria: A, $\bm{v_{min}}$, $\bm{v_{max}}$, $\bm{w_{growth}}$
- \item $\bm{v_{mm}}$ (Michaelis-Menten $V_{max}$) for each exchange metabolite
- \item $\bm{k_{mm}}$ (Michaelis-Menten K) for each exchange metabolite
- \item $\alpha$
+ \item $\bm{v_{mm}}$ (Michaelis-Menten $V_{max}$) for each exchange metabolite and species
+ \item $\bm{k_{mm}}$ (Michaelis-Menten K) for each exchange metabolite and species
  \item mortality $\mu_{mort}$
 \end{itemize}
 
@@ -240,21 +238,21 @@ returned to the ODE solver.
 
 \subsection{Simulation Setup}
 
-\begin{itemize}
- \item used GEMs
- \item why did we choose them? - Is there a reason??
- \item Simulation parameters: $V_{max}$, K, mortality
- \item How should the simulation be done?
- \begin{itemize}
-  \item what are the ``simulation parameters''?
-  \item what do we want to measure?
-  \item What do we want to show?
-  \begin{itemize}
-   \item The simulator works
-   \item Capabilities of this simulations (usage in later applications)
-  \end{itemize}
- \end{itemize}
-\end{itemize}
+% \begin{itemize}
+%  \item used GEMs
+%  \item why did we choose them? - Is there a reason??
+%  \item Simulation parameters: $V_{max}$, K, mortality
+%  \item How should the simulation be done?
+%  \begin{itemize}
+%   \item what are the ``simulation parameters''?
+%   \item what do we want to measure?
+%   \item What do we want to show?
+%   \begin{itemize}
+%    \item The simulator works
+%    \item Capabilities of this simulations (usage in later applications)
+%   \end{itemize}
+%  \end{itemize}
+% \end{itemize}
 
 The goal of the simulation is to validate the basic functionality of the simulator using a simplified setup of a realistic future
 simulation scenario. As defined in our project goals, this simulation scenario is the dynamic flux balance analysis (DFBA) of a
@@ -263,66 +261,90 @@ co-culture of Saccharomyces cerevisiae and Lactobacillus plantarum.
 As genome-scale models a model of Lactobacillus plantarum published by Teusink et al. \cite{teusink_analysis_2006}. A decision about
 a yeast model is not made yet.
 
-\begin{itemize}
- \item Input metabolites:
- \begin{itemize}
-  \item Oxygen
-  \begin{itemize}
-   \item oxygen saturation of water at 20\textdegree C = 9.077 $\frac{mg}{l}$ \cite{fao_water_1987}
-   \item $s_{init} = 9.077 \frac{mg}{l} = 9.077 \,\, 10^{-3}  \frac{g}{l} = \frac{9.077 \,\, 10^{-3} \frac{g}{l}}{18.015 \,\, 10^{-3} \frac{g}{mmol}} = 0,5039 \frac{mmol}{l}$
-   \item $V_{max,lac} = ?$
-   \item $k_{m,lac} = ?$
-   \item $V_{max,sac} = 2.5 \frac{mmol}{g \,\, h}$ \cite{hanly_dynamic_2014}
-   \item $k_{m,sac} = 0.005 mM$ \cite{hanly_dynamic_2014}
-  \end{itemize}
-  \item Glucose
-  \begin{itemize}
-   \item $s_{init}$: 5...20 \textdegree Plato $= 153.031...690.697 \frac{mmol}{l}$
-   \item \cite{bubnik1995sugar}
-   \item $V_{max,lac} = ?$
-   \item $k_{m,lac} = ?$
-   \item $V_{max,sac} = 18.5 \frac{mmol}{g \,\, h}$ \cite{hanly_dynamic_2014}
-   \item $k_{m,sac} = 0.5 mM$ \cite{hanly_dynamic_2014}
-  \end{itemize}
- \end{itemize}
- \item Output metabolites (considered in results):
- \begin{itemize}
-  \item ethanol
-  \item ???
- \end{itemize}
+The simulation will consider two input metabolites: oxygen and glucose. Table \ref{tab:model_constants_simulation_setup} and table
+\ref{tab:simulation_parameters_simulation_setup} contain all values needed to define the initial metabolite conditions and kinetics.
+
+\begin{table}[h]
+\centering
+\caption{Model constants used in the simulation setup}
+\label{tab:model_constants_simulation_setup}
+\begin{tabular}{llllll}
+\rowcolor[HTML]{EFEFEF} 
+\cellcolor[HTML]{EFEFEF} Constant          & \cellcolor[HTML]{EFEFEF}S. cerevisiae & \cellcolor[HTML]{EFEFEF}L. plantarum\\
+Maximum glucose uptake rate (mmol/g/h)     & 18.5 & ? \\
+Maximum oxygen uptake rate (mmol/g/h)      & 2.5 & ? \\
+Glucose uptake saturation constant (g/l)   & 0.5 & ? \\
+Oxygen uptake saturation constant (mM)     & 0.005 & ? \\
+\end{tabular}
+\end{table}
 
 
-\end{itemize}
+% \begin{itemize}
+%  \item Input metabolites:
+%  \begin{itemize}
+%   \item Oxygen
+%   \begin{itemize}
+% %   \item oxygen saturation of water at 20\textdegree C = 9.077 $\frac{mg}{l}$ \cite{fao_water_1987}
+% %   \item $s_{init} = 9.077 \frac{mg}{l} = 9.077 \,\, 10^{-3}  \frac{g}{l} = \frac{9.077 \,\, 10^{-3} \frac{g}{l}}{18.015 \,\, 10^{-3} \frac{g}{mmol}} = 0,5039 \frac{mmol}{l}$
+% %   \item $V_{max,lac} = ?$
+% %   \item $k_{m,lac} = ?$
+% %   \item $V_{max,sac} = 2.5 \frac{mmol}{g \,\, h}$ \cite{hanly_dynamic_2014}
+% %   \item $k_{m,sac} = 0.005 mM$ \cite{hanly_dynamic_2014}
+%   \end{itemize}
+%   \item Glucose
+%   \begin{itemize}
+% %   \item $s_{init}$: 5...20 \textdegree Plato $= 153.031...690.697 \frac{mmol}{l}$
+% %   \item \cite{bubnik1995sugar}
+% %   \item $V_{max,lac} = ?$
+% %   \item $k_{m,lac} = ?$
+% %   \item $V_{max,sac} = 18.5 \frac{mmol}{g \,\, h}$ \cite{hanly_dynamic_2014}
+% %   \item $k_{m,sac} = 0.5 mM$ \cite{hanly_dynamic_2014}
+%   \end{itemize}
+%  \end{itemize}
+%  \item Output metabolites (considered in results):
+%  \begin{itemize}
+%   \item ethanol
+%   \item D lactate (R\_EX\_lac\_D\_e\_ in model)
+%   \item L Lactate exchange (R\_EX\_lac\_L\_e\_ in model)
+%  \end{itemize}
+% 
+% 
+% \end{itemize}
 
 
 
 
 
 
+
+\begin{table}[h]
+\centering
+\caption{Simulation parameters used in the simulation setup}
+\label{tab:simulation_parameters_simulation_setup}
+\begin{tabular}{llllll}
+\rowcolor[HTML]{EFEFEF} 
+\cellcolor[HTML]{EFEFEF} Parameter          & \cellcolor[HTML]{EFEFEF}value & \cellcolor[HTML]{EFEFEF}reference\\
+Initial glucose density (mmol/l) & $153.031...690.697$ & TBD \\
+Initial oxygen density (mmol/l)  & 0.5039 & TBD \cite{bubnik1995sugar}\\
+\end{tabular}
+\end{table}
+
+To verify the basic functionality of the simulator the resulting bacteria densities and metabolite densities of ethanol, d- and l-lactate,
+oxygen and glucose will be compared to existing data.
 
 \section{Outlook}
 
-To-Do:
-\begin{itemize}
- \item Update text
-\end{itemize}
-
-
-Due to unexpected high effort in the research of simulation algorithms and technical problems the project progress is not as fast
-as expected (see figure \ref{fig:project_progress}). It is assumed that the technical problems were a single event and will not
-occure again, so this will not lead to further delay. As the high effort part in research for simulation algorithms is done, it
-can also be assumed that this will not cause further delay, too. Under these assumptions (no further delay in all processes) the
-project delay can be reduced from 12 to 6 days.
-
-To catch up the remaining delay, a higher focus was set to choose a simulation algorithm with less implementation complexity.
-Furthermore, if this is not enough to catch up the delay, the complexity of the later simulations can be further reduced.
+The current delay of 26 days will be compensated with additional shifts and it is assumed that parts of both status reports can be reused
+in the final report.
 
 \vspace{0.5cm}
 The subsequent steps include:
 \begin{itemize}
- \item research on modeling uptake limits dependent on metabolite densities in the substrate using Michaelis–Menten kinetics
- \item mathematical formulation of the model
- \item implementation of the simulation algorithm
+ \item debugging of simulator code
+ \item research on metabolite kinetics for Lactobacillus plantarum
+ \item choosing a yeast GEM
+ \item research on reference data to verify simulation results
+ \item start simulations
 \end{itemize}
 
 
@@ -346,7 +368,8 @@ The subsequent steps include:
  s_{Glc} = \frac{m_{glc}}{V_{total}} = \frac{d_{total} - d_W}{1 - \frac{d_W}{d_{Glc}}}
 \end{align}
 
-
+oxygen saturation of water at 20\textdegree C = 9.077 $\frac{mg}{l}$ \cite{fao_water_1987}
+$s_{init} = 9.077 \frac{mg}{l} = 9.077 \,\, 10^{-3}  \frac{g}{l} = \frac{9.077 \,\, 10^{-3} \frac{g}{l}}{18.015 \,\, 10^{-3} \frac{g}{mmol}} = 0,5039 \frac{mmol}{l}$
 
 
 \end{document}
