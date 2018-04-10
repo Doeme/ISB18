@@ -324,8 +324,8 @@ Oxygen uptake saturation constant (mM)     & 0.005 & ? \\
 \begin{tabular}{llllll}
 \rowcolor[HTML]{EFEFEF} 
 \cellcolor[HTML]{EFEFEF} Parameter          & \cellcolor[HTML]{EFEFEF}value & \cellcolor[HTML]{EFEFEF}reference\\
-Initial glucose density (mmol/l) & $153.031...690.697$ & TBD \\
-Initial oxygen density (mmol/l)  & 0.5039 & TBD \cite{bubnik1995sugar}\\
+Initial glucose density (mmol/l) & 272.9 ... 1230.755 & equation \ref{eq:ready_to_use_plato_to_metabolite_density}, table \ref{tab:constants_used_in_this_document} \\
+Initial oxygen density (mmol/l)  & 0.5039 & equation \ref{eq:init_oxygen_density}, table \ref{tab:constants_used_in_this_document}\\
 \end{tabular}
 \end{table}
 
@@ -347,29 +347,69 @@ The subsequent steps include:
  \item start simulations
 \end{itemize}
 
+\section{Appendix}
+
+The following approximation is used to convert \textdegree C (``degree plato'') to a density measure (g/l)\cite{bubnik1995sugar}.
+\begin{equation} \label{eq:grad_plato_to_density}
+ d_{total} = 4.13 \frac{g}{l \,\,\, ^\circ P} p + 997 \frac{g}{l}
+\end{equation}
+
+As the simulation framework expects metabolite densities relative to the total volume of the solution (mmol of metabolite per liter
+solution, mmol/l) the total density $d_{total}$ must to converted to a density $s_{glc}$. It is assumed that $V_{total} = V_{glc} + V_W$.
+
+\begin{equation*}
+ d_{total} = \frac{m_{total}}{V_{total}}
+\end{equation*}
+\begin{equation*}
+ d_{total} = \frac{m_{glc} + m_w}{V_{total}}
+\end{equation*}
+\begin{equation*}
+ d_{total} = \frac{m_{glc} + d_w V_w}{V_{total}}
+\end{equation*}
+\begin{equation*}
+ d_{total} = \frac{m_{glc} + d_w \left(V_{total} - V_{glc}\right)}{V_{total}}
+\end{equation*}
+\begin{equation*}
+ d_{total} = \frac{m_{glc} + d_w \left(V_{total} - \frac{m_{glc}}{d_{glc}}\right)}{V_{total}}
+\end{equation*}
+\begin{equation} \label{eq:total_density_to_metabolite_density}
+ s_{glc} = \frac{m_{glc}}{V_{total}} = \frac{d_{total} - d_w}{1 - \frac{d_w}{d_{glc}}}
+\end{equation}
+
+Combining equation \ref{eq:grad_plato_to_density} and \ref{eq:total_density_to_metabolite_density}, including all constants and converting it to mmol/l leads to:
+\begin{equation} \label{eq:ready_to_use_plato_to_metabolite_density}
+ s_{glc} = \left( 63.857 \frac{1}{^\circ P} p - 46.385 \right) \frac{mmol}{l}
+\end{equation}
 
 
+
+
+\begin{table}[h]
+\centering
+\caption{Constants used in this document}
+\label{tab:constants_used_in_this_document}
+\begin{tabular}{llllll}
+\rowcolor[HTML]{EFEFEF} 
+\cellcolor[HTML]{EFEFEF} Constant    & \cellcolor[HTML]{EFEFEF}symbol      & \cellcolor[HTML]{EFEFEF}value & \cellcolor[HTML]{EFEFEF}reference\\
+Oxygen saturation of water at 20\textdegree C (mg/l) & -  & 9.077 & \cite{fao_water_1987} \\
+Molar mass of water (g/mol)    & -   & 18.015 & \cite{pupchen_website}\\
+Molar mass of glucose (g/mol) & -  & 180.156 & \cite{pupchen_website}\\
+Density of water (g/l) & $d_w$ & 1.00 &  \cite{pupchen_website}\\
+Density of glucose (g/l) & $d_{glc}$ &  1.56 & \cite{pupchen_website}\\
+Typical glucose/water solution density to brew beer (\textdegree P) & - & 5...20 & - \\
+\end{tabular}
+\end{table}
+
+To calculate the initial oxygen density in the solution it is assumed that the solution is at 20 \textdegree C and fully saturated
+with oxygen:
+\begin{equation} \label{eq:init_oxygen_density}
+s_{init,ox} = 9.077 \frac{mg}{l} = 9.077 \,\, 10^{-3}  \frac{g}{l} = \frac{9.077 \,\, 10^{-3} \frac{g}{l}}{18.015 \,\, 10^{-3} \frac{g}{mmol}} = 0,5039 \frac{mmol}{l} 
+\end{equation}
 
 \newpage
 
 \printbibliography
 
-\section{Appendix}
-
-\begin{equation}
- d_{total} = 4.13 \frac{g}{l \,\,\, ^\circ P} p + 997 \frac{g}{l}
-\end{equation}
-\begin{align}
- d_{total} = \frac{m_{total}}{V_{total}}\\
- d_{total} = \frac{m_{Glc} + m_W}{V_{total}}\\
- d_{total} = \frac{m_{Glc} + d_W V_W}{V_{total}}\\
- d_{total} = \frac{m_{Glc} + d_W \left(V_{total} - V_{Glc}\right)}{V_{total}} \qquad suppose V_{total} = V_{Glc} + V_W\\
- d_{total} = \frac{m_{Glc} + d_W \left(V_{total} - \frac{m_{Glc}}{d_{Glc}}\right)}{V_{total}}\\
- s_{Glc} = \frac{m_{glc}}{V_{total}} = \frac{d_{total} - d_W}{1 - \frac{d_W}{d_{Glc}}}
-\end{align}
-
-oxygen saturation of water at 20\textdegree C = 9.077 $\frac{mg}{l}$ \cite{fao_water_1987}
-$s_{init} = 9.077 \frac{mg}{l} = 9.077 \,\, 10^{-3}  \frac{g}{l} = \frac{9.077 \,\, 10^{-3} \frac{g}{l}}{18.015 \,\, 10^{-3} \frac{g}{mmol}} = 0,5039 \frac{mmol}{l}$
 
 
 \end{document}
