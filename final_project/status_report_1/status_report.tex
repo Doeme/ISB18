@@ -13,6 +13,7 @@
 
 \usepackage{mathtools}
 \usepackage{bm}
+\usepackage{textcomp}
 
 \usepackage[linesnumbered,ruled]{algorithm2e}
 
@@ -56,13 +57,13 @@ To-Do:
 \rowcolor[HTML]{EFEFEF} 
 \multirow{-2}{*}{\cellcolor[HTML]{EFEFEF}Process} & Days                  & Percent                   & \multirow{-2}{*}{\cellcolor[HTML]{EFEFEF}start date} & \multirow{-2}{*}{\cellcolor[HTML]{EFEFEF}due date} & \multirow{-2}{*}{\cellcolor[HTML]{EFEFEF}progress} \\
 conceptional design                               & 3.1 d   & 10 \%  & 07.03. & 12.03. & 100 \% \\
-implementation                                    & 12.4 d  & 40 \%  & 12.03. & 28.03. & 50 \% \\
-\hspace{0.5cm}research                            & 4.65 d  & 15 \%  & 12.03. & 16.03. & 90 \% \\
-\hspace{0.5cm}concept                             & 1.55 d  & 5 \%   & 16.03. & 20.03. & 50 \% \\
-\hspace{0.5cm}coding                              & 6.2 d   & 20 \%  & 20.03. & 28.03. & 10 \% \\
-simulation                                        & 7.75 d  & 25 \%  & 28.03. & 09.04. & 17 \% \\
-\hspace{0.5cm}research                            & 4.65 d  & 15 \%  & 28.03. & 30.03. & 50 \% \\
-\hspace{0.5cm}setup                               & 1.55 d  & 5 \%   & 30.03. & 02.04. & 0 \% \\
+implementation                                    & 12.4 d  & 40 \%  & 12.03. & 28.03. & 92 \% \\
+\hspace{0.5cm}research                            & 4.65 d  & 15 \%  & 12.03. & 16.03. & 100 \% \\
+\hspace{0.5cm}concept                             & 1.55 d  & 5 \%   & 16.03. & 20.03. & 100 \% \\
+\hspace{0.5cm}coding                              & 6.2 d   & 20 \%  & 20.03. & 28.03. & 75 \% \\
+simulation                                        & 7.75 d  & 25 \%  & 28.03. & 09.04. & 42 \% \\
+\hspace{0.5cm}research                            & 4.65 d  & 15 \%  & 28.03. & 30.03. & 75 \% \\
+\hspace{0.5cm}setup                               & 1.55 d  & 5 \%   & 30.03. & 02.04. & 50 \% \\
 \hspace{0.5cm}simulate setup                      & 1.55 d  & 5 \%   & 02.04. & 09.04. & 0 \% \\
 documentation                                     & 7.75 d  & 25 \%  & 09.04. & 17.04. & 0 \% \\
 \hspace{0.5cm}analyze results                     & 1.55 d  & 5 \%   & 09.04. & 10.04. & 0 \% \\
@@ -82,7 +83,7 @@ documentation                                     & 7.75 d  & 25 \%  & 09.04. & 
 
 The progress of the main project processes in table \ref{tab:project_processes} is illustrated in figure \ref{fig:project_progress}. 
 The dashed colored lines show a simple estimated future progress of the processes. If the current trend holds on, the project will be
-finished approximately 12 working days after the final due date.
+finished approximately 26 working days after the final due date.
 
 
 \newpage
@@ -255,6 +256,48 @@ returned to the ODE solver.
  \end{itemize}
 \end{itemize}
 
+The goal of the simulation is to validate the basic functionality of the simulator using a simplified setup of a realistic future
+simulation scenario. As defined in our project goals, this simulation scenario is the dynamic flux balance analysis (DFBA) of a
+co-culture of Saccharomyces cerevisiae and Lactobacillus plantarum.
+
+As genome-scale models a model of Lactobacillus plantarum published by Teusink et al. \cite{teusink_analysis_2006}. A decision about
+a yeast model is not made yet.
+
+\begin{itemize}
+ \item Input metabolites:
+ \begin{itemize}
+  \item Oxygen
+  \begin{itemize}
+   \item oxygen saturation of water at 20\textdegree C = 9.077 $\frac{mg}{l}$ \cite{fao_water_1987}
+   \item $s_{init} = 9.077 \frac{mg}{l} = 9.077 \,\, 10^{-3}  \frac{g}{l} = \frac{9.077 \,\, 10^{-3} \frac{g}{l}}{18.015 \,\, 10^{-3} \frac{g}{mmol}} = 0,5039 \frac{mmol}{l}$
+   \item $V_{max,lac} = ?$
+   \item $k_{m,lac} = ?$
+   \item $V_{max,sac} = 2.5 \frac{mmol}{g \,\, h}$ \cite{hanly_dynamic_2014}
+   \item $k_{m,sac} = 0.005 mM$ \cite{hanly_dynamic_2014}
+  \end{itemize}
+  \item Glucose
+  \begin{itemize}
+   \item $s_{init}$: 5...20 \textdegree Plato $= 153.031...690.697 \frac{mmol}{l}$
+   \item \cite{bubnik1995sugar}
+   \item $V_{max,lac} = ?$
+   \item $k_{m,lac} = ?$
+   \item $V_{max,sac} = 18.5 \frac{mmol}{g \,\, h}$ \cite{hanly_dynamic_2014}
+   \item $k_{m,sac} = 0.5 mM$ \cite{hanly_dynamic_2014}
+  \end{itemize}
+ \end{itemize}
+ \item Output metabolites (considered in results):
+ \begin{itemize}
+  \item ethanol
+  \item ???
+ \end{itemize}
+
+
+\end{itemize}
+
+
+
+
+
 
 
 \section{Outlook}
@@ -288,5 +331,22 @@ The subsequent steps include:
 \newpage
 
 \printbibliography
+
+\section{Appendix}
+
+\begin{equation}
+ d_{total} = 4.13 \frac{g}{l \,\,\, ^\circ P} p + 997 \frac{g}{l}
+\end{equation}
+\begin{align}
+ d_{total} = \frac{m_{total}}{V_{total}}\\
+ d_{total} = \frac{m_{Glc} + m_W}{V_{total}}\\
+ d_{total} = \frac{m_{Glc} + d_W V_W}{V_{total}}\\
+ d_{total} = \frac{m_{Glc} + d_W \left(V_{total} - V_{Glc}\right)}{V_{total}} \qquad suppose V_{total} = V_{Glc} + V_W\\
+ d_{total} = \frac{m_{Glc} + d_W \left(V_{total} - \frac{m_{Glc}}{d_{Glc}}\right)}{V_{total}}\\
+ s_{Glc} = \frac{m_{glc}}{V_{total}} = \frac{d_{total} - d_W}{1 - \frac{d_W}{d_{Glc}}}
+\end{align}
+
+
+
 
 \end{document}
