@@ -121,7 +121,7 @@ Algorithm &  &  \\
 % \begin{itemize}
 %  \item Differential equations
 %  \item Michaelis-Menten kinetics
-%  \item Mortability
+%  \item Mortality
 %  \item including units
 % \end{itemize}
 %
@@ -136,7 +136,7 @@ Algorithm &  &  \\
 
 Open Questions:
 \begin{itemize}
-% \item How to model mortability?
+% \item How to model mortality?
 % \item How did Zhuang implement it?
  \item How to determin the actual input and output fluxes of the GEMs in one timestep? - What did Zhuang do?
 \end{itemize}
@@ -169,7 +169,7 @@ This formula describes the upper bound of the input flux $v_{max,i,j}$ for metab
 $s_i$. The formula is characterized by to constants $\left[ v_{mm,i,j} \right] = \frac{mmol}{g_{DW} h}$ and $\left[ k_{mm,i,j} \right] = \frac{mmol}{l}$
 for each bacteria and metabolite.
 
-Mortability is considered using a constant $\left[ \mu_{mort,j} \right] = \frac{mmol}{g_{DW} h}$ for each bacteria j in this implementation while Zhuang et al. modeled this
+Mortality is considered using a constant $\left[ \mu_{mort,j} \right] = \frac{mmol}{g_{DW} h}$ for each bacteria j in this implementation while Zhuang et al. modeled this
 using the output flux of bacteria out of the system.
 
 %To-Do:
@@ -191,7 +191,7 @@ The algorithm expects a list of bacteria models consisting of
  \item $\bm{v_{mm}}$ (Michaelis-Menten $V_{max}$) for each exchange metabolite
  \item $\bm{k_{mm}}$ (Michaelis-Menten K) for each exchange metabolite
  \item $\alpha$
- \item mortability $\mu_{mort}$
+ \item mortality $\mu_{mort}$
 \end{itemize}
 
 Furthermore a list of all exchange metabolites in the environment, the bacteria and metabolite densities.
@@ -232,7 +232,7 @@ the metabolite $m_i$ is contained in $model_j$ as a exchange metabolite and upda
 In a next step the GEMs are optimized for growth using FBA, the results are used as growth rate $\mu_j$ and actual input and output
 fluxes $\bm{v_j}$ of bacteria j in this time step.
 
-The mortability is considered by subtracting the constants $\bm{\mu}$ from the growth rates $\bm{\mu}$.
+The mortality is considered by subtracting the constants $\bm{\mu}$ from the growth rates $\bm{\mu}$.
 
 At last step the slopes $\dot{\bm{x}}$ and $\bm{\dot{s}}$ are calculated according to \ref{eq:diff_eq_x} and \ref{eq:diff_eq_s} and
 returned to the ODE solver.
@@ -242,7 +242,7 @@ returned to the ODE solver.
 \begin{itemize}
  \item used GEMs
  \item why did we choose them? - Is there a reason??
- \item Simulation parameters: $V_{max}$, K, mortability
+ \item Simulation parameters: $V_{max}$, K, mortality
  \item How should the simulation be done?
  \begin{itemize}
   \item what are the ``simulation parameters''?
