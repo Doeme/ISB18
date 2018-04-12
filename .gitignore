@@ -15,3 +15,11 @@ final_project/status_report_*/*.log
 final_project/status_report_*/*.run.xml
 final_project/status_report_*/*-blx.bib
 final_project/status_report_*/*.tex.backup
+
+final_project/final_report_*/*.aux
+final_project/final_report_*/*.bbl
+final_project/final_report_*/*.blg
+final_project/final_report_*/*.log
+final_project/final_report_*/*.run.xml
+final_project/final_report_*/*-blx.bib
+final_project/final_report_*/*.tex.backup
