@@ -16,10 +16,10 @@ final_project/status_report_*/*.run.xml
 final_project/status_report_*/*-blx.bib
 final_project/status_report_*/*.tex.backup
 
-final_project/final_report_*/*.aux
-final_project/final_report_*/*.bbl
-final_project/final_report_*/*.blg
-final_project/final_report_*/*.log
-final_project/final_report_*/*.run.xml
-final_project/final_report_*/*-blx.bib
-final_project/final_report_*/*.tex.backup
+final_project/final_report/*.aux
+final_project/final_report/*.bbl
+final_project/final_report/*.blg
+final_project/final_report/*.log
+final_project/final_report/*.run.xml
+final_project/final_report/*-blx.bib
+final_project/final_report/*.tex.backup
