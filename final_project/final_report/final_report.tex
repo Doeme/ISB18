@@ -421,6 +421,17 @@
 
 \usepackage{lineno}
 
+\usepackage{caption}
+
+\usepackage{multirow}
+\usepackage[table,xcdraw]{xcolor}
+
+\usepackage{mathtools}
+\usepackage{bm}
+\usepackage{textcomp}
+
+\usepackage[linesnumbered,ruled]{algorithm2e}
+
 \begin{document}
 %
 % paper title
@@ -644,14 +655,7 @@ key word, key word,...
 %
 
 
-\appendices
-\section{}\label{ap:super_fancy_stuff}
-Appendix one text goes here.
-
-% you can choose not to have a title for an appendix
-% if you want by leaving the argument blank
-\section{}\label{ap:more_super_fancy_stuff}
-Appendix two text goes here.
+\include{chap_appendix}
 
 
 % use section* for acknowledgement

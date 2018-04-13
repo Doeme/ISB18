@@ -1,1 +1,202 @@
 \section{Methods}\label{sec:methods}
+
+Zomorri et al. summarizes in \cite{zomorrodi_synthetic_2016} models to predict the behavior of bacteria cultures and introduces
+different categories. Three of them are especially
+interesting to be used in this project: \textit{steady-state models}, \textit{spatio-temporal models} and \textit{dynamic models}.
+\textit{Steady-state models} like compartmentalized community-level metabolic modeling can not be used
+since a common objective can not be generally assumed, as it would be in a purely competitive co-cultures
+\textit{Spatio-temporal models} have a very high computational effort as they take spacial and temporal varying bacteria densities
+into account. As the spacial aspect is not necessarily required in this project a more optimal approach shall be preferred.
+The remaining category of \textit{dynamic models} is a well established method to simulate microbial co-cultures in batch processes
+and summarizes different extensions to dynamic flux balance analyses methods (DFBA)\cite{zomorrodi_synthetic_2016}. They use genome-
+scale models (GEM) to simulate the behavior of the bacteria cultures and add differential equations to model the external system dynamics.
+
+Mehadevan et al. introduces two basic categories of DFBA approaches: \textit{dynamic optimization approach} (DOA) and \textit{static
+optimization approach} (SOA)\cite{mahadevan_dynamic_2002}. In DOA a the linear programming problem (LP) which predicts the bacteria
+behavior is reformulized to a non-linear programming problem (NLP). This approach has a very high computational effort
+\cite{hoffner_reliable_2013} compared to SOA and has only been used for relatively small GEMs with up to 13 modeled fluxes and 8 metabolites
+\cite{luo_dynamic_2006} \cite{luo_photosynthetic_2009}.
+
+Mehadevan et al. introduces SOA in \cite{mahadevan_dynamic_2002} as follows: The simulation interval is divided into several intervals and the LP is solved for each
+of these time intervals dependent on the metabolite densities. The solution of the LP defines the bacteria growth and metabolite
+production at a certain point of time in the simulation time interval. These values are then used to solve the differential equations
+which models the external system dynamics. To solve the LP for the next time interval the new calculated, changed metabolite densities
+are used. This procedure is repeated until the end of the simulation time interval is reached. This approach makes use of the
+assumption that the cell internal dynamics are much faster than the external dynamics. In SOA the behavior of the bacteria is assumed
+to be constant during one time interval what leads to a linear approximation approach when solving the system of ordinary differential
+equations (ODE), similar to Euler-Cauchy methods.
+
+Höffner et al. adds in \cite{hoffner_reliable_2013} a further group, the \textit{direct approach} (DA) which basically describes methods
+similar to SOA which uses an ODE solver instead of the Euler-Cauchy method. Due to the used ODE solver different numerical approximation
+methods can be used, not only the linear approximation. A good documented example for this group is the \textit{Dynamic Multispecies
+Metabolic Modeling} framework by Zhuang et al. \cite{zhuang_design_2012}.
+
+Henson et al. mentions a third group, \textit{reformulation to a differential-glgebraic equation system} \cite{henson_dynamic_2014}.
+It shows also many similarities to SOA with the difference that the LP is reformulized but still solved as a LP embedded within 
+the external ODE. The reformulated equation system makes it possible to enhance the efficiency of algorithm compared to SOA and DA
+\cite{hoffner_reliable_2013}.
+
+\begin{table}[]
+\centering
+\caption{Rating of considered DFBA methods}
+\label{tab:rating_of_DFBA_methods}
+\begin{tabular}{llll}
+\rowcolor[HTML]{EFEFEF} 
+Method                                                                                                 & \begin{tabular}[c]{@{}l@{}}comp.\\ effort\end{tabular} & \begin{tabular}[c]{@{}l@{}}impl.\\ complexity\end{tabular} & flexibility \\
+dynamic optimization approach (DOA)                                                                    & high                                                   & medium-high                                                & ?           \\
+static optimization approach (SOA)                                                                     & low                                                    & low                                                        & low         \\
+direct approach (DA)                                                                                   & medium                                                 & low                                                        & medium      \\
+\begin{tabular}[c]{@{}l@{}}reformulation to a differential-glgebraic\\ equation system\end{tabular} & low-medium                                             & high                                                       & ?          
+\end{tabular}
+\end{table}
+
+The described DFBA methods in section \ref{ssec:considered_dfba_approaches} were rated based on the given information in the above mentioned
+papers, see table \ref{tab:rating_of_DFBA_methods}.
+
+DOA can not be used due to its high computational effort and medium-high implementation complexity. The approach which uses
+\textit{reformulation to a differential-glgebraic equation system} is currently available in matlab code and must be implemented
+in python in this project. Due to the high implementation complexity this approach will also be excluded.
+The remaining methods, SOA and DA, have similar ratings but as DA is more flexible as different ODE solvers can be used this approach
+seems more sustainable. Besides its flexibility the DA implementation DMMM by Zhuang et al. \cite{zhuang_design_2012} can be publicly
+accessed and they provide a good documentation which will facilitate the implementation in this project.
+
+
+
+
+
+
+
+
+
+
+
+\begin{table}[h]
+\centering
+\caption{Model constants used in the simulation setup}
+\label{tab:model_constants_simulation_setup}
+\begin{tabular}{llllll}
+\rowcolor[HTML]{EFEFEF} 
+\cellcolor[HTML]{EFEFEF} Constant          & \cellcolor[HTML]{EFEFEF}S. cerevisiae & \cellcolor[HTML]{EFEFEF}L. plantarum\\
+Maximum glucose uptake rate (mmol/g/h)     & 18.5 & ? \\
+Maximum oxygen uptake rate (mmol/g/h)      & 2.5 & ? \\
+Glucose uptake saturation constant (g/l)   & 0.5 & ? \\
+Oxygen uptake saturation constant (mM)     & 0.005 & ? \\
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\centering
+\caption{Simulation parameters used in the simulation setup}
+\label{tab:simulation_parameters_simulation_setup}
+\begin{tabular}{llllll}
+\rowcolor[HTML]{EFEFEF} 
+\cellcolor[HTML]{EFEFEF} Parameter          & \cellcolor[HTML]{EFEFEF}value & \cellcolor[HTML]{EFEFEF}reference\\
+Initial glucose density (mmol/l) & 272.9 ... 1230.755 & equation \ref{eq:ready_to_use_plato_to_metabolite_density}, table \ref{tab:constants_used_in_this_document} \\
+Initial oxygen density (mmol/l)  & 0.5039 & equation \ref{eq:init_oxygen_density}, table \ref{tab:constants_used_in_this_document}\\
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\centering
+\caption{Overview of implemented features compared to DMMM}
+\label{tab:overview_implemented_features_compared_to_dmmm}
+\begin{tabular}{llllll}
+\rowcolor[HTML]{EFEFEF} 
+\cellcolor[HTML]{EFEFEF} Feature                  & \cellcolor[HTML]{EFEFEF}DMMM & \cellcolor[HTML]{EFEFEF}This project\\
+Model                                    &   &  \\
+\hspace{0.5cm}arbitrary many GEMs & yes & yes \\
+\hspace{0.5cm}\begin{tabular}[c]{@{}l@{}}arbitrary many metabolites\\ in environment\end{tabular} & yes & yes \\
+\hspace{0.5cm}mortablility of bacteria & \begin{tabular}[c]{@{}l@{}}yes\\(in output flux)\end{tabular} & yes \\
+\hspace{0.5cm}\begin{tabular}[c]{@{}l@{}}input/output flux of bacteria\\ and metabolites\end{tabular} & yes & no \\
+\hspace{0.5cm}\begin{tabular}[c]{@{}l@{}}parameterized initial state\\ of environment composition\end{tabular} & yes & yes \\
+\hspace{0.5cm}Michaelis-Menten kinetics & yes & yes \\
+Algorithm &  &  \\
+\hspace{0.5cm}ODE solver & yes & yes \\
+\hspace{0.5cm}different ODE solvers & yes & no \\
+\hspace{0.5cm}analytical solver & yes &no \\
+\end{tabular}
+\end{table}
+
+As described by Zhuang et al. in \cite{zhuang_genome-scale_2011} the algorithm uses a ODE solver with embedded FBA. A FBA is solved
+for each GEM in the model and for each time step in the discretised simulation time interval considering the changed metabolite and
+bacteria densities in the shared environment. The results of the FBAs are used by the ODE solver to solve the differential equations
+
+\begin{equation} \label{eq:diff_eq_x}
+ \frac{\mathrm d x_j}{\mathrm d t} = \mu_j x_j
+\end{equation}
+\begin{equation} \label{eq:diff_eq_s}
+ \frac{\mathrm d s_i}{\mathrm d t} = \displaystyle\sum_{j=1}^{N} v_{i,j} x_j
+\end{equation}
+
+which models the dynamics of the bacteria's environment \cite{zhuang_design_2012} where $i = 1...N$ is the index of metabolites in the shared environment and $j = 1...M$ is the index of bacteria.
+The bacteria density is modeled in $x_j$ with $\left[ x_j \right] = \frac{g}{l}$ and $\mu_j$ is the bacteria's growth rate with $\left[ \mu_j \right] = \frac{mmol}{g_{DW} h}$.
+Input and output fluxes of the bacteria's models are modeled in $v_{i,j}$ with $\left[ v_{i,j} \right] = \frac{mmol}{g_{DW} h}$,
+the densities of metabolites in the shared environment in $s_i$ with $\left[ s_i \right] = \frac{mmol}{l}$.
+
+In each time step each bacteria's metabolite intake must be changed dependent on the densities of the metabolites in the shared environment.
+To model saturation of metabolite intake for high metabolite densities Zhuang et al. implemented Michaelis-Menten kinetics \cite{johnson2011original}
+
+\begin{equation} \label{eq:michaelis-menten}
+ v_{max,i,j} = \frac{v_{mm,i,j} s_i}{s_i + k_{mm,i,j}}
+\end{equation}
+
+This formula describes the upper bound of the input flux $v_{max,i,j}$ for metabolite i of bacteria j dependent on the metabolite density
+$s_i$. The formula is characterized by to constants $\left[ v_{mm,i,j} \right] = \frac{mmol}{g_{DW} h}$ and $\left[ k_{mm,i,j} \right] = \frac{mmol}{l}$
+for each bacteria and metabolite.
+
+Mortality is considered using a constant $\left[ \mu_{mort,j} \right] = \frac{mmol}{g_{DW} h}$ for each bacteria j in this implementation while Zhuang et al. modeled this
+using the output flux of bacteria out of the system.
+
+Algorithm \ref{alg:differential_equation_with_embedded_fba} shows a basic implementation of the differential equations solved by an ODE
+solver during the simulation similar to DMMM \cite{zhuang_genome-scale_2011}.
+
+The algorithm expects a list of bacteria models consisting of
+\begin{itemize}
+ \item GEM of this bacteria: A, $\bm{v_{min}}$, $\bm{v_{max}}$, $\bm{w_{growth}}$
+ \item $\bm{v_{mm}}$ (Michaelis-Menten $V_{max}$) for each exchange metabolite and species
+ \item $\bm{k_{mm}}$ (Michaelis-Menten K) for each exchange metabolite and species
+ \item mortality $\mu_{mort}$
+\end{itemize}
+
+Furthermore a list of all exchange metabolites in the environment, the bacteria and metabolite densities.
+
+
+\begin{algorithm}
+    \SetKwInOut{Input}{Input}
+    \SetKwInOut{Output}{Output}
+
+    \underline{function step}$(model_1...model_M, m_1...m_N, x_1...M, s_1...s_N)$\;
+    \Input{bacteria models $model_j$, exchange metabolites $m_i$ in environment, bacteria densities $x_j$, metabolite densities $s_i$}
+    \Output{slope of bacteria and metabolite densities $\dot{x}_j, \dot{s}_i$}
+    \For{$j := 1$ \KwTo M}{
+      \For{$i := 1$ \KwTo M}{
+%	$\bm{v_{max,j}}[m] := michaelis\_menten(\bm{vmm_{j}}[m], \bm{kmm_{j}}[m], s[m])$
+	$model_j := update\_intake\_bounds(model_j, s_j, m_i)$
+      }
+    }
+    \For{$j := 1$ \KwTo M}{
+      $\mu_j, \bm{v_j} := FBA(model_j, \bm{w_{growth}})$
+    }
+    $\bm{\mu} := \bm{\mu} - \bm{\mu_{mort}}$\\
+    $\dot{\bm{x}} := diag(\bm{\mu}) \, \bm{x}$\\
+    \For{$j := 1$ \KwTo M}{
+      \For{$i := 1$ \KwTo N}{
+        $\bm{\dot{s}}[m_i] := \bm{\dot{s}}[m_i] + \bm{v_j}[m_i] x_j$
+      }
+    }
+    return $\dot{\bm{x}}$, $\dot{\bm{s}}$
+    \caption{Differential equation with embedded FBA}
+    \label{alg:differential_equation_with_embedded_fba}
+\end{algorithm}
+
+In a first step the upper bounds of the intake fluxes are updated for each bacteria j and exchange metabolite i.
+The function $update\_intake\_bounds(model_j, s_j, m_i)$ calculates the upper bounds using the formula \ref{eq:michaelis-menten} if
+the metabolite $m_i$ is contained in $model_j$ as a exchange metabolite and updates this value in the model.
+
+In a next step the GEMs are optimized for growth using FBA, the results are used as growth rate $\mu_j$ and actual input and output
+fluxes $\bm{v_j}$ of bacteria j in this time step.
+
+The mortality is considered by subtracting the constants $\bm{\mu}$ from the growth rates $\bm{\mu}$.
+
+At last step the slopes $\dot{\bm{x}}$ and $\bm{\dot{s}}$ are calculated according to \ref{eq:diff_eq_x} and \ref{eq:diff_eq_s} and
+returned to the ODE solver.
