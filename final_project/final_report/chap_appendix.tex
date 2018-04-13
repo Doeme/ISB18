@@ -60,4 +60,16 @@ s_{init,ox} = 9.077 \frac{mg}{l} = 9.077 \,\, 10^{-3}  \frac{g}{l} = \frac{9.077
 % you can choose not to have a title for an appendix
 % if you want by leaving the argument blank
 \section{}\label{ap:more_super_fancy_stuff}
-Appendix two text goes here.
+\begin{table}[]
+\centering
+\caption{Rating of considered DFBA methods}
+\label{tab:rating_of_DFBA_methods}
+\begin{tabular}{llll}
+\rowcolor[HTML]{EFEFEF} 
+Method                                                                                                 & \begin{tabular}[c]{@{}l@{}}comp.\\ effort\end{tabular} & \begin{tabular}[c]{@{}l@{}}impl.\\ complexity\end{tabular} & flexibility \\
+dynamic optimization approach (DOA)                                                                    & high                                                   & medium-high                                                & ?           \\
+static optimization approach (SOA)                                                                     & low                                                    & low                                                        & low         \\
+direct approach (DA)                                                                                   & medium                                                 & low                                                        & medium      \\
+\begin{tabular}[c]{@{}l@{}}reformulation to a differential-glgebraic\\ equation system\end{tabular} & low-medium                                             & high                                                       & ?          
+\end{tabular}
+\end{table}
