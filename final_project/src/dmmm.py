@@ -17,7 +17,6 @@ class Organism:
 		self.population=population;
 		self.model=model;
 		self.initial_lb={r.id:r.lower_bound for r in self.exchanges()};
-		retval=np.zeros(len(model.metabolites));
 
 	def density_to_lower_bound(self, densities, id):
 		s=densities[id];
@@ -28,7 +27,7 @@ class Organism:
 	def adapt_boundaries(self, densities):
 		for id,r in [(r.id,r) for r in self.exchanges()]:
 			r.lower_bound=self.density_to_lower_bound(densities,id);
-	
+
 	def exchanges(self):
 		if self.exchange_filter:
 			return filter(self.exchange_filter,self.model.exchanges);
@@ -38,8 +37,8 @@ class Organism:
 		self.adapt_boundaries(densities);
 		sol=self.model.optimize();
 		if sol.status!='optimal':
-			return (0,0);
-		assert(sol.objective_value >= 0);
+			return (0,[0]);
+		#assert(sol.objective_value >= 0);
 
 		return (
 			sol.objective_value*self.alpha-self.mortality,
@@ -73,22 +72,24 @@ class Result:
 	dmmm=None;
 	state=[];
 	times=[];
-	
+
 	def __init__(self,dmmm):
 		self.dmmm=dmmm;
-	
+
 	def append(self,t,y):
 		self.times.append(t);
 		self.state.append(y);
-	
+
 	def get_population(self, idx):
-		idx=self.dmmm.medium.lut.index(name);
-		return {t:self.dmmm.split_state(self.state[i])[1][idx] for i,t in enumerate(self.times)};
-	
+		return [self.dmmm.split_state(s)[0][idx] for s in self.state];
+
 	def get_metabolite(self, name):
 		idx=self.dmmm.medium.lut.index(name);
-		return {t:self.dmmm.split_state(self.state[i])[1][idx] for i,t in enumerate(self.times)};
-	
+		return [self.dmmm.split_state(s)[1][idx] for s in self.state];
+
+	def get_times(self):
+		return self.times;
+
 	def get_metabolites_at_step(self, step):
 		return self.dmmm.medium.list_to_dict(self.dmmm.split_state(self.state[step])[1]);
 
@@ -135,7 +136,7 @@ class DMMM:
 			if populations[idx]>0: #No need to calculate the fba on dead populations
 				(bio,met)=o.fba(self.medium, self.densities);
 				growth[idx]=bio*populations[idx];
-				fluxes[:]=fluxes*populations[idx]+met;
+				fluxes[:]=fluxes+[m*populations[idx] for m in met];
 		#print("Derivative");
 		#print(growth)
 		#print(self.medium.list_to_dict(fluxes));
@@ -149,7 +150,7 @@ class DMMM:
 		l.extend([self.medium.metabolites[id] for id in self.medium.lut]);
 		ode.set_initial_value(l,0);
 		#ode.set_f_params(self);
-		ode.set_integrator('dopri5')
+		ode.set_integrator('dopri5',atol=1e-5,rtol=1e-5)
 		return ode;
 
 	def simulate(self, t):

@@ -84,10 +84,7 @@
 \def\rightmark{\@IEEEcompsoconly{\sffamily}\MakeUppercase{\protect#2}}}
 \makeatother
 
-%
-% Use this package for new German hyphenation and to set some 
-% captions to German (e.g. Abstract -> Zusammenfassung)
-% \usepackage[ngerman]{babel}
+\usepackage[english]{babel}
 
 %
 % Select input file coding Latin1 or UTF8.
@@ -200,7 +197,7 @@
 
 % *** MATH PACKAGES ***
 %
-%\usepackage[cmex10]{amsmath}
+\usepackage[cmex10]{amsmath}
 % A popular package from the American Mathematical Society that provides
 % many useful and powerful commands for dealing with mathematics. If using
 % it, be sure to load this package with the cmex10 option to ensure that
@@ -217,7 +214,8 @@
 % version and documentation can be obtained at:
 % http://www.ctan.org/tex-archive/macros/latex/required/amslatex/math/
 
-
+\usepackage{amsfonts}
+\newcommand{\R}{\mathbb{R}}
 
 
 
@@ -416,6 +414,8 @@
 % to submit to, of course. )
 
 
+\usepackage{microtype}
+
 % correct bad hyphenation here
 \hyphenation{op-tical net-works semi-conduc-tor}
 
@@ -515,7 +515,7 @@
 
 \begin{abstract}
 
-Bla blub
+\input{chap_abstract.tex}
 
 \end{abstract}
 % IEEEtran.cls defaults to using nonbold math in the Abstract.
