@@ -1,6 +1,6 @@
 import cobra
 
-def minrxns(m, fac=0.1, reactions=None):
+def minrxns(m, fac=0.1, lb=True, ub=False, reactions=None):
 	if not reactions:
 		reactions=m.exchanges;
 	with m:
@@ -17,15 +17,19 @@ def minrxns(m, fac=0.1, reactions=None):
 		for rxn in reactions:
 			n=rxn.id;
 			var=m.problem.Variable(n+'_knockout',type='binary');
-			lb=rxn.lower_bound;
-			ub=rxn.upper_bound;
+			lbv=rxn.lower_bound;
+			ubv=rxn.upper_bound;
 			if not expr:
 				expr=var;
 			else:
 				expr=expr+var;
-			cu=m.problem.Constraint(rxn.flux_expression-ub*var,ub=0);
-			cl=m.problem.Constraint(rxn.flux_expression-lb*var,lb=0);
-			m.add_cons_vars([var,cu,cl]);
+			m.add_cons_vars(var);
+			if ub:
+				cu=m.problem.Constraint(rxn.flux_expression-ubv*var,ub=0);
+				m.add_cons_vars(cu);
+			if lb:
+				cl=m.problem.Constraint(rxn.flux_expression-lbv*var,lb=0);
+				m.add_cons_vars(cl);
 			rxns.append((rxn,var))
 	
 		m.objective=m.problem.Objective(expr, direction='min');
