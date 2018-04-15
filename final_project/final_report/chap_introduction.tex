@@ -1,67 +1,160 @@
 \section{Introduction}\label{sec:introduction}
 
-Traditional beer brewing is done in a batch process by fermenting glucose to alcohol using
-Saccharomyces cerevisiae. In a first step wort is produced by mixing water, malt and hop and
-applying different enzymatical processes. As in a batch process the densities of metabolites
-in the culture are not controlled the fermentation product and so the quality of the beer is
-highly dependent on the composition of the wort. To enhance the product quality the process
-of fermentation must be understood in detail and correlations between the starting conditions
-and fermentation results must be found. This is typically done in experiments which are very
-time and cost intensive. Especially high effort is needed to reproduce starting conditions and if
-different yeast mutants or contamination by other bacteria shall be tested. These experiments
-are very costly and are not affordable for smaller breweries. A simulation approach to test
-different starting conditions will reduce the amount of experiments and so the costs and will
-enable development of new production methods also for smaller companies.
+Alcohol fermentation in beer or wine production is a highly complex process as the quality
+of the product plays a major role in defining its price. On the other hand the process
+itself underlies strict laws which guarantee transparency for the customers\cite{biergesetz_1993}
+\cite{weingesetz_1994}. Additionally the growing organic food market calls for products
+with even more strict processing standards\cite{demeter_processing_standards_2017}.
+Compared to other sectors in the food industry where alcohol fermentation is applied all these
+constraints increases the effort dramatically of finding optimal ways of controlling product
+quality. As experimental development in laboratories is very costly and not affordable by smaller
+breweries, simulation methods are gaining popularity.
 
-As the formulation of sufficient models for (1) and (2)
-depends on the production process, so the applied yeast and wort, this project will concentrate
-on the development of a simulation framework to enable the simulation of the fermentation
-products dependent on the fermentation’s starting conditions.
+% You could add here some examples to show the variety of modelling approches in zomorrodi's paper
 
+A well established group of methods uses Genome-Scale Models (GEM) to model metabolic fluxes in bacteria \cite{zomorrodi_synthetic_2016}.
+GEMs are created by analysing the information in the genome of a bacteria about its enzymatical
+processes and extrapolating a network of metabolites and metabolite reactions which represents
+the internal fluxes of this bacteria. Based on this model possible flux distributions can be
+predicted using linear optimization methods, known as flux balance analysis (FBA)\cite{}.
 
-Zomorri et al. summarizes in \cite{zomorrodi_synthetic_2016} models to predict the behavior of bacteria cultures and introduces
-different categories. Three of them are especially
-interesting to be used in this project: \textit{steady-state models}, \textit{spatio-temporal models} and \textit{dynamic models}.
-\textit{Steady-state models} like compartmentalized community-level metabolic modeling can not be used
-since a common objective can not be generally assumed, as it would be in a purely competitive co-cultures
-\textit{Spatio-temporal models} have a very high computational effort as they take spacial and temporal varying bacteria densities
-into account. As the spacial aspect is not necessarily required in this project a more optimal approach shall be preferred.
-The remaining category of \textit{dynamic models} is a well established method to simulate microbial co-cultures in batch processes
-and summarizes different extensions to dynamic flux balance analyses methods (DFBA)\cite{zomorrodi_synthetic_2016}. They use genome-
-scale models (GEM) to simulate the behavior of the bacteria cultures and add differential equations to model the external system dynamics.
+In its basic form describes FBA the bahavior of only one bacteria in a constant environment.
+Zomorri et al. summarizes some approaches to extend FBA to multispecies simulations
+(\textit{steady-state models}) in time variant environments (\textit{dynamic models})
+and even considering spacial variations (\textit{spatio-temporal models})\cite{zomorrodi_synthetic_2016}.
 
-Mehadevan et al. introduces two basic categories of DFBA approaches: \textit{dynamic optimization approach} (DOA) and \textit{static
-optimization approach} (SOA)\cite{mahadevan_dynamic_2002}. In DOA a the linear programming problem (LP) which predicts the bacteria
-behavior is reformulized to a non-linear programming problem (NLP). This approach has a very high computational effort
-\cite{hoffner_reliable_2013} compared to SOA and has only been used for relatively small GEMs with up to 13 modeled fluxes and 8 metabolites
+The simulation of co-cultures using GEMs is still an emerging field. Every approach has
+its strengths and weaknesses and must be chosen dependent on the application.
+In \textit{Steady-state models} like compartmentalized community-level metabolic modeling a
+common objective function for all involved species must be formulated. This approach has 
+a relatively low computational effort but shows drawbacks in competitive co-cultures where
+a common objective can not easily be formulated.
+The spacial dimension of \textit{Spatio-temporal models} results in very high computational
+effort and it has to be evaluated if this enhances the accuracy of the estimated behavior
+in that case.
+
+The class of \textit{dynamic models} described by Zomorrodi et al. uses a system of ordinary
+differential equations (ODE)
+to extend the static simulation approach of FBA with external system dynamics like the exchange
+of metabolites and bacteria growth and is called dynamic flux balance analysis (DFBA)\cite{zomorrodi_synthetic_2016}.
+
+Mehadevan et al. describes two basic categories of DFBA approaches: \textit{dynamic optimization
+approach} (DOA) and \textit{static optimization approach} (SOA)\cite{mahadevan_dynamic_2002}.
+
+In DOA the linear programming (LP) problem to predict the behavior of the bacteria and the
+differential equations are reformulized to a non-linear programming problem (NLP). 
+This approach has a very high computational effort\cite{hoffner_reliable_2013} compared to SOA
+and has only been used for relatively small GEMs with up to 13 modeled fluxes and 8 metabolites
 \cite{luo_dynamic_2006} \cite{luo_photosynthetic_2009}.
 
-Mehadevan et al. introduces SOA in \cite{mahadevan_dynamic_2002} as follows: The simulation interval is divided into several intervals and the LP is solved for each
-of these time intervals dependent on the metabolite densities. The solution of the LP defines the bacteria growth and metabolite
-production at a certain point of time in the simulation time interval. These values are then used to solve the differential equations
-which models the external system dynamics. To solve the LP for the next time interval the new calculated, changed metabolite densities
-are used. This procedure is repeated until the end of the simulation time interval is reached. This approach makes use of the
-assumption that the cell internal dynamics are much faster than the external dynamics. In SOA the behavior of the bacteria is assumed
-to be constant during one time interval what leads to a linear approximation approach when solving the system of ordinary differential
-equations (ODE), similar to Euler-Cauchy methods.
+In SOA the simulation time is discretised by a defined time interval and a FBA is executed for
+each time point. The results are used to iteratively solve the discretised differential equations
+to update the environmental conditions at each time point. The described integration method in SOA
+is similar to Euler-Cauchy.
+In this approach it is assumed that the cell internal dynamics are much faster than the external dynamics.
 
-Höffner et al. adds in \cite{hoffner_reliable_2013} a further group, the \textit{direct approach} (DA) which basically describes methods
-similar to SOA which uses an ODE solver instead of the Euler-Cauchy method. Due to the used ODE solver different numerical approximation
-methods can be used, not only the linear approximation. A good documented example for this group is the \textit{Dynamic Multispecies
-Metabolic Modeling} framework by Zhuang et al. \cite{zhuang_design_2012}.
+Höffner et al. basically generalizes SOA to arbitrary integration methods for solving the system of ODEs
+by using a third-party solver and names it \textit{direct approach} (DA)\cite{hoffner_reliable_2013}.
 
-Henson et al. mentions a third group, \textit{reformulation to a differential-glgebraic equation system} \cite{henson_dynamic_2014}.
-It shows also many similarities to SOA with the difference that the LP is reformulized but still solved as a LP embedded within 
-the external ODE. The reformulated equation system makes it possible to enhance the efficiency of algorithm compared to SOA and DA
-\cite{hoffner_reliable_2013}.
+Henson et al. introduces a further method which shows similarities to SOA and DA but enhances the efficiency of the
+algorithm\cite{hoffner_reliable_2013} by reformulating the LP and ODE to a 
+differential-algebraic equation system\cite{henson_dynamic_2014}.
 
-The described DFBA methods in section \ref{ssec:considered_dfba_approaches} were rated based on the given information in the above mentioned
-papers, see table \ref{tab:rating_of_DFBA_methods}.
+The DA described by Höffner et al. has been successfully applied to simulate alcohol fermentation
+in a wine approximating setup \cite{sainz_modeling_2003} \cite{pizarro_coupling_2007} and to
+predict growth of bacteria in a co-culture \cite{hanly_dynamic_2011}. Zhuang et al. implemented
+the method in the \textit{Dynamic Multispecies Metabolic Modeling} (DMMM) framework
+which is publicly accessible and written for Matlab\cite{zhuang_design_2012}.
+The method developed by Henson et al. compared to DMMM has the potential to increase the accuracy
+by fixed calculation runtime but since the implementation of DMMM is publicly accessible and
+relatively simple to implement, this method shall be used in this work.
 
-DOA can not be used due to its high computational effort and medium-high implementation complexity. The approach which uses
-\textit{reformulation to a differential-glgebraic equation system} is currently available in matlab code and must be implemented
-in python in this project. Due to the high implementation complexity this approach will also be excluded.
-The remaining methods, SOA and DA, have similar ratings but as DA is more flexible as different ODE solvers can be used this approach
-seems more sustainable. Besides its flexibility the DA implementation DMMM by Zhuang et al. \cite{zhuang_design_2012} can be publicly
-accessed and they provide a good documentation which will facilitate the implementation in this project.
+
+
+% list a few papers where this approach was already successfully used
+
+% argument that it's also easy to implement (see DMMM)
+
+
+% of these time intervals dependent on the metabolite densities. The solution of the LP defines the bacteria growth and metabolite
+% production at a certain point of time in the simulation time interval. These values are then used to solve the differential equations
+% which models the external system dynamics. To solve the LP for the next time interval the new calculated, changed metabolite densities
+% are used. This procedure is repeated until the end of the simulation time interval is reached. This approach makes use of the
+% assumption that the cell internal dynamics are much faster than the external dynamics. In SOA the behavior of the bacteria is assumed
+% to be constant during one time interval what leads to a linear approximation approach when solving the system of ordinary differential
+% equations (ODE), similar to Euler-Cauchy methods.
+% 
+% Höffner et al. adds in \cite{hoffner_reliable_2013} a further group, the \textit{direct approach} (DA) which basically describes methods
+% similar to SOA which uses an ODE solver instead of the Euler-Cauchy method. Due to the used ODE solver different numerical approximation
+% methods can be used, not only the linear approximation. A good documented example for this group is the \textit{Dynamic Multispecies
+% Metabolic Modeling} framework by Zhuang et al. \cite{zhuang_design_2012}.
+% 
+% Henson et al. mentions a third group, \textit{reformulation to a differential-glgebraic equation system} \cite{henson_dynamic_2014}.
+% It shows also many similarities to SOA with the difference that the LP is reformulized but still solved as a LP embedded within 
+% the external ODE. The reformulated equation system makes it possible to enhance the efficiency of algorithm compared to SOA and DA
+% \cite{hoffner_reliable_2013}.
+
+% FBA describes the metablic flux within a bacteria in a constant environment. To predict the
+% behavior of the bacteria in a changing environment FBA was extended to dynamic flux balance
+% analyses (DFBA). 
+% 
+% 
+% 
+% Traditional beer brewing is done in a batch process by fermenting glucose to alcohol using
+% Saccharomyces cerevisiae. In a first step wort is produced by mixing water, malt and hop and
+% applying different enzymatical processes. As in a batch process the densities of metabolites
+% in the culture are not controlled the fermentation product and so the quality of the beer is
+% highly dependent on the composition of the wort. To enhance the product quality the process
+% of fermentation must be understood in detail and correlations between the starting conditions
+% and fermentation results must be found. This is typically done in experiments which are very
+% time and cost intensive. 
+% 
+% Especially high effort is needed to reproduce starting conditions and if
+% different yeast mutants or contamination by other bacteria shall be tested. These experiments
+% are very costly and are not affordable for smaller breweries. A simulation approach to test
+% different starting conditions will reduce the amount of experiments and so the costs and will
+% enable development of new production methods also for smaller companies.
+% 
+% As the formulation of sufficient models for (1) and (2)
+% depends on the production process, so the applied yeast and wort, this project will concentrate
+% on the development of a simulation framework to enable the simulation of the fermentation
+% products dependent on the fermentation’s starting conditions.
+% 
+% 
+% 
+% 
+% Mehadevan et al. introduces two basic categories of DFBA approaches: \textit{dynamic optimization approach} (DOA) and \textit{static
+% optimization approach} (SOA)\cite{mahadevan_dynamic_2002}. In DOA a the linear programming problem (LP) which predicts the bacteria
+% behavior is reformulized to a non-linear programming problem (NLP). This approach has a very high computational effort
+% \cite{hoffner_reliable_2013} compared to SOA and has only been used for relatively small GEMs with up to 13 modeled fluxes and 8 metabolites
+% \cite{luo_dynamic_2006} \cite{luo_photosynthetic_2009}.
+% 
+% Mehadevan et al. introduces SOA in \cite{mahadevan_dynamic_2002} as follows: The simulation interval is divided into several intervals and the LP is solved for each
+% of these time intervals dependent on the metabolite densities. The solution of the LP defines the bacteria growth and metabolite
+% production at a certain point of time in the simulation time interval. These values are then used to solve the differential equations
+% which models the external system dynamics. To solve the LP for the next time interval the new calculated, changed metabolite densities
+% are used. This procedure is repeated until the end of the simulation time interval is reached. This approach makes use of the
+% assumption that the cell internal dynamics are much faster than the external dynamics. In SOA the behavior of the bacteria is assumed
+% to be constant during one time interval what leads to a linear approximation approach when solving the system of ordinary differential
+% equations (ODE), similar to Euler-Cauchy methods.
+% 
+% Höffner et al. adds in \cite{hoffner_reliable_2013} a further group, the \textit{direct approach} (DA) which basically describes methods
+% similar to SOA which uses an ODE solver instead of the Euler-Cauchy method. Due to the used ODE solver different numerical approximation
+% methods can be used, not only the linear approximation. A good documented example for this group is the \textit{Dynamic Multispecies
+% Metabolic Modeling} framework by Zhuang et al. \cite{zhuang_design_2012}.
+% 
+% Henson et al. mentions a third group, \textit{reformulation to a differential-glgebraic equation system} \cite{henson_dynamic_2014}.
+% It shows also many similarities to SOA with the difference that the LP is reformulized but still solved as a LP embedded within 
+% the external ODE. The reformulated equation system makes it possible to enhance the efficiency of algorithm compared to SOA and DA
+% \cite{hoffner_reliable_2013}.
+% 
+% The described DFBA methods in section \ref{ssec:considered_dfba_approaches} were rated based on the given information in the above mentioned
+% papers, see table \ref{tab:rating_of_DFBA_methods}.
+% 
+% DOA can not be used due to its high computational effort and medium-high implementation complexity. The approach which uses
+% \textit{reformulation to a differential-glgebraic equation system} is currently available in matlab code and must be implemented
+% in python in this project. Due to the high implementation complexity this approach will also be excluded.
+% The remaining methods, SOA and DA, have similar ratings but as DA is more flexible as different ODE solvers can be used this approach
+% seems more sustainable. Besides its flexibility the DA implementation DMMM by Zhuang et al. \cite{zhuang_design_2012} can be publicly
+% accessed and they provide a good documentation which will facilitate the implementation in this project.
 
