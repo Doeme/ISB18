@@ -131,12 +131,24 @@ The simulation will consider two input metabolites: oxygen and glucose. Table \r
 \begin{tabular}{llllll}
 \rowcolor[HTML]{EFEFEF} 
 \cellcolor[HTML]{EFEFEF} Constant          & \cellcolor[HTML]{EFEFEF}S. cerevisiae & \cellcolor[HTML]{EFEFEF}L. plantarum\\
-Maximum glucose uptake rate (mmol/g/h)     & 18.5 & ? \\
-Maximum oxygen uptake rate (mmol/g/h)      & 2.5 & ? \\
-Glucose uptake saturation constant (g/l)   & 0.5 & ? \\
-Oxygen uptake saturation constant (mM)     & 0.005 & ? \\
+Maximum glucose uptake rate (mmol/g/h)     & 18.5 & 18.5 \\
+Maximum oxygen uptake rate (mmol/g/h)      & 2.5 & 2.5 \\
+Glucose uptake saturation constant (g/l)   & 0.5 & 0.5 \\
+Oxygen uptake saturation constant (mM)     & 0.005 & 0.005 \\
+Mortability (?)                            & ? & ? \\
 \end{tabular}
 \end{table}
+
+% E-Mail from Steinn about model constants of L. plantarum from 12.04.2018:
+% ----------------------------------------------------------------------------------------------
+% As a first approximation I would assume the same v_max and k_m for L. plantarum as in yeast.
+% 
+% The maximum glucose uptake rate can be assumed to be similar to yeast for the time being 
+% (for Lactobacillus reuteri it is approx. 21 mmol/gDW/h [gDW = grams dry weight]). L. plantarum 
+% is an anaerobe that can tolerate oxygen (and has some oxygen dependent metabolism as well) but
+% as a first approximation I would assume that oxygen plays a minor role, hence the oxygen
+% saturation constant may not be too important.
+% ----------------------------------------------------------------------------------------------
 
 \begin{table}[h]
 \centering
@@ -147,6 +159,8 @@ Oxygen uptake saturation constant (mM)     & 0.005 & ? \\
 \cellcolor[HTML]{EFEFEF} Parameter          & \cellcolor[HTML]{EFEFEF}value & \cellcolor[HTML]{EFEFEF}reference\\
 Initial glucose density (mmol/l) & 272.9 ... 1230.755 & equation \ref{eq:ready_to_use_plato_to_metabolite_density}, table \ref{tab:constants_used_in_this_document} \\
 Initial oxygen density (mmol/l)  & 0.5039 & equation \ref{eq:init_oxygen_density}, table \ref{tab:constants_used_in_this_document}\\
+Initial density of S. cerevisiae (mmol/l) & ? & - \\
+Initial density of L. plantarum (mmol/l) & ? & - \\
 \end{tabular}
 \end{table}
 
