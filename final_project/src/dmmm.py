@@ -37,7 +37,8 @@ class Organism:
 		self.adapt_boundaries(densities);
 		sol=self.model.optimize();
 		if sol.status!='optimal':
-			return (0,[0]);
+			print("Organism {} died".format(self.model.name))
+			return (-self.mortality,[0]);
 		#assert(sol.objective_value >= 0);
 
 		return (
@@ -121,6 +122,7 @@ class DMMM:
 		return (s[0:len(self.organisms)],s[len(self.organisms):]);
 	
 	def func(self, t, y):
+		neg=y<0;
 		self.buf[:]=[max(0,v) for v in y];
 		(populations,metabolites)=self.split_state(self.buf);
 		(growth,fluxes)=self.split_state(self.ret);
@@ -141,6 +143,7 @@ class DMMM:
 		#print(growth)
 		#print(self.medium.list_to_dict(fluxes));
 		#assert(False);
+		self.ret[neg]=[max(0,i) for i in self.ret[neg]];
 		return self.ret;
 
 	def get_ode(self):
