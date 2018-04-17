@@ -59,12 +59,13 @@ In each time step each bacteria's metabolite intake must be changed dependent on
 To model saturation of metabolite intake for high metabolite densities Zhuang et al. implemented Michaelis-Menten kinetics \cite{johnson2011original}
 
 \begin{equation} \label{eq:michaelis-menten}
- v_{max,i,j} = \frac{v_{mm,i,j} s_i}{s_i + k_{mm,i,j}}
+ v_{max,i,j} = \frac{v_{mm,i,j} s_i}{s_i + k_{mm,i,j}} \frac{1}{1 + \frac{s_a}{k_{a,i,j}}}
 \end{equation}
 
 This formula describes the upper bound of the input flux $v_{max,i,j}$ for metabolite i of bacteria j dependent on the metabolite density
 $s_i$. The formula is characterized by to constants $\left[ v_{mm,i,j} \right] = \frac{mmol}{g_{DW} h}$ and $\left[ k_{mm,i,j} \right] = \frac{mmol}{l}$
-for each bacteria and metabolite.
+for each bacteria and metabolite. $s_a$ is the metabolite density of metabolite a, $k_{a,i,j}$ is the inhibition constant of metabolite a and
+describes the inhibition of the intake of metabolite i by metabolite a at species j.
 
 Mortality is considered using a constant $\left[ \mu_{mort,j} \right] = \frac{mmol}{g_{DW} h}$ for each bacteria j in this implementation while Zhuang et al. modeled this
 using the output flux of bacteria out of the system.
@@ -78,6 +79,7 @@ The algorithm expects a list of bacteria models consisting of
  \item $\bm{v_{mm}}$ (Michaelis-Menten $V_{max}$) for each exchange metabolite and species
  \item $\bm{k_{mm}}$ (Michaelis-Menten K) for each exchange metabolite and species
  \item mortality $\mu_{mort}$
+ \item inhibition constants $k_a$
 \end{itemize}
 
 Furthermore a list of all exchange metabolites in the environment, the bacteria and metabolite densities.
@@ -146,8 +148,10 @@ The simulation will consider two input metabolites: oxygen and glucose. Table \r
 Maximum glucose uptake rate (mmol/g/h)     & 18.5 & 18.5 \\
 Maximum oxygen uptake rate (mmol/g/h)      & 2.5 & 2.5 \\
 Glucose uptake saturation constant (g/l)   & 0.5 & 0.5 \\
-Oxygen uptake saturation constant (mM)     & 0.005 & 0.005 \\
+Oxygen uptake saturation constant (mmol/l)     & 0.005 & 0.005 \\
 Mortability (?)                            & ? & ? \\
+Glucose uptake inhibition by ethanol constant (g/l)     & 10\cite{hjersted_genome-scale_2007} & - \\
+Glucose uptake inhibition by lactic acid constant (mol/mol ?)     & TBD & - \\
 \end{tabular}
 \end{table}
 
