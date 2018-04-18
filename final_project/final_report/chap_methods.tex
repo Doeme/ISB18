@@ -2,42 +2,81 @@
 
 \subsection{Genome-Scale Models}\label{ssec:genome_scale_models}
 
-\begin{itemize}
- \item How are they created?
- \begin{itemize}
-  \item genome or annotated genome are automatically translated to a GEM
-  \item tools: Pathway Tools \cite{karp2009pathway}, SEED \cite{henry2010high}
-  \item AUTOGRAPH \cite{notebaart2006accelerating} which reuses existing models
-  \item \cite{santos_practical_2011}
-  \item must be refined by hand
-  \item ``too many important organism-specific choices''
-  \item ``omissions, wrong assignments and gaps, and inconsistencies''
-  \item biomass function
-  \item input/output reactions
-  \item A reconstruction collects all the available
-biochemical, genetic, and genomic (BiGG) information that is available on a cellular
-process of interest, and then organizes it in a formal, mathematical fashion that is
-consistent with the corresponding fundamental chemical and genetic properties
-  \item \cite{palsson2015systems}
-  \item Networks are composed of compounds (nodes) and reactions (links)
-  \item Such mathematical
-representation is based on the stoichiometric coefficients that count the molecules that
-are consumed and produced by a biochemical reaction.
-  \item It is important to note that a map for a network can be drawn in many
-different ways, but the mathematical representation is unique.
-  \item Ultimately, a reconstruction can reach a genome-scale when all the known
-biochemical and genetic processes that are found on a genome are accounted for
-  \item they now include the details of both protein
-synthesis and structure, transcriptional regulation, and other processes
-  \item 
- \end{itemize}
+% \begin{itemize}
+%  \item How are they created?
+%  \begin{itemize}
+%   \item genome or annotated genome are automatically translated to a GEM
+%   \item tools: Pathway Tools \cite{karp2009pathway}, SEED \cite{henry2010high}
+%   \item AUTOGRAPH \cite{notebaart2006accelerating} which reuses existing models
+%   \item \cite{santos_practical_2011}
+%   \item must be refined by hand
+%   \item ``too many important organism-specific choices''
+%   \item ``omissions, wrong assignments and gaps, and inconsistencies''
+%   \item biomass function
+%   \item input/output reactions
+%   \item ``gene-to-protein-to-reaction (GPR) association that describes the genetic basis for a
+% metabolic reaction ''
+%   \item A reconstruction collects all the available
+% biochemical, genetic, and genomic (BiGG) information that is available on a cellular
+% process of interest, and then organizes it in a formal, mathematical fashion that is
+% consistent with the corresponding fundamental chemical and genetic properties
+%   \item \cite{palsson2015systems}
+%   \item Networks are composed of compounds (nodes) and reactions (links)
+%   \item Such mathematical
+% representation is based on the stoichiometric coefficients that count the molecules that
+% are consumed and produced by a biochemical reaction.
+%   \item It is important to note that a map for a network can be drawn in many
+% different ways, but the mathematical representation is unique.
+%   \item Ultimately, a reconstruction can reach a genome-scale when all the known
+% biochemical and genetic processes that are found on a genome are accounted for
+%   \item they now include the details of both protein
+% synthesis and structure, transcriptional regulation, and other processes
+%   \item A network reconstruc-
+% tion is the basis for a computational model for network states (i.e., phenotypic states)
+%  \end{itemize}
+% 
+%  \item What does they contain?
+%  \item What is missing?
+% \end{itemize}
 
- \item What does they contain?
- \item What is missing?
-\end{itemize}
+A genome-scale model (GEM) is an analytical reconstruction of ideally all cellular process of a cell.
+All available biochemical, genetic and genomic (BiGG) information of the processes are analyzed to
+identify gene-to-protein-to-reaction (GPR) associations and involved compounds. 
+Based on this data a network composed of compounds (nodes) and reactions (links) is created and added
+to the reconstruction.
+\cite{palsson2015systems}
 
+Tools like \textit{Pathway Tools}\cite{karp2009pathway},
+\textit{SEED}\cite{henry2010high} or \textit{AUTOGRAPH}\cite{notebaart2006accelerating} are used to
+generate a reconstruction based on a (annotated) genome. The produced models contain many
+wrong assignments, gaps and inconsistencies due to many organism-specific choices and must be refined by hand.
+A biomass function to model growth and input/output reactions are added to
+the network\cite{santos_practical_2011}.
+
+The reconstruction is the basis for mathematical models and further analysis.
+One important mathematical representation is the stoichiometric matrix. It uniquely represents the metabolic
+network of the cell, based on the stoichiometric constants of its reactions\cite{palsson2015systems}.
+
+
+\begin{figure}[!h]
+\centering
+\includegraphics[width=\linewidth]{figures/Selection_011.pdf}
+\caption{(create simplified version here, combine with figure \ref{fig:reconstruction_GPR_example})}
+\label{fig:reconstruction_to_matrix_example}
+\end{figure}
+
+\begin{figure}[!h]
+\centering
+\includegraphics[width=\linewidth]{figures/Selection_013.pdf}
+\caption{(create simplified version here, combine with figure \ref{fig:reconstruction_to_matrix_example})}
+\label{fig:reconstruction_GPR_example}
+\end{figure}
 
 \subsection{Flux Balance Analysis}\label{ssec:flux_balance_analysis}
+
+\cite{orth_what_2010}
+
+
 
 \subsection{Simulation Algorithm}
 
