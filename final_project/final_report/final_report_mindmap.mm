@@ -56,6 +56,17 @@
 </node>
 <node CREATED="1523624177568" ID="ID_355010992" MODIFIED="1523624935586" TEXT="Give an overview over interesting implementations"/>
 <node CREATED="1523625343149" ID="ID_1939763195" MODIFIED="1523625396225" TEXT="discussion: which implementation fits best to this problem"/>
+<node CREATED="1524086095579" ID="ID_938826098" MODIFIED="1524086097444" TEXT="DMMM">
+<node CREATED="1524086103741" ID="ID_231794393" MODIFIED="1524086119542" TEXT="reference to Matlab COBRA">
+<node CREATED="1524086121457" ID="ID_1220127800" MODIFIED="1524086128093" TEXT="\cite{heirendt_creation_nodate}"/>
+</node>
+<node CREATED="1524086132137" ID="ID_1616136380" MODIFIED="1524086142715" TEXT="reference to python COBRA">
+<node CREATED="1524086283459" ID="ID_1256187953" MODIFIED="1524086289098" TEXT="\cite{ebrahim_cobrapy:_2013}"/>
+</node>
+<node CREATED="1524086143196" ID="ID_141151779" MODIFIED="1524086146783" TEXT="reference to DMMM">
+<node CREATED="1524086443057" MODIFIED="1524086443057" TEXT="\cite{zhuang_design_2012}"/>
+</node>
+</node>
 <node CREATED="1523621602700" ID="ID_1025772164" MODIFIED="1523625872814" TEXT="Which results does it produce?"/>
 <node CREATED="1523621607137" ID="ID_157481879" MODIFIED="1523621786122" TEXT="How does it do that?"/>
 </node>
@@ -114,6 +125,11 @@
 </node>
 <node CREATED="1523818664655" ID="ID_1487980582" MODIFIED="1523818717839" TEXT="considering inhibition">
 <node CREATED="1523622175744" ID="ID_1781024777" MODIFIED="1523820068743" TEXT="\cite{pizarro_coupling_2007}"/>
+</node>
+</node>
+<node CREATED="1524133055739" ID="ID_1232865393" MODIFIED="1524133303459" TEXT="&quot;bi-level optimization procedure&quot; \cite{vargas_expanding_2011}">
+<node CREATED="1524133030104" ID="ID_1945414159" MODIFIED="1524133069402" TEXT="&quot;To reduce the impact of multiple optimal solutions that normally appear in FBA [57], for metabolic engineering approaches we carried out a bi-level optimization procedure [29],  solving first the LP for maximum biomass, and then fixing the biomass  at this maximum value and solving the LP again to optimize a second  objective (i.e. maximizing/minimizing ethanol).&quot;">
+<node CREATED="1524133073563" ID="ID_1446970991" MODIFIED="1524133106896" TEXT="[29]: \cite{hjersted_genome-scale_2007}"/>
 </node>
 </node>
 </node>

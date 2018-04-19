@@ -53,10 +53,10 @@ wrong assignments, gaps and inconsistencies due to many organism-specific choice
 A biomass function to model growth and input/output reactions are added to
 the network\cite{santos_practical_2011}.
 
-The reconstruction is the basis for mathematical models and further analysis.
-One important mathematical representation is the stoichiometric matrix. It uniquely represents the metabolic
+The reconstruction is the basis to create geno- and phenotypes of a cell and to transform it into
+mathematical models for further analysis.
+An important mathematical representation is the stoichiometric matrix. It uniquely represents the metabolic
 network of the cell, based on the stoichiometric constants of its reactions\cite{palsson2015systems}.
-
 
 \begin{figure}[!h]
 \centering
@@ -74,7 +74,116 @@ network of the cell, based on the stoichiometric constants of its reactions\cite
 
 \subsection{Flux Balance Analysis}\label{ssec:flux_balance_analysis}
 
-\cite{orth_what_2010}
+Flux Balance Analysis (FBA) is a mathematical tool which analysis possible flux
+distributions through the metabolic network based on the stochiometric matrix of 
+a GEM.
+
+The system of linear equations built by the stoichiometric matrix $S$ of a GEM is
+usually underdetermined. To choose one flux distribution from the solution space
+spanned by $S$, it is assumed the organism adapted its metabolic fluxes to a certain
+environment and is now in a steady state where the fluxes are optimal distributed
+recording to some goal. In FBA this flux distribution is chosen by solving a
+optimization problem as in equation \ref{eq:fba_optimization_formula} using linear
+programming (LP) \cite{orth_what_2010}.
+
+\begin{equation}\label{eq:fba_optimization_formula}
+\begin{aligned}
+& \underset{\bm{v}}{\text{max}}
+& & \mu = \bm{w}^T \bm{v} \\
+& \text{s.t.}
+& & S\bm{v} = \bm{0}, \\
+&&& \bm{v_{min}} \leq \bm{v} \leq \bm{v_{max}}
+\end{aligned}
+\end{equation}
+
+The fluxes in the metabolic network $\bm{v}$ are optimized so that $\mu$ is maximized
+where $\bm{w}$ is a weighting vector which defines the adaption goal of the cell.
+A often used goal is to maximize the growth of the organism.
+The optimization is done using mostly two constraints, (1) the stoichiometric constants $S$
+for each reaction which is defined by the used GEM and (2) lower and upper bounds for 
+each flux, $\bm{v_{min}}$ and $\bm{v_{max}}$, in the metabolic network but further 
+constraints can be added as well.
+
+The lower and upper bounds can be used to simulate gene know-outs by setting the upper
+bound of reactions dependent on this gene to zero or to define environmental conditions
+like the availability of certain metabolites.
+
+The chosen solution by the LP solver represents a phenotype of the given organism
+due to adaption to its environment but FBA has its limitations. Usually GEMs does
+not model regulatory structures as activation of enzymes or regulation of gene
+expressions. As the GEM does not contain kinetic parameters of the involved compounds, 
+their densities can not be considered and must be modeled externally \cite{orth_what_2010}.
+
+% \begin{itemize}
+%   \item Sort introduction
+%   \begin{itemize}
+%     \item tool to study biochemical networks
+%     \item ``calculates the flow of metabolites through
+% this metabolic network''
+%   \end{itemize}
+%   \item What is the basic problem?
+%   \begin{itemize}
+%    \item stochiometric matrix can not be solved uniquely
+%   \end{itemize}
+%   \item How does FBA work?
+%   \begin{itemize}
+%     \item ``Mathematically, an
+% ‘objective function’ is used to quantitatively
+% define how much each reaction contributes
+% to the phenotype.''
+%     \item ``define a system of linear
+% equations``
+%     \item ''In flux balance analysis, these
+% equations are solved using linear program-
+% ming``
+%     \item ``Every reaction can also be given
+% upper and lower bounds''
+%     \item ``These balances and bounds
+% define the space of allowable flux distribu-
+% tions of a system''
+%     \item  ``To change the environmental
+% conditions (such as substrate availabil-
+% ity), we change the bounds on exchange
+% reactions (that is, reactions representing
+% metabolites flowing into and out of the sys-
+% tem)``
+%     \item ''Nonzero lower bounds can also
+% force a minimal flux through artificial reac-
+% tions [...] to sim-
+% ulate energy demands not associated with
+% growth``
+%     \item ''Constraints can even be used to
+% simulate gene knockouts by limiting reac-
+% tions to zero flux''
+%    \item ``Constraints are represented in two ways,
+% as equations that balance reaction inputs
+% and outputs and as inequalities that impose
+% bounds on the system. ''
+%    \item ``These stoichiometries impose
+% constraints on the flow of metabolites through
+% the network.''
+%     \item steady state
+%     
+%   \end{itemize}
+%   \item interpretation
+%   \begin{itemize}
+%     \item FBA results can be seen as phenotypes
+%     \item ``FBA is an important tool for harnessing the
+% knowledge encoded in these models''
+%   \end{itemize}
+%   \item ``FBA has limitations''
+%   \begin{itemize}
+%    \item ``does not use kinetic parameters, it cannot
+% predict metabolite concentrations''
+%     \item ``only suitable for determining fluxes at steady
+% state''
+%     \item `` FBA
+% does not account for regulatory effects such
+% as activation of enzymes by protein kinases
+% or regulation of gene expression''
+%   \end{itemize}
+% 
+% \end{itemize}
 
 
 
