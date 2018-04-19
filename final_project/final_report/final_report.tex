@@ -429,8 +429,14 @@
 \usepackage{mathtools}
 \usepackage{bm}
 \usepackage{textcomp}
+\let\v\bm
+\def\mat#1{\bm{#1}}
+\def\mul{\cdot}
+
+\usepackage{siunitx}
 
 \usepackage[linesnumbered,ruled]{algorithm2e}
+\newcommand{\KwAssign}{\ensuremath{\leftarrow}}
 
 \usepackage{url}
 

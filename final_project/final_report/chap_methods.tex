@@ -222,9 +222,9 @@ bacteria densities in the shared environment. The results of the FBAs are used b
 \end{equation}
 
 which models the dynamics of the bacteria's environment \cite{zhuang_design_2012} where $i = 1...N$ is the index of metabolites in the shared environment and $j = 1...M$ is the index of bacteria.
-The bacteria density is modeled in $x_j$ with $\left[ x_j \right] = \frac{g}{l}$ and $\mu_j$ is the bacteria's growth rate with $\left[ \mu_j \right] = \frac{mmol}{g_{DW} h}$.
-Input and output fluxes of the bacteria's models are modeled in $v_{i,j}$ with $\left[ v_{i,j} \right] = \frac{mmol}{g_{DW} h}$,
-the densities of metabolites in the shared environment in $s_i$ with $\left[ s_i \right] = \frac{mmol}{l}$.
+The bacteria density is modeled in $x_j$ with $\left[ x_j \right] = \si{\gram}$ and $\mu_j$ is the bacteria's growth rate with $[\mu_j] = \si{\gram\per\gram_{DW}\per\hour}$.
+Input and output fluxes of the bacteria's models are modeled in $v_{i,j}$ with $\left[ v_{i,j} \right] = \si{\milli\mole\per\gram_{DW}\per\hour}$,
+the densities of metabolites in the shared environment in $s_i$ with $\left[ s_i \right] = \si{\milli\mole\per\liter}$.
 
 In each time step each bacteria's metabolite intake must be changed dependent on the densities of the metabolites in the shared environment.
 To model saturation of metabolite intake for high metabolite densities Zhuang et al. implemented Michaelis-Menten kinetics \cite{johnson2011original}
@@ -234,11 +234,11 @@ To model saturation of metabolite intake for high metabolite densities Zhuang et
 \end{equation}
 
 This formula describes the upper bound of the input flux $v_{max,i,j}$ for metabolite i of bacteria j dependent on the metabolite density
-$s_i$. The formula is characterized by to constants $\left[ v_{mm,i,j} \right] = \frac{mmol}{g_{DW} h}$ and $\left[ k_{mm,i,j} \right] = \frac{mmol}{l}$
+$s_i$. The formula is characterized by to constants $\left[ v_{mm,i,j} \right] = \si{\milli\mole\per\gram_{DW}\per\hour}$ and $\left[ k_{mm,i,j} \right] = \si{\milli\mole\per\liter}$
 for each bacteria and metabolite. $s_a$ is the metabolite density of metabolite a, $k_{a,i,j}$ is the inhibition constant of metabolite a and
 describes the inhibition of the intake of metabolite i by metabolite a at species j.
 
-Mortality is considered using a constant $\left[ \mu_{mort,j} \right] = \frac{mmol}{g_{DW} h}$ for each bacteria j in this implementation while Zhuang et al. modeled this
+Mortality is considered using a constant $\left[ \mu_{mort,j} \right] = \si{\milli\mole\per\gram_{DW}\per\hour}$ for each bacteria j in this implementation while Zhuang et al. modeled this
 using the output flux of bacteria out of the system.
 
 Algorithm \ref{alg:differential_equation_with_embedded_fba} shows a basic implementation of the differential equations solved by an ODE
@@ -257,29 +257,44 @@ Furthermore a list of all exchange metabolites in the environment, the bacteria 
 
 
 \begin{algorithm}
-    \SetKwInOut{Input}{Input}
-    \SetKwInOut{Output}{Output}
+    %\SetKwInOut{Input}{Input}
+    %\SetKwInOut{Output}{Output}
 
-    \underline{function step}$(model_1...model_M, m_1...m_N, x_1...M, s_1...s_N)$\;
-    \Input{bacteria models $model_j$, exchange metabolites $m_i$ in environment, bacteria densities $x_j$, metabolite densities $s_i$}
-    \Output{slope of bacteria and metabolite densities $\dot{x}_j, \dot{s}_i$}
-    \For{$j := 1$ \KwTo M}{
-      \For{$i := 1$ \KwTo M}{
-%	$\bm{v_{max,j}}[m] := michaelis\_menten(\bm{vmm_{j}}[m], \bm{kmm_{j}}[m], s[m])$
-	$model_j := update\_intake\_bounds(model_j, s_j, m_i)$
-      }
+%    \underline{derivative}$(model_1...model_M, m_1...m_N, x_1...M, s_1...s_N)$\;
+	\def\model{\ensuremath{\mathrm{model}}}
+    \KwIn{bacteria populations $x_j$, metabolite counts $S_i$}
+    \KwOut{slope of bacteria and metabolite densities $\dot{x}_j, \dot{s}_i$}
+    \KwData{bacteria models $\model_j$, Michaelis-Menten constants of model $M$ $\v{k}_{M}$, inhibition matrices of model $M$  $\mat{I}_{M}$, Total volume $V$}
+    \def\lb{\mathrm{lb}}
+    
+    $s_i \KwAssign \frac{S_i}{V}$\;
+    
+    $S_{<0} \KwAssign \{m | S_m < 0\}$\;
+    $x_{<0} \KwAssign \{j | x_j < 0\}$\;
+
+    
+	$\v s(S_{<0}) = 0$\;
+	$\v x(S_{<0}) = 0$\;
+	
+	\ForEach{model $M$ in models}{
+		\ForEach{metabolite $m$ in exchanges of $M$}{
+			$\displaystyle \lb_{M,m} = \lb_{M,m,ini} \; \frac{s_m}{k_{M,m}+s_m} \; \prod_{m'} \cfrac{1}{1+\cfrac{s_{m'}}{\mat{I}_{M,m,m'}}}$\;
+		}
+	}
+	
+	$\dot{\v x} \KwAssign [0,\dotsc,0]$\;
+	$\dot{\v S} \KwAssign [0,\dotsc,0]$\;
+	
+    \ForEach{Model $M$ in models}{
+      $\mu, \bm{v}$ \KwAssign FBA($M$)\;
+      $\dot{x}_M = \mu \mul x_M$\;
+      $\dot{\v S} = \dot{\v S} + \v v \mul x_M$\;
     }
-    \For{$j := 1$ \KwTo M}{
-      $\mu_j, \bm{v_j} := FBA(model_j, \bm{w_{growth}})$
-    }
-    $\bm{\mu} := \bm{\mu} - \bm{\mu_{mort}}$\\
-    $\dot{\bm{x}} := diag(\bm{\mu}) \, \bm{x}$\\
-    \For{$j := 1$ \KwTo M}{
-      \For{$i := 1$ \KwTo N}{
-        $\bm{\dot{s}}[m_i] := \bm{\dot{s}}[m_i] + \bm{v_j}[m_i] x_j$
-      }
-    }
-    return $\dot{\bm{x}}$, $\dot{\bm{s}}$
+    
+	$\dot{\v S}(S_{<0}) = \max\{0,\dot{\v S}(S_{<0})\}$\;    
+	$\dot{\v x}(x_{<0}) = \max\{0,\dot{\v x}(x_{<0})\}$\;    
+    
+    \Return{$[\dot{\v x},\dot{\v S}]$}
     \caption{Differential equation with embedded FBA}
     \label{alg:differential_equation_with_embedded_fba}
 \end{algorithm}
