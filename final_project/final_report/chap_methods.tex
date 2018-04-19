@@ -148,29 +148,44 @@ Furthermore a list of all exchange metabolites in the environment, the bacteria 
 
 
 \begin{algorithm}
-    \SetKwInOut{Input}{Input}
-    \SetKwInOut{Output}{Output}
+    %\SetKwInOut{Input}{Input}
+    %\SetKwInOut{Output}{Output}
 
-    \underline{function step}$(model_1...model_M, m_1...m_N, x_1...M, s_1...s_N)$\;
-    \Input{bacteria models $model_j$, exchange metabolites $m_i$ in environment, bacteria densities $x_j$, metabolite densities $s_i$}
-    \Output{slope of bacteria and metabolite densities $\dot{x}_j, \dot{s}_i$}
-    \For{$j := 1$ \KwTo M}{
-      \For{$i := 1$ \KwTo M}{
-%	$\bm{v_{max,j}}[m] := michaelis\_menten(\bm{vmm_{j}}[m], \bm{kmm_{j}}[m], s[m])$
-	$model_j := update\_intake\_bounds(model_j, s_j, m_i)$
-      }
+%    \underline{derivative}$(model_1...model_M, m_1...m_N, x_1...M, s_1...s_N)$\;
+	\def\model{\ensuremath{\mathrm{model}}}
+    \KwIn{bacteria populations $x_j$, metabolite counts $S_i$}
+    \KwOut{slope of bacteria and metabolite densities $\dot{x}_j, \dot{s}_i$}
+    \KwData{bacteria models $\model_j$, Michaelis-Menten constants of model $M$ $\v{k}_{M}$, inhibition matrices of model $M$  $\mat{I}_{M}$}
+    \def\lb{\mathrm{lb}}
+    
+    $s_i \KwAssign \frac{S_i}{V}$\;
+    
+    $S_{<0} \KwAssign \{m | S_m < 0\}$\;
+    $x_{<0} \KwAssign \{j | x_j < 0\}$\;
+
+    
+	$\v s(S_{<0}) = 0$\;
+	$\v x(S_{<0}) = 0$\;
+	
+	\ForEach{model $M$ in models}{
+		\ForEach{metabolite $m$ in exchanges of $M$}{
+			$\displaystyle \lb_{M,m} = \lb_{M,m,ini} \; \frac{s_m}{k_{M,m}+s_m} \; \prod_{m'} \cfrac{1}{1+\cfrac{s_{m'}}{\mat{I}_{M,m,m'}}}$\;
+		}
+	}
+	
+	$\dot{\v x} \KwAssign [0,\dotsc,0]$\;
+	$\dot{\v S} \KwAssign [0,\dotsc,0]$\;
+	
+    \ForEach{Model $M$ in models}{
+      $\mu, \bm{v}$ \KwAssign FBA($M$)\;
+      $\dot{x}_M = \mu \mul x_M$\;
+      $\dot{\v S} = \dot{\v S} + \v v \mul x_M$\;
     }
-    \For{$j := 1$ \KwTo M}{
-      $\mu_j, \bm{v_j} := FBA(model_j, \bm{w_{growth}})$
-    }
-    $\bm{\mu} := \bm{\mu} - \bm{\mu_{mort}}$\\
-    $\dot{\bm{x}} := diag(\bm{\mu}) \, \bm{x}$\\
-    \For{$j := 1$ \KwTo M}{
-      \For{$i := 1$ \KwTo N}{
-        $\bm{\dot{s}}[m_i] := \bm{\dot{s}}[m_i] + \bm{v_j}[m_i] x_j$
-      }
-    }
-    return $\dot{\bm{x}}$, $\dot{\bm{s}}$
+    
+	$\dot{\v S}(S_{<0}) = \max\{0,\dot{\v S}(S_{<0})\}$\;    
+	$\dot{\v x}(x_{<0}) = \max\{0,\dot{\v x}(x_{<0})\}$\;    
+    
+    \Return{$[\dot{\v x},\dot{\v S}]$}
     \caption{Differential equation with embedded FBA}
     \label{alg:differential_equation_with_embedded_fba}
 \end{algorithm}
