@@ -1,22 +1,45 @@
 \section{Introduction}\label{sec:introduction}
 
-Alcohol fermentation in beer or wine production is a highly complex process as the quality
-of the product plays a major role in defining its price. On the other hand the process
-itself underlies strict laws which guarantee transparency for the customers\cite{biergesetz_1993}
+% "The lactic acid bacteria and wild yeasts are the main contaminants, affecting yeasts’ performance"
+% "affect the performance and preservation of yeast's fermentation parameters, which may influence process parameters and yield"
+% "competition between yeasts and microbial contaminants"
+% "Lactobacillus bacteria are important in inducing yeast flocculation"
+% "flocculation, reduction of yeast cells viability and decrease in process yield"
+% "Yeast flocculation can decrease fermentation rate"
+% " reduction in process yield can reach 20–30%"
+% " necessity to use acids, antibiotics and antifoam agents [32,33]. This in turn culminate with the increase in production costs and changes in quality of the final product"
+
+Alcoholic fermentation is applied in industrial scale in different markets like food industry
+e.g. for wine, beer or whisky production but also other market segments like bio fuel production.
+Reducing production costs while increasing the process efficiency and product quality
+is a major goal in industry. In the fermentation process contamination from tanks, pipes,
+centrifuges, heat exchangers or ingredients can have a great impact on process parameters
+and must be controlled. Contamination can lead to a loss in process productivity of up to
+30\%. The main contaminants are lactic acid bacteria and wild yeasts, lowering the performance
+of the applied yeast. Lactobacillus bacteria contribute to induce yeast flocculation what in turn
+reduces the viability of the cells, the fermentation rate and finally the process yield. Competition
+between yeasts and microbial contaminants affects the process additionally
+\cite{brexo_impact_2017}\cite{narendranath_effects_1997}.
+
+In beer, wine or whisky production additional product quality aspects like color, viscosity
+and flavor plays a big role and has a great influence on its price. On the other hand the process
+itself underlies strict laws to guarantee transparency for the customers\cite{biergesetz_1993}
 \cite{weingesetz_1994}. Additionally the growing organic food market calls for products
 with even more strict processing standards\cite{demeter_processing_standards_2017}.
-Compared to other sectors in the food industry where alcohol fermentation is applied all these
-constraints increases the effort dramatically of finding optimal ways of controlling product
-quality. As experimental development in laboratories is very costly and not affordable by smaller
-breweries, simulation methods are gaining popularity.
+
+Chemicals like acids, antibiotics and antifoam agents as they are used in other industries
+can not be applied here. These constraints increases the effort of finding optimal ways for
+controlling product quality dramatically. As experimental development in laboratories is very
+costly and not affordable by smaller breweries, simulation methods are gaining popularity.
 
 % You could add here some examples to show the variety of modelling approches in zomorrodi's paper
 
-A well established group of methods uses Genome-Scale Models (GEM) to model metabolic fluxes in bacteria \cite{zomorrodi_synthetic_2016}.
+A well established group of methods uses Genome-Scale Models (GEM) to model metabolic fluxes in 
+bacteria \cite{zomorrodi_synthetic_2016}.
 GEMs are created by analysing the information in the genome of a bacteria about its enzymatical
 processes and extrapolating a network of metabolites and metabolite reactions which represents
 the internal fluxes of this bacteria. Based on this model possible flux distributions can be
-predicted using linear optimization methods, known as flux balance analysis (FBA)\cite{}.
+predicted using linear optimization methods, known as flux balance analysis (FBA)\cite{orth_what_2010}.
 
 In its basic form describes FBA the bahavior of only one bacteria in a constant environment.
 Zomorri et al. summarizes some approaches to extend FBA to multispecies simulations
@@ -62,13 +85,24 @@ differential-algebraic equation system\cite{henson_dynamic_2014}.
 
 The DA described by Höffner et al. has been successfully applied to simulate alcohol fermentation
 in a wine approximating setup \cite{sainz_modeling_2003} \cite{pizarro_coupling_2007} and to
-predict growth of bacteria in a co-culture \cite{hanly_dynamic_2011}. Zhuang et al. implemented
+predict growth of Escherichia coli and Saccharomyces cerevisiae bacteria in a co-culture
+\cite{hanly_dynamic_2011}. Zhuang et al. implemented
 the method in the \textit{Dynamic Multispecies Metabolic Modeling} (DMMM) framework
-which is publicly accessible and written for Matlab\cite{zhuang_design_2012}.
+which is publicly accessible and written for Matlab\cite{zhuang_design_2012}. It uses the Matlab
+toolbox \textit{COBRA}\cite{heirendt_creation_nodate} to implement FBA.
 The method developed by Henson et al. compared to DMMM has the potential to increase the accuracy
 by fixed calculation runtime but since the implementation of DMMM is publicly accessible and
-relatively simple to implement, this method shall be used in this work.
+relatively simple to implement, this method is used in the simulator in this work.
 
+The next chapter will give a overview over the applied models and algorithms followed by the
+description of a simulation setup including Saccharomyces cerevisiae and Lactobacillus plantarum
+which shall be serve as a use-case. As a first step Sacharomyces cerevisiae is simulated with
+different densities of lactic acid to tune the inhibition of the yeast model by the acid. In a
+second step S. cerevisiae and L. plantarum are simulated in a co-culture.
+The results are compared to the outcomes of \textit{in vivo} experiments and discussed in chapter \ref{sec:results}.
+Chapter \ref{sec:conclusions} gives an outlook on further improvements of the implementation.
+
+ 
 
 
 % list a few papers where this approach was already successfully used

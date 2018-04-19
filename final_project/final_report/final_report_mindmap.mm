@@ -16,6 +16,16 @@
 <node CREATED="1523898514519" ID="ID_942061565" MODIFIED="1523898517171" TEXT="&quot; When up to 109 CFU of bacteria/ml was present in mash, approximately 3.8 to 7.6% reductions in ethanol concentration occurred depending on the strain.&quot;"/>
 <node CREATED="1523902833022" ID="ID_1519971337" MODIFIED="1523902836633" TEXT="&quot;In large plants with outputs of 400 million to 1,100 million liters of ethanol per year, such a decrease would reduce income by $1 million to 3 million annually&quot;"/>
 </node>
+<node CREATED="1524149335291" ID="ID_966018231" MODIFIED="1524149468767" TEXT="\cite{brexo_impact_2017}">
+<node CREATED="1524149337820" ID="ID_625961681" MODIFIED="1524149341203" TEXT="&quot;The lactic acid bacteria and wild yeasts are the main contaminants, affecting yeasts&#x2019; performance&quot;"/>
+<node CREATED="1524149651198" ID="ID_599251417" MODIFIED="1524149654362" TEXT="&quot;affect the performance and preservation of yeast&apos;s fermentation parameters, which may influence process parameters and yield&quot;"/>
+<node CREATED="1524149546697" ID="ID_1176345483" MODIFIED="1524149549569" TEXT="&quot;competition between yeasts and microbial contaminants&quot;"/>
+<node CREATED="1524149893204" ID="ID_941707305" MODIFIED="1524149895444" TEXT="&quot;Lactobacillus bacteria are important in inducing yeast flocculation&quot;"/>
+<node CREATED="1524149501694" ID="ID_986007463" MODIFIED="1524149504010" TEXT="&quot;flocculation, reduction of yeast cells viability and decrease in process yield&quot;"/>
+<node CREATED="1524149845185" ID="ID_931190233" MODIFIED="1524149848642" TEXT="&quot;Yeast flocculation can decrease fermentation rate&quot;"/>
+<node CREATED="1524149516874" ID="ID_822952460" MODIFIED="1524149519326" TEXT="&quot; reduction in process yield can reach 20&#x2013;30%&quot;"/>
+<node CREATED="1524149592257" ID="ID_216510713" MODIFIED="1524149594799" TEXT="&quot; necessity to use acids, antibiotics and antifoam agents [32,33]. This in turn culminate with the increase in production costs and changes in quality of the final product&quot;"/>
+</node>
 <node CREATED="1523901848986" ID="ID_148143504" MODIFIED="1523901855587" TEXT="\cite{makanjuola_effects_1992}">
 <node CREATED="1523901858913" ID="ID_1081118688" MODIFIED="1523901977336" TEXT="industrial ethanol production must be very efficient as the proifit margin is not very high"/>
 <node CREATED="1523901978089" ID="ID_1020959297" MODIFIED="1523901998635" TEXT="decrease of ethanol production leads to lower profit"/>
@@ -61,7 +71,7 @@
 <node CREATED="1524086121457" ID="ID_1220127800" MODIFIED="1524086128093" TEXT="\cite{heirendt_creation_nodate}"/>
 </node>
 <node CREATED="1524086132137" ID="ID_1616136380" MODIFIED="1524086142715" TEXT="reference to python COBRA">
-<node CREATED="1524086283459" ID="ID_1256187953" MODIFIED="1524086289098" TEXT="\cite{ebrahim_cobrapy:_2013}"/>
+<node CREATED="1524086283459" ID="ID_1256187953" MODIFIED="1524154885665" TEXT="\cite{ebrahim_cobrapy_2013}"/>
 </node>
 <node CREATED="1524086143196" ID="ID_141151779" MODIFIED="1524086146783" TEXT="reference to DMMM">
 <node CREATED="1524086443057" MODIFIED="1524086443057" TEXT="\cite{zhuang_design_2012}"/>
