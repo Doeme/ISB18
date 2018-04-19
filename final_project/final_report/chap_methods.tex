@@ -210,19 +210,19 @@ Algorithm &  &  \\
 \end{tabular}
 \end{table}
 
-As described by Zhuang et al. in \cite{zhuang_genome-scale_2011} the algorithm uses a ODE solver with embedded FBA. A FBA is solved
+As described by Zhuang et al. in \cite{zhuang_genome-scale_2011} the algorithm uses an ODE solver with embedded FBA. An FBA is solved
 for each GEM in the model and for each time step in the discretised simulation time interval considering the changed metabolite and
 bacteria densities in the shared environment. The results of the FBAs are used by the ODE solver to solve the differential equations
 
 \begin{equation} \label{eq:diff_eq_x}
- \frac{\mathrm d x_j}{\mathrm d t} = \mu_j x_j
+ \frac{\dd x_j}{\dd t} = \mu_j x_j
 \end{equation}
 \begin{equation} \label{eq:diff_eq_s}
- \frac{\mathrm d s_i}{\mathrm d t} = \displaystyle\sum_{j=1}^{N} v_{i,j} x_j
+ \frac{\dd s_i}{\dd t} = \displaystyle\sum_{j=1}^{N} v_{i,j} x_j
 \end{equation}
 
-which models the dynamics of the bacteria's environment \cite{zhuang_design_2012} where $i = 1...N$ is the index of metabolites in the shared environment and $j = 1...M$ is the index of bacteria.
-The bacteria density is modeled in $x_j$ with $\left[ x_j \right] = \si{\gram}$ and $\mu_j$ is the bacteria's growth rate with $[\mu_j] = \si{\gram\per\gram_{DW}\per\hour}$.
+which models the dynamics of the bacteria's environment \cite{zhuang_design_2012} where $i = 1,\dotsc,N$ is the index of metabolites in the shared environment and $j = 1,\dotsc,M$ is the index of bacteria.
+The bacteria density is modeled in $x_j$ with $\left[ x_j \right] = \si{\gram}$ and $\mu_j$ is the bacteria's growth rate with $[\mu_j] = \si{\gram\per\gram_{DW}\per\hour}$\footnote{$\si{\gram_{DW}}$ stands for grams dry weight, i.e. grams of bacteria after all water has evaporated}.
 Input and output fluxes of the bacteria's models are modeled in $v_{i,j}$ with $\left[ v_{i,j} \right] = \si{\milli\mole\per\gram_{DW}\per\hour}$,
 the densities of metabolites in the shared environment in $s_i$ with $\left[ s_i \right] = \si{\milli\mole\per\liter}$.
 
@@ -230,15 +230,15 @@ In each time step each bacteria's metabolite intake must be changed dependent on
 To model saturation of metabolite intake for high metabolite densities Zhuang et al. implemented Michaelis-Menten kinetics \cite{johnson2011original}
 
 \begin{equation} \label{eq:michaelis-menten}
- v_{max,i,j} = \frac{v_{mm,i,j} s_i}{s_i + k_{mm,i,j}} \frac{1}{1 + \frac{s_a}{k_{a,i,j}}}
+ v_{max,i,j} = \frac{v_{mm,i,j} s_i}{s_i + k_{i,j}} \prod_{a=1}^M \frac{1}{1 + \frac{s_a}{\mat{I}_{a,i,j}}}
 \end{equation}
 
 This formula describes the upper bound of the input flux $v_{max,i,j}$ for metabolite i of bacteria j dependent on the metabolite density
-$s_i$. The formula is characterized by to constants $\left[ v_{mm,i,j} \right] = \si{\milli\mole\per\gram_{DW}\per\hour}$ and $\left[ k_{mm,i,j} \right] = \si{\milli\mole\per\liter}$
-for each bacteria and metabolite. $s_a$ is the metabolite density of metabolite a, $k_{a,i,j}$ is the inhibition constant of metabolite a and
-describes the inhibition of the intake of metabolite i by metabolite a at species j.
+$s_i$. The formula is characterized by two constants $\left[ v_{mm,i,j} \right] = \si{\milli\mole\per\gram_{DW}\per\hour}$ and $\left[ k_{mm,i,j} \right] = \si{\milli\mole\per\liter}$
+for each bacteria and metabolite. $s_a$ is the metabolite density of metabolite $a$, $\mat{I}_{a,i,j}$ is the inhibition constant of metabolite $a$ and
+describes the inhibition of the intake of metabolite $i$ by metabolite $a$ at species $j$.
 
-Mortality is considered using a constant $\left[ \mu_{mort,j} \right] = \si{\milli\mole\per\gram_{DW}\per\hour}$ for each bacteria j in this implementation while Zhuang et al. modeled this
+Mortality is considered using a variable $\left[ \mu_{mort,j} \right] = \si{\milli\mole\per\gram_{DW}\per\hour}$ for each bacteria j in this implementation while Zhuang et al. modeled this
 using the output flux of bacteria out of the system.
 
 Algorithm \ref{alg:differential_equation_with_embedded_fba} shows a basic implementation of the differential equations solved by an ODE
@@ -248,19 +248,16 @@ The algorithm expects a list of bacteria models consisting of
 \begin{itemize}
  \item GEM of this bacteria: A, $\bm{v_{min}}$, $\bm{v_{max}}$, $\bm{w_{growth}}$
  \item $\bm{v_{mm}}$ (Michaelis-Menten $V_{max}$) for each exchange metabolite and species
- \item $\bm{k_{mm}}$ (Michaelis-Menten K) for each exchange metabolite and species
+ \item $\bm{k}$ (Michaelis-Menten K) for each exchange metabolite and species
  \item mortality $\mu_{mort}$
- \item inhibition constants $k_a$
+ \item inhibition constants $\mat{I}_a$
 \end{itemize}
 
 Furthermore a list of all exchange metabolites in the environment, the bacteria and metabolite densities.
 
 
 \begin{algorithm}
-    %\SetKwInOut{Input}{Input}
-    %\SetKwInOut{Output}{Output}
-
-%    \underline{derivative}$(model_1...model_M, m_1...m_N, x_1...M, s_1...s_N)$\;
+	\DontPrintSemicolon
 	\def\model{\ensuremath{\mathrm{model}}}
     \KwIn{bacteria populations $x_j$, metabolite counts $S_i$}
     \KwOut{slope of bacteria and metabolite densities $\dot{x}_j, \dot{s}_i$}
@@ -278,7 +275,7 @@ Furthermore a list of all exchange metabolites in the environment, the bacteria 
 	
 	\ForEach{model $M$ in models}{
 		\ForEach{metabolite $m$ in exchanges of $M$}{
-			$\displaystyle \lb_{M,m} = \lb_{M,m,ini} \; \frac{s_m}{k_{M,m}+s_m} \; \prod_{m'} \cfrac{1}{1+\cfrac{s_{m'}}{\mat{I}_{M,m,m'}}}$\;
+			$\displaystyle \lb_{M,m} = v_{mm,M,m} \; \frac{s_m}{k_{M,m}+s_m} \; \prod_{m'} \cfrac{1}{1+\cfrac{s_{m'}}{\mat{I}_{M,m,m'}}}$\;
 		}
 	}
 	
@@ -286,8 +283,8 @@ Furthermore a list of all exchange metabolites in the environment, the bacteria 
 	$\dot{\v S} \KwAssign [0,\dotsc,0]$\;
 	
     \ForEach{Model $M$ in models}{
-      $\mu, \bm{v}$ \KwAssign FBA($M$)\;
-      $\dot{x}_M = \mu \mul x_M$\;
+      $\bio, \bm{v}$ \KwAssign FBA($M$)\;
+      $\dot{x}_M = (\bio - \mu) \mul x_M$\;
       $\dot{\v S} = \dot{\v S} + \v v \mul x_M$\;
     }
     
@@ -299,29 +296,25 @@ Furthermore a list of all exchange metabolites in the environment, the bacteria 
     \label{alg:differential_equation_with_embedded_fba}
 \end{algorithm}
 
-In a first step the upper bounds of the intake fluxes are updated for each bacteria j and exchange metabolite i.
-The function $update\_intake\_bounds(model_j, s_j, m_i)$ calculates the upper bounds using the formula \ref{eq:michaelis-menten} if
-the metabolite $m_i$ is contained in $model_j$ as a exchange metabolite and updates this value in the model.
+In a first step, the absolute metabolite counts are converted to densities, and all smaller than zero entries are set to zero. This step is necessary since negative densities are unphysical and forbidden, hence the function is transformed as proposed in \cite{shampine_nonneg_2005}.
 
-In a next step the GEMs are optimized for growth using FBA, the results are used as growth rate $\mu_j$ and actual input and output
+Next, the lower bounds of the intake fluxes are updated for each bacteria $M$ and exchange metabolite $m$ according to the Michaelis-Menten formula \ref{eq:michaelis-menten}.
+
+In a further step, the GEMs are optimized for growth using FBA, the results are used as biomass production $\bm{v}_\bio$ and actual input and output
 fluxes $\bm{v_j}$ of bacteria j in this time step.
-
-The mortality is considered by subtracting the constants $\bm{\mu}$ from the growth rates $\bm{\mu}$.
-
-At last step the slopes $\dot{\bm{x}}$ and $\bm{\dot{s}}$ are calculated according to \ref{eq:diff_eq_x} and \ref{eq:diff_eq_s} and
-returned to the ODE solver.
-
+The mortality is considered by subtracting the constants $\bm{\mu}$ from the biomass production rates $\bm{v}_\bio$.
+The slopes $\dot{\bm{x}}$ and $\bm{\dot{s}}$ are calculated according to \ref{eq:diff_eq_x} and \ref{eq:diff_eq_s} and, if any of the populations or metabolites were negative, their derivatives are cut-off to be always larger than 0.
 
 \subsection{Simulation Setup}\label{ssec:simulation_setup}
 
 The goal of the simulation is to validate the basic functionality of the simulator using a simplified setup of a realistic future
-simulation scenario. As defined in our project goals, this simulation scenario is the dynamic flux balance analysis (DFBA) of a
+simulation scenario. As defined in the project goals, this simulation scenario is the dynamic flux balance analysis (DFBA) of a
 co-culture of Saccharomyces cerevisiae and Lactobacillus plantarum.
 
 As genome-scale models a model of Lactobacillus plantarum published by Teusink et al. \cite{teusink_analysis_2006}. A decision about
 a yeast model is not made yet.
 
-The simulation will consider two input metabolites: oxygen and glucose. Table \ref{tab:model_constants_simulation_setup} and table
+The simulation will consider two main input metabolites: oxygen and glucose. Table \ref{tab:model_constants_simulation_setup} and table
 \ref{tab:simulation_parameters_simulation_setup} contain all values needed to define the initial metabolite conditions and kinetics.
 
 \begin{table}[h]
