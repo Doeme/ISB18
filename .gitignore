@@ -16,6 +16,7 @@ final_project/status_report_*/*.run.xml
 final_project/status_report_*/*-blx.bib
 final_project/status_report_*/*.tex.backup
 
+final_project/final_report/final_report.pdf
 final_project/final_report/*.aux
 final_project/final_report/*.bbl
 final_project/final_report/*.blg
