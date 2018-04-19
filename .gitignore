@@ -33,3 +33,4 @@ final_project/final_presentation/*.log
 final_project/final_presentation/*.run.xml
 final_project/final_presentation/*-blx.bib
 final_project/final_presentation/*.tex.backup
+final_project/final_presentation/main*
