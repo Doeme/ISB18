@@ -24,3 +24,12 @@ final_project/final_report/*.log
 final_project/final_report/*.run.xml
 final_project/final_report/*-blx.bib
 final_project/final_report/*.tex.backup
+
+final_project/final_presentation/*.pdf
+final_project/final_presentation/*.aux
+final_project/final_presentation/*.bbl
+final_project/final_presentation/*.blg
+final_project/final_presentation/*.log
+final_project/final_presentation/*.run.xml
+final_project/final_presentation/*-blx.bib
+final_project/final_presentation/*.tex.backup
