@@ -263,18 +263,11 @@ Furthermore a list of all exchange metabolites in the environment, the bacteria 
 \begin{algorithm}
 	\DontPrintSemicolon
 	\def\model{\ensuremath{\mathrm{model}}}
-    \KwIn{bacteria populations $x_j$, metabolite counts $S_i$}
-    \KwOut{slope of bacteria and metabolite densities $\dot{x}_j, \dot{s}_i$}
-    \KwData{bacteria models $\model_j$, Michaelis-Menten constants of model $M$ $\v{k}_{M}$, inhibition matrices of model $M$  $\mat{I}_{M}$, Total volume $V$}
+    \KwIn{metabolites in shared medium $m$, bacteria populations $X_M$, metabolite counts $S_m$}
+    \KwOut{slope of bacteria masses and amounts metabolite molecules $\dot{X}_M, \dot{S}_m$}
+    \KwData{bacteria models $\model_M$, Michaelis-Menten constants of model $M$ $\v{k}_{M}$, inhibition matrices of model $M$  $\mat{I}_{M}$, Total volume $V$}
     
-    $s_i \KwAssign \frac{S_i}{V}$\;
-    
-    $S_{<0} \KwAssign \{m | S_m < 0\}$\;
-    $x_{<0} \KwAssign \{j | x_j < 0\}$\;
-
-    
-	$\v s(S_{<0}) = 0$\;
-	$\v x(S_{<0}) = 0$\;
+	$\v s \KwAssign \frac{\v S}{V}$\;
 	
 	\ForEach{model $M$ in models}{
 		\ForEach{metabolite $m$ in exchanges of $M$}{
@@ -283,19 +276,17 @@ Furthermore a list of all exchange metabolites in the environment, the bacteria 
 		}
 	}
 	
-	$\dot{\v x} \KwAssign [0,\dotsc,0]$\;
-	$\dot{\v S} \KwAssign [0,\dotsc,0]$\;
+% 	$\dot{\v x} \KwAssign [0,\dotsc,0]$\;
+% 	$\dot{\v S} \KwAssign [0,\dotsc,0]$\;
 	
     \ForEach{Model $M$ in models}{
-      $v_\bio, \bm{v}$ \KwAssign $\mathrm {FBA}(M)$\;
-      $\dot{x}_M = (\bio - \mu(v_bio)) \mul x_M$\;
-      $\dot{\v S} = \dot{\v S} + \v v \mul x_M$\;
+      $\mu_M, \v{v_M}$ \KwAssign $\mathrm{FBA}(M, \v{b_{M}})$\;
+      $\dot{X}_M = (\mu_M - \mathrm{Mort}(\mu_M)) \mul X_M$\;
+      $\dot{\v S} = \dot{\v S} + \v{v_M} \mul X_M$\;
     }
+      
     
-	$\dot{\v S}(S_{<0}) = \max\{0,\dot{\v S}(S_{<0})\}$\;    
-	$\dot{\v x}(x_{<0}) = \max\{0,\dot{\v x}(x_{<0})\}$\;    
-    
-    \Return{$[\dot{\v x},\dot{\v S}]$}
+    \Return{$[\dot{\v X},\dot{\v S}]$}
     \caption{Differential equation with embedded FBA}
     \label{alg:differential_equation_with_embedded_fba}
 \end{algorithm}
