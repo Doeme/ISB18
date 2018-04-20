@@ -236,10 +236,15 @@ To model saturation of metabolite intake for high metabolite densities Zhuang et
  b_{M,m} = v_{max,M,m} \; \frac{s_m}{k_{M,m}+s_m} \; \prod_{m'} \cfrac{1}{1+\cfrac{s_{m'}}{I_{M,m,m'}}}
 \end{equation}
 
-This formula describes the upper bound of the input flux $b_{M,m}$ for metabolite m of model M dependent on the metabolite density
-$s_m$. The formula is characterized by two constants $\left[ v_{max,M,m} \right] = \si{\milli\mole\per\gram_{DW}\per\hour}$ and $\left[ k_{M,m} \right] = \si{\milli\mole\per\liter}$
-for each bacteria and metabolite. $s_{m'}$ is the metabolite density of metabolite $m'$, $\mat{I}_{M,m,m'}$ is the inhibition constant of metabolite $m'$ and
-describes the inhibition of the intake of metabolite $m$ by metabolite $m'$ at model $M$.
+Formula \ref{eq:michaelis-menten} describes the the dependency of the upper bound of the input flux $b_{M,m}$ for metabolite $m$ of model $M$ on the metabolite density
+$s_m$ in the shared medium. The formula is the product of two expressions. The left expression describes the actual dependency
+of the intake flux on the metabolite density and is modeled using Michaelis-Menten kinetics where $v_{max,M,m}$ is the maximal
+possible input flux and $k_{M,m}$ is the Michaelis-Menten constant. This constant defines the metabolite density where the
+input flux is exactly at the half of its maximal possible value. The right expression of formula \ref{eq:michaelis-menten}
+models the inhibition of the input flux of metabolite $m$ of bacteria $M$ by another metabolite $m'$ in the shared medium.
+This expression can be used to add toxic effects of certain compounds on the metabolism of a bacteria. This therm is defined
+by the inhibition constant $I_{M,m,m'}$ which, similar to the Michaelis-Menten constant, defines the metabolite density $s_{m'}$
+where the value of this therm is exactly 0.5.
 
 \update{Mortality is considered using a function $\mu_j(v_\bio)$ $\left[ \mu_{j} \right] = \si{\milli\mole\per\gram_{DW}\per\hour}$ for each bacteria $j$ in this implementation while Zhuang et al. modeled this
 using the output flux of bacteria out of the system.}
