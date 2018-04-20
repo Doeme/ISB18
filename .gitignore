@@ -34,3 +34,7 @@ final_project/final_presentation/*.run.xml
 final_project/final_presentation/*-blx.bib
 final_project/final_presentation/*.tex.backup
 final_project/final_presentation/main*
+final_project/final_presentation/*.nav
+final_project/final_presentation/*.out
+final_project/final_presentation/*.snm
+final_project/final_presentation/*.toc
