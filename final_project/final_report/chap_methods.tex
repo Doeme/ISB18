@@ -233,7 +233,7 @@ To model saturation of metabolite intake for high metabolite densities Zhuang et
 
 \begin{equation} \label{eq:michaelis-menten}
 % b_{M,m} = \frac{v_{max,M,m} s_m}{s_m + k_{M,m}} \prod_{a=1}^M \frac{1}{1 + \frac{s_a}{\mat{I}_{a,i,j}}}
- b_{M,m} = v_{max,M,m} \; \frac{s_m}{k_{M,m}+s_m} \; \prod_{m'} \cfrac{1}{1+\cfrac{s_{m'}}{\mat{I}_{M,m,m'}}}
+ b_{M,m} = v_{max,M,m} \; \frac{s_m}{k_{M,m}+s_m} \; \prod_{m'} \cfrac{1}{1+\cfrac{s_{m'}}{I_{M,m,m'}}}
 \end{equation}
 
 This formula describes the upper bound of the input flux $b_{M,m}$ for metabolite m of model M dependent on the metabolite density
