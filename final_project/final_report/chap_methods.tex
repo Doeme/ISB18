@@ -234,10 +234,10 @@ To model saturation of metabolite intake for high metabolite densities Zhuang et
  b_{M,m} = v_{max,M,m} \; \frac{s_m}{k_{M,m}+s_m} \; \prod_{m'} \cfrac{1}{1+\cfrac{s_{m'}}{\mat{I}_{M,m,m'}}}
 \end{equation}
 
-This formula describes the upper bound of the input flux $v_{max,i,j}$ for metabolite i of bacteria j dependent on the metabolite density
-$s_i$. The formula is characterized by two constants $\left[ v_{mm,i,j} \right] = \si{\milli\mole\per\gram_{DW}\per\hour}$ and $\left[ k_{mm,i,j} \right] = \si{\milli\mole\per\liter}$
-for each bacteria and metabolite. $s_a$ is the metabolite density of metabolite $a$, $\mat{I}_{a,i,j}$ is the inhibition constant of metabolite $a$ and
-describes the inhibition of the intake of metabolite $i$ by metabolite $a$ at species $j$.
+This formula describes the upper bound of the input flux $b_{M,m}$ for metabolite m of model M dependent on the metabolite density
+$s_m$. The formula is characterized by two constants $\left[ v_{max,M,m} \right] = \si{\milli\mole\per\gram_{DW}\per\hour}$ and $\left[ k_{M,m} \right] = \si{\milli\mole\per\liter}$
+for each bacteria and metabolite. $s_{m'}$ is the metabolite density of metabolite $m'$, $\mat{I}_{M,m,m'}$ is the inhibition constant of metabolite $m'$ and
+describes the inhibition of the intake of metabolite $m$ by metabolite $m'$ at model $M$.
 
 Mortality is considered using a variable $\left[ \mu_{mort,j} \right] = \si{\milli\mole\per\gram_{DW}\per\hour}$ for each bacteria j in this implementation while Zhuang et al. modeled this
 using the output flux of bacteria out of the system.
