@@ -230,7 +230,8 @@ In each time step each bacteria's metabolite intake must be changed dependent on
 To model saturation of metabolite intake for high metabolite densities Zhuang et al. implemented Michaelis-Menten kinetics \cite{johnson2011original}
 
 \begin{equation} \label{eq:michaelis-menten}
- v_{max,i,j} = \frac{v_{mm,i,j} s_i}{s_i + k_{i,j}} \prod_{a=1}^M \frac{1}{1 + \frac{s_a}{\mat{I}_{a,i,j}}}
+% b_{M,m} = \frac{v_{max,M,m} s_m}{s_m + k_{M,m}} \prod_{a=1}^M \frac{1}{1 + \frac{s_a}{\mat{I}_{a,i,j}}}
+ b_{M,m} = v_{max,M,m} \; \frac{s_m}{k_{M,m}+s_m} \; \prod_{m'} \cfrac{1}{1+\cfrac{s_{m'}}{\mat{I}_{M,m,m'}}}
 \end{equation}
 
 This formula describes the upper bound of the input flux $v_{max,i,j}$ for metabolite i of bacteria j dependent on the metabolite density
