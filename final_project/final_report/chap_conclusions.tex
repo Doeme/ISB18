@@ -1,1 +1,15 @@
 \section{Conclusions}\label{sec:conclusions}
+	The framework works well in its scope.
+	
+	The co-culture does not properly work yet.
+	\subsection{Further Work}
+		Further efforts can be made by replacing scipy.integrate.ode with a
+		different solver framework (for example odespy \cite{odespy}), to make implicite solvers with adaptive step-sizes available.
+		Since the problem seems to be somewhat stiff (e.g. the fast changing oxygen depletion combined with the slower glucose usage),
+		the switch will most likely result in a speedup in simulation time.
+		
+		Furthermore, the system does not allow metabolite exchanges from the medium to the surrounding environment via concentration gradients.
+		Allowing those would open up the simulator to a wider range of applications, e.g. for simulating continuous production of a metabolite with
+		continuous feeding.
+		
+		Lastly, a method to recycle dead cells could be added, countering the loss of metabolites in the medium.
