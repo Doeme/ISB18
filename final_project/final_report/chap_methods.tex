@@ -246,9 +246,6 @@ This expression can be used to add toxic effects of certain compounds on the met
 by the inhibition constant $I_{M,m,m'}$ which, similar to the Michaelis-Menten constant, defines the metabolite density $s_{m'}$
 where the value of this therm is exactly 0.5.
 
-\update{Mortality is considered using a function $\mu_j(v_\bio)$ $\left[ \mu_{j} \right] = \si{\milli\mole\per\gram_{DW}\per\hour}$ for each bacteria $j$ in this implementation while Zhuang et al. modeled this
-using the output flux of bacteria out of the system.}
-
 Algorithm \ref{alg:differential_equation_with_embedded_fba} shows a basic implementation of the differential equations solved by an ODE
 solver during the simulation similar to DMMM \cite{zhuang_genome-scale_2011}.
 
