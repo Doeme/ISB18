@@ -89,14 +89,14 @@ programming (LP) \cite{orth_what_2010}.
 \begin{equation}\label{eq:fba_optimization_formula}
 \begin{aligned}
 & \underset{\bm{v}}{\text{max}}
-& & \mu = \bm{w}^T \bm{v} \\
+& & a = \bm{w}^T \bm{v} \\
 & \text{s.t.}
 & & S\bm{v} = \bm{0}, \\
 &&& \bm{v_{min}} \leq \bm{v} \leq \bm{v_{max}}
 \end{aligned}
 \end{equation}
 
-The fluxes in the metabolic network $\bm{v}$ are optimized so that $\mu$ is maximized
+The fluxes in the metabolic network $\bm{v}$ are optimized so that $a$ is maximized
 where $\bm{w}$ is a weighting vector which defines the adaption goal of the cell.
 A often used goal is to maximize the growth of the organism.
 The optimization is done using mostly two constraints, (1) the stoichiometric constants $S$
