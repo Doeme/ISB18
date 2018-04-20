@@ -58,19 +58,84 @@ mathematical models for further analysis.
 An important mathematical representation is the stoichiometric matrix. It uniquely represents the metabolic
 network of the cell, based on the stoichiometric constants of its reactions\cite{palsson2015systems}.
 
-\begin{figure}[!h]
-\centering
-\includegraphics[width=\linewidth]{figures/Selection_011.pdf}
-\caption{(create simplified version here, combine with figure \ref{fig:reconstruction_GPR_example})}
-\label{fig:reconstruction_to_matrix_example}
-\end{figure}
+% \begin{figure}[!h]
+% \centering
+% \includegraphics[width=\linewidth]{figures/Selection_011.pdf}
+% \caption{(create simplified version here, combine with figure \ref{fig:reconstruction_GPR_example})}
+% \label{fig:reconstruction_to_matrix_example}
+% \end{figure}
+% 
+% \begin{figure}[!h]
+% \centering
+% \includegraphics[width=\linewidth]{figures/Selection_013.pdf}
+% \caption{(create simplified version here, combine with figure \ref{fig:reconstruction_to_matrix_example})}
+% \label{fig:reconstruction_GPR_example}
+% \end{figure}
 
 \begin{figure}[!h]
 \centering
-\includegraphics[width=\linewidth]{figures/Selection_013.pdf}
-\caption{(create simplified version here, combine with figure \ref{fig:reconstruction_to_matrix_example})}
-\label{fig:reconstruction_GPR_example}
+\includegraphics[width=0.7\linewidth]{figures/GEM.pdf}
+\caption{bla}
+\label{fig:GEM}
 \end{figure}
+
+% \begin{equation}
+%   \begin{pmatrix}
+%   a & b & c \\
+%   d & e & f \\
+%   g & h & i
+%  \end{pmatrix}
+%  \bordermatrix{~ & x & y \cr
+%                   A & 1 & 0 \cr
+%                   B & 0 & 1 \cr}
+% \end{equation}
+
+% \[
+% \begin{blockarray}{cccccc}
+% a & b & c & d & \rotatebox{90}{adsfasdf} \\
+% \begin{block}{(ccccc)c}
+%   1 & 1 & 1 & 1 & 1 & f \\
+%   0 & 1 & 0 & 0 & 1 & g \\
+%   0 & 0 & 1 & 0 & 1 & h \\
+%   0 & 0 & 0 & 1 & 1 & i \\
+%   0 & 0 & 0 & 0 & 1 & j \\
+% \end{block}
+% \end{blockarray}
+%  \]
+ 
+ \[
+\begin{blockarray}{cccccc}
+&
+\rotatebox{90}{EX\_GLC(E)} & 
+\rotatebox{90}{GLCPTS} & 
+\rotatebox{90}{PGI} & 
+\rotatebox{90}{FRUPTS2} & 
+\rotatebox{90}{EX\_FRU(E)}\\
+\begin{block}{r[ccccc]}
+  GLC-D[E] &  0 &  0 &  0 &  0 &  0 \\
+  G6P      &  0 &  0 &  0 &  0 &  0 \\
+  F6P      &  0 &  0 &  0 &  0 &  0 \\
+  FRU[E]   &  0 &  0 &  0 &  0 &  0 \\
+  6PGL     &  0 &  0 &  0 &  0 &  0 \\
+  E4P      &  0 &  0 &  0 &  0 &  0 \\
+\end{block}
+\end{blockarray}
+ \]
+ 
+%  \begin{equation*}
+%   \mathbf{S}=
+%   \begin{blockarray}{*{5}{c} l}
+%     \begin{block}{*{5}{>{$\footnotesize}c<{$}} l}
+%       Rose & Teal & Plum & Sand & \rotatebox{90}{Peach} & \\
+%     \end{block}
+%     \begin{block}{[*{5}{c}]>{$\footnotesize}l<{$}}
+%       0 & 9 & 8 & 0 & 7 \bigstrut[t]& small \\
+%       3 & 5 & 6 & 5 & 1 & medium \\
+%       1 & 0 & 0 & 3 & 2 & large \\
+%     \end{block}
+%   \end{blockarray}
+% \end{equation*}
+
 
 \subsection{Flux Balance Analysis}\label{ssec:flux_balance_analysis}
 
