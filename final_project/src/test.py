@@ -32,9 +32,9 @@ yy.set_secondary_objective(-y.reactions.EX_etoh_e_.flux_expression);
 yy.michaelis_menten['EX_glc_e_']=0.5/MM['glc']*1000;
 yy.michaelis_menten['EX_o2_e_']=0.005;
 
-#co=[ll] #[ll,yy]
-co=[yy] #[ll,yy]
-#co=[ll,yy]
+#co=[ll]
+#co=[yy]
+co=[ll,yy]
 
 d=dmmm.DMMM(co)
 
@@ -46,7 +46,7 @@ d.medium.metabolites["EX_h2o_e_"]=vol*mol_vol*1000;
 #from paper
 d.medium.metabolites["EX_glc_e_"]=vol*1000;
 d.medium.metabolites["EX_nh3_e_"]=vol*(37.85+600);
-d.medium.metabolites["EX_nh4_e_"]=vol*(37.85+600+4000);
+d.medium.metabolites["EX_nh4_e_"]=vol*(37.85+600+1000);
 d.medium.metabolites["EX_so4_e_"]=vol*(37.86 + 2.03 + 20 + 10 + 150);
 d.medium.metabolites["EX_na1_e_"]=vol*(2.05 + 1.5);
 d.medium.metabolites["EX_pi_e_"]=vol*(0.86 + 6.83 + 20+250);
@@ -67,15 +67,15 @@ for id in ['EX_zymst_e_', 'EX_ga6p_e_', 'EX_tre_e_']:
 
 #minrxns for l.p.
 for id in ['EX_2hxic_L_e_', 'EX_cys_L_e_', 'EX_ile_L_e_', 'EX_phe_L_e_', 'EX_pro_L_e_', 'EX_val_L_e_', 'EX_glu_L_e_', 'EX_pro_L_e_', 'EX_pydam_e_', 'EX_leu_e_']:
-	d.medium.metabolites[id]=vol*30;
+	d.medium.metabolites[id]=vol*10;
 
 for id in ['EX_phe_L_e_', 'EX_leu_e_']:
-	d.medium.metabolites[id]=vol*400;
+	d.medium.metabolites[id]=vol*100;
 
 #manual for l.p.
 for id in ['EX_gln_L_e_', 'EX_ile_L_e_', 'EX_leu_L_e_', 'EX_met_L_e_', 'EX_nac_e_', 'EX_pydam_e_', 'EX_val_L_e_']:
 	d.medium.metabolites[id]=vol*50;
-d.medium.metabolites['EX_gln_L_e_']=vol*800;
+d.medium.metabolites['EX_gln_L_e_']=vol*100;
 
 d.medium.metabolites["EX_o2_e_"]=vol*0.5;
 
@@ -135,10 +135,10 @@ def used_up_metabolites(r, threshold=1, fro=0, to=-1):
 	return [ r.dmmm.medium.lut[i] for i,v in enumerate(z) if v];
 
 
-#r=d.simulate(25);
+r=d.simulate(25);
 
-#import IPython; IPython.embed()
-#exit()
+import IPython; IPython.embed()
+exit()
 rs=[]
 concs=[0,22,44,66]
 for conc in concs:
