@@ -242,8 +242,12 @@ $s_m$. The formula is characterized by two constants $\left[ v_{max,M,m} \right]
 for each bacteria and metabolite. $s_{m'}$ is the metabolite density of metabolite $m'$, $\mat{I}_{M,m,m'}$ is the inhibition constant of metabolite $m'$ and
 describes the inhibition of the intake of metabolite $m$ by metabolite $m'$ at model $M$.
 
-\update{Mortality is considered using a function $\mu_j(v_\bio)$ $\left[ \mu_{j} \right] = \si{\milli\mole\per\gram_{DW}\per\hour}$ for each bacteria $j$ in this implementation while Zhuang et al. modeled this
-using the output flux of bacteria out of the system.}
+Mortality is considered using a function $\mu_M(v_\bio)$ $\left[ \mu_{M} \right] = \si{\milli\mole\per\gram_{DW}\per\hour}$ for each organism $M$ in this implementation while Zhuang et al. modeled this
+using the output flux of bacteria out of the system.
+Yeast cells have a mean lifetime of 26 cell divisions, making the mortality dependant on the biomass production $v_\bio$.
+We have a doubling rate of $t_d=\frac{\log(2)}{b}$, i.e. every cell doubles every $t_d$ hours. Hence, cells have a lifetime of $t_l=26\mul t_d$ hours.
+Consider a population of $N$ cells, which have been born equidistantly. On average, $\frac{N}{t}$ cells die every hour.
+The populations mortality is therefore $\frac{N}{t} \mul \frac{1}{N}=\frac{1}{t_l}=\frac{b}{26\mul \log(2)}$
 
 Algorithm \ref{alg:differential_equation_with_embedded_fba} shows a basic implementation of the differential equations solved by an ODE
 solver during the simulation similar to DMMM \cite{zhuang_genome-scale_2011}.
