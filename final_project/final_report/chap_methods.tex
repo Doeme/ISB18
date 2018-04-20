@@ -216,7 +216,7 @@ for each GEM in the model and for each time step in the discretised simulation t
 bacteria densities in the shared environment. The results of the FBAs are used by the ODE solver to solve the differential equations
 
 \begin{equation} \label{eq:diff_eq_x}
-	\frac{\dd x_M}{\dd t} = (\mu_{g} - \mathrm{Mort}(\mu_{g})) x_M
+	\frac{\dd x_M}{\dd t} = (\mu_M - \mathrm{Mort}(\mu_M)) x_M
 \end{equation}
 \begin{equation} \label{eq:diff_eq_s}
 	\frac{\dd s_m}{\dd t} = \displaystyle\sum_{M \in models} v_{M,m} x_M
