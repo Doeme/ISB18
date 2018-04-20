@@ -263,7 +263,6 @@ Furthermore a list of all exchange metabolites in the environment, the bacteria 
     \KwIn{bacteria populations $x_j$, metabolite counts $S_i$}
     \KwOut{slope of bacteria and metabolite densities $\dot{x}_j, \dot{s}_i$}
     \KwData{bacteria models $\model_j$, Michaelis-Menten constants of model $M$ $\v{k}_{M}$, inhibition matrices of model $M$  $\mat{I}_{M}$, Total volume $V$}
-    \def\lb{\mathrm{lb}}
     
     $s_i \KwAssign \frac{S_i}{V}$\;
     
@@ -276,7 +275,8 @@ Furthermore a list of all exchange metabolites in the environment, the bacteria 
 	
 	\ForEach{model $M$ in models}{
 		\ForEach{metabolite $m$ in exchanges of $M$}{
-			$\displaystyle \lb_{M,m} = v_{mm,M,m} \; \frac{s_m}{k_{M,m}+s_m} \; \prod_{m'} \cfrac{1}{1+\cfrac{s_{m'}}{\mat{I}_{M,m,m'}}}$\;
+%			$\displaystyle b_{M,m} = v_{max,M,m} \; \frac{s_m}{k_{M,m}+s_m} \; \prod_{m'} \cfrac{1}{1+\cfrac{s_{m'}}{\mat{I}_{M,m,m'}}}$\;
+			$b_{M,m} = \mathrm {upper\_bound}(\v{s}, M, m)$
 		}
 	}
 	
@@ -284,7 +284,7 @@ Furthermore a list of all exchange metabolites in the environment, the bacteria 
 	$\dot{\v S} \KwAssign [0,\dotsc,0]$\;
 	
     \ForEach{Model $M$ in models}{
-      $\bio, \bm{v}$ \KwAssign FBA($M$)\;
+      $\bio, \bm{v}$ \KwAssign $\mathrm {FBA}(M)$\;
       $\dot{x}_M = (\bio - \mu) \mul x_M$\;
       $\dot{\v S} = \dot{\v S} + \v v \mul x_M$\;
     }
