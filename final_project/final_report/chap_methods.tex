@@ -221,7 +221,7 @@ bacteria densities in the shared environment. The results of the FBAs are used b
 \end{equation}
 \begin{equation} \label{eq:diff_eq_s}
 	\frac{\dd s_i}{\dd t} = \displaystyle\sum_{j=1}^{N} v_{i,j} x_j
-\end{equation}
+\end{equation}}
 
 \update{
 which models the dynamics of the bacteria's environment \cite{zhuang_design_2012} where $i = 1,\dotsc,N$ is the index of metabolites in the shared environment and $j = 1,\dotsc,M$ is the index of bacteria.
@@ -305,11 +305,11 @@ In a first step, the absolute metabolite counts are converted to densities, and 
 
 Next, the lower bounds of the intake fluxes are updated for each bacteria $M$ and exchange metabolite $m$ according to the Michaelis-Menten formula \ref{eq:michaelis-menten}.
 
-\update{
+\update{}
 In a further step, the GEMs are optimized for growth using FBA, the results are used as biomass production $\bm{v}_\bio$ and actual input and output
 fluxes $\bm{v_j}$ of bacteria j in this time step.
-The mortality is considered by subtracting the constants $\bm{\mu(\v{v}_\bio}$ from the biomass production rates $\bm{v}_\bio$.
-The slopes $\dot{\bm{x}}$ and $\bm{\dot{s}}$ are calculated according to \ref{eq:diff_eq_x} and \ref{eq:diff_eq_s} and, if any of the populations or metabolites were negative, their derivatives are cut-off to be always larger than 0.}
+The mortality is considered by subtracting the constants $\bm{\mu}(\v{v}_\bio)$ from the biomass production rates $\bm{v}_\bio$.
+The slopes $\dot{\bm{x}}$ and $\bm{\dot{s}}$ are calculated according to \ref{eq:diff_eq_x} and \ref{eq:diff_eq_s} and, if any of the populations or metabolites were negative, their derivatives are cut-off to be always larger than 0.
 
 \subsection{Simulation Setup}\label{ssec:simulation_setup}
 
