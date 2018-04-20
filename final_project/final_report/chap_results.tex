@@ -1,1 +1,56 @@
 \section{Results}\label{sec:results}
+	At a first stage, yeast and lactic bacteria monocultures were simulated to verify whether they work independantly of each other.
+	At the second stage, the coculture was simulated to show.
+	
+	The mediums used contain \SI{50}{\litre} of water mixed with an inital concentration of \SI{1000}{\milli\mole\per\litre}
+	\subsection{Yeast Monoculture}
+		The yeast monocolture is well-behaved, until the very edges of metabolic activity, where the GEM was blocked due to almost-zero uptake boundaries.
+		But its growth is almost exponential, as can be seen in Figure \ref{fig:yeast_0lac_pop}.
+		The steep curve at the beginning marks the region where oxygen can be metabolised.
+		The slight curvature of the following section can be explained by the self-inhibition of the organism,
+		caused by the toxicity of ethanol, and by the sinking glucose concentration.
+		Concentrations of the relevant metabolites that can be seen in Figure \ref{fig:yeast_0lac_met}
+		
+		At time $t\approx 25$ the GEM is blocked and the population starts to die out.
+		\begin{figure}[h]
+			\centering
+			\includegraphics[width=\linewidth]{figures/results/yeast/0lac_populations.pdf}
+			\caption{The yeast growth in the medium in a logarithmic scale}
+			\label{fig:yeast_0lac_pop}
+		\end{figure}
+		\begin{figure}[h]
+			\centering
+			\includegraphics[width=\linewidth]{figures/results/yeast/0lac_metabolites.pdf}
+			\caption{The concentrations of interesting metabolites in the simulated medium for yeast monocultures}
+			\label{fig:yeast_0lac_met}
+		\end{figure}
+		
+		In further simulations the concentration of lactate was increased, and the toxicity of the lactate was tuned to best fit the given curves.
+		A number of $i_{Y,\mathrm{glc,lac}}=\SI{35}{\milli\mole\per\litre}$
+		The Figure \ref{fig:yeast_simfig} shows the the fit to the curve given in $\ref{fig:yeast_real}$
+		
+		The fit is not perfect on multiple accounts: Firstly, the organism takes longer to metabolise the glucose, which can be traced back to a too high ethanol inhibition constant $i_{Y,\mathrm{glc,etoh}}$
+		Secondly, there are sharp, seemingly non-smooth corners in the plot. These can be explained by wrong Michaelis-Menten constants $k_{Y,m}$
+		
+		Adapting these constants to $k_{Y,\mathrm{glc}}=\SI{15}{\milli\mole\per\litre}$ and the inhibition constant to $i_{Y,\mathrm{glc,etoh}}=\SI{350}{\gram\per\liter}$ yields a better fitting result
+		shown in Figure \ref{fig:yeast_better_simfig}
+		
+		\begin{figure}[h]
+			\centering
+			\includegraphics[width=0.75\linewidth]{figures/yeast_real.png}
+			\caption{Glucose and ethanol concentrations measured in a real-life scenario with varying lactate concentrations \cite{narendranath_effects_1997}. }
+			\label{fig:yeast_real}
+		\end{figure}
+		\begin{figure}[h]
+			\centering
+			\includegraphics[width=\linewidth]{figures/results/yeast/similar_plot.pdf}
+			\caption{The ethanol and glucose concentration at different concentrations of lactate}
+			\label{fig:yeast_simfig}
+		\end{figure}
+
+		\begin{figure}[h]
+			\centering
+			\includegraphics[width=\linewidth]{figures/results/better_yeast/similar_plot.pdf}
+			\caption{The ethanol and glucose concentration at different concentrations of lactate with the improved constants}
+			\label{fig:yeast_better_simfig}
+		\end{figure}
