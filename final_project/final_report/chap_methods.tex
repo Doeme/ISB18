@@ -215,13 +215,12 @@ As described by Zhuang et al. in \cite{zhuang_genome-scale_2011} the algorithm u
 for each GEM in the model and for each time step in the discretised simulation time interval considering the changed metabolite and
 bacteria densities in the shared environment. The results of the FBAs are used by the ODE solver to solve the differential equations
 
-\update{
 \begin{equation} \label{eq:diff_eq_x}
-	\frac{\dd x_j}{\dd t} = (v_{v_\bio} - \mu(v_{\bio}) x_j
+	\frac{\dd x_M}{\dd t} = (v_{v_\bio} - \mu(v_{\bio})) x_M
 \end{equation}
 \begin{equation} \label{eq:diff_eq_s}
-	\frac{\dd s_i}{\dd t} = \displaystyle\sum_{j=1}^{N} v_{i,j} x_j
-\end{equation}}
+	\frac{\dd s_m}{\dd t} = \displaystyle\sum_{M \in models} v_{M,m} x_M
+\end{equation}
 
 \update{
 which models the dynamics of the bacteria's environment \cite{zhuang_design_2012} where $i = 1,\dotsc,N$ is the index of metabolites in the shared environment and $j = 1,\dotsc,M$ is the index of bacteria.
