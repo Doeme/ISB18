@@ -9,41 +9,42 @@ perc_glc=0.10;
 
 
 l=cobra.io.read_sbml_model("../models/lactobacillus.sbml")
-l.reactions.EX_lac_D_e_.id='EX_lac_e_';
+l.solver.configuration.timeout = 1 * 1000;
+l.reactions.EX_lac_L_e_.id='EX_lac_e_';
 l.name="Lactobacillus Brevis";
-l.reactions.get_by_id("EX_ac_e_").upper_bound=0; # Force secretion of lactic acid
 l.reactions.EX_o2_e_.lower_bound=-2.5;
 l.reactions.EX_glc_e_.lower_bound=-18.5;
 l.reactions.EX_nh4_e_.lower_bound=-1000;
-ll=dmmm.Organism(l,vol*0.1,lambda x: x.objective_value/30+1/(7*24))
+ll=dmmm.Organism(l,vol*0.1,lambda x: x/30+1/(7*24))
 ll.exchange_filter=lambda x: x.id!="added_biomass_sink";
-ll.set_secondary_objective(l.reactions.EX_lac_e_.flux_expression);
-ll.michaelis_menten['EX_glc_e_']=0.5/MM['glc']*1000*30;
-ll.michaelis_menten['EX_o2_e_']=0.005*30;
-ll.inhibition['EX_glc_e_']={'EX_lac_e_':220*30,'EX_etoh_e_':220*30};
+ll.set_secondary_objective(l.reactions.EX_lac_e_.flux_expression,variance=0.02);
+ll.michaelis_menten['EX_glc_e_']=0.1/MM['glc']*1000;
+ll.michaelis_menten['EX_o2_e_']=0.005;
+ll.inhibition['EX_glc_e_']={'EX_lac_e_':20000, 'EX_etoh_e_':50*220};
 
 y=cobra.io.read_sbml_model("../models/yeast.sbml")
 y.name="Sacharomyces Cerevisiæ";
 y.reactions.EX_o2_e_.lower_bound=-2.5;
 y.reactions.EX_glc_e_.lower_bound=-18.5;
-yy=dmmm.Organism(y,500.0/200*vol,lambda x: x.objective_value/27+1/(7*24)) # A cell dies: After 27 cell divisions or after two weeks of live
-yy.inhibition['EX_glc_e_']={'EX_etoh_e_':220*30, 'EX_lac_e_':45}; #mmol/l
-yy.michaelis_menten['EX_glc_e_']=0.5/MM['glc']*1000*30;
-yy.michaelis_menten['EX_o2_e_']=0.005*30;
+yy=dmmm.Organism(y,500.0/200*vol,lambda x: x/27+1/(7*24)) # A cell dies: After 27 cell divisions or after two weeks of live
+yy.inhibition['EX_glc_e_']={'EX_etoh_e_':220, 'EX_lac_e_':45}; #mmol/l
+yy.set_secondary_objective(-y.reactions.EX_etoh_e_.flux_expression);
+yy.michaelis_menten['EX_glc_e_']=0.5/MM['glc']*1000;
+yy.michaelis_menten['EX_o2_e_']=0.005;
 
 #co=[ll] #[ll,yy]
-#co=[yy] #[ll,yy]
-co=[ll,yy]
+co=[yy] #[ll,yy]
+#co=[ll,yy]
 
 d=dmmm.DMMM(co)
 
 
 d.medium.volume=lambda x: vol;
 
-d.medium.metabolites["EX_h2o_e_"]=(1-perc_glc)*vol*mol_vol*1000;
+d.medium.metabolites["EX_h2o_e_"]=vol*mol_vol*1000;
 
 #from paper
-d.medium.metabolites["EX_glc_e_"]=(perc_glc)*vol*mol_vol*1000;
+d.medium.metabolites["EX_glc_e_"]=vol*1000;
 d.medium.metabolites["EX_nh3_e_"]=vol*(37.85+600);
 d.medium.metabolites["EX_nh4_e_"]=vol*(37.85+600+4000);
 d.medium.metabolites["EX_so4_e_"]=vol*(37.86 + 2.03 + 20 + 10 + 150);
@@ -60,16 +61,18 @@ d.medium.metabolites["EX_Nbfortyr_e_"]=vol*(0.1); #200
 #From wikipedia
 d.medium.metabolites["EX_btn_e_"]=vol*(0.1); #200
 
-#From minrxns
+#From minrxns for yeast
 for id in ['EX_zymst_e_', 'EX_ga6p_e_', 'EX_tre_e_']:
-	d.medium.metabolites[id]=vol*10;
+	d.medium.metabolites[id]=vol*100;
 
+#minrxns for l.p.
 for id in ['EX_2hxic_L_e_', 'EX_cys_L_e_', 'EX_ile_L_e_', 'EX_phe_L_e_', 'EX_pro_L_e_', 'EX_val_L_e_', 'EX_glu_L_e_', 'EX_pro_L_e_', 'EX_pydam_e_', 'EX_leu_e_']:
-	d.medium.metabolites[id]=vol*10;
+	d.medium.metabolites[id]=vol*30;
 
 for id in ['EX_phe_L_e_', 'EX_leu_e_']:
 	d.medium.metabolites[id]=vol*400;
 
+#manual for l.p.
 for id in ['EX_gln_L_e_', 'EX_ile_L_e_', 'EX_leu_L_e_', 'EX_met_L_e_', 'EX_nac_e_', 'EX_pydam_e_', 'EX_val_L_e_']:
 	d.medium.metabolites[id]=vol*50;
 d.medium.metabolites['EX_gln_L_e_']=vol*800;
@@ -99,15 +102,15 @@ def get_mass_densities(met, M):
 	return [ r*M for r in r.get_metabolite(met) ];
 
 def get_metabolite_density(r,met):
-	return [val*MM[met]/vol for val in r.get_metabolite("EX_"+met+"_e_")];
+	return [val*MM[met]/1000/vol for val in r.get_metabolite("EX_"+met+"_e_")];
 
 def generate_plots(r,basename,ext="pdf"):
-	mets=["glc","etoh","co2","ac","lac"];
+	mets=["glc","etoh","co2","ac","lac","o2"];
 	mets2=["nh3","so4","pi"];
 	times=r.get_times();
 	pp.clf();
 	for met in mets:
-		pp.semilogy(times,[val*MM[met]/vol for val in r.get_metabolite("EX_"+met+"_e_")]);
+		pp.semilogy(times,[val*MM[met]/1000/vol for val in r.get_metabolite("EX_"+met+"_e_")]);
 	pp.legend(mets);
 	pp.xlabel('time [h]');
 	pp.ylabel('metabolite concentration [g/l]');
@@ -132,15 +135,15 @@ def used_up_metabolites(r, threshold=1, fro=0, to=-1):
 	return [ r.dmmm.medium.lut[i] for i,v in enumerate(z) if v];
 
 
-r=d.simulate(25);
+#r=d.simulate(25);
 
-import IPython; IPython.embed()
-exit()
+#import IPython; IPython.embed()
+#exit()
 rs=[]
 concs=[0,22,44,66]
 for conc in concs:
 	d.medium.metabolites["EX_lac_e_"]=vol*conc;
-	r=d.simulate(25);
+	r=d.simulate(40);
 	generate_plots(r, "yeast_adaption/"+str(conc)+"lac");
 	rs.append(r);
 

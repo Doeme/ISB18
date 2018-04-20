@@ -50,20 +50,22 @@ class Organism:
 			return filter(self.exchange_filter,self.model.exchanges);
 		return self.model.exchanges;
 
-	def set_secondary_objective(self,expr,direction='max'):
+	def set_secondary_objective(self,expr,direction='max',variance=0):
 		self.condition=self.model.problem.Constraint(self.model.objective.expression);
 		self.secondary_objective=self.model.problem.Objective(expr, direction=direction);
+		self.secondary_variance=variance;
 
 	def turn_off_addcon(self):
 		self.model.remove_cons_vars(self.condition);
 
 	def set_addcon(self,val):
+		sv=self.secondary_variance;
 		if not self.condition.ub or val > self.condition.lb:
-			self.condition.ub=val;
-			self.condition.lb=val;
+			self.condition.ub=val*(1+sv);
+			self.condition.lb=val*(1-sv);
 		else:
-			self.condition.lb=val;
-			self.condition.ub=val;
+			self.condition.lb=val*(1-sv);
+			self.condition.ub=val*(1+sv);
 		self.model.add_cons_vars(self.condition);
 
 	def get_mortality(self,sol):
@@ -78,7 +80,7 @@ class Organism:
 		if self.secondary_objective:
 			val=self.model.slim_optimize();
 			if self.model.solver.status != 'optimal':
-				return (-self.get_mortality(self.model.optimize()),[0]);
+				return (-self.get_mortality(0),[0]);
 			old_obj=self.model.objective;
 			self.set_addcon(val);
 			self.model.objective=self.secondary_objective;
@@ -90,10 +92,10 @@ class Organism:
 			sol=self.model.optimize();
 
 		if sol.status!='optimal':
-			return (-self.get_mortality(sol),[0]);
+			return (-self.get_mortality(sol.objective_value),[0]);
 
 		return (
-			sol.objective_value-self.get_mortality(sol),
+			sol.objective_value-self.get_mortality(sol.objective_value),
 			medium.dict_to_list(sol[[r.id for r in self.exchanges()]])
 		);
 
