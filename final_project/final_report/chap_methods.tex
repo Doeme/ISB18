@@ -189,6 +189,7 @@ their densities can not be considered and must be modeled externally \cite{orth_
 
 \subsection{Simulation Algorithm}
 
+\update{
 \begin{table}[h]
 \centering
 \caption{Overview of implemented features compared to DMMM}
@@ -208,23 +209,25 @@ Algorithm &  &  \\
 \hspace{0.5cm}different ODE solvers & yes & no \\
 \hspace{0.5cm}analytical solver & yes &no \\
 \end{tabular}
-\end{table}
+\end{table}}
 
 As described by Zhuang et al. in \cite{zhuang_genome-scale_2011} the algorithm uses an ODE solver with embedded FBA. An FBA is solved
 for each GEM in the model and for each time step in the discretised simulation time interval considering the changed metabolite and
 bacteria densities in the shared environment. The results of the FBAs are used by the ODE solver to solve the differential equations
 
+\update{
 \begin{equation} \label{eq:diff_eq_x}
  \frac{\dd x_j}{\dd t} = \mu_j x_j
 \end{equation}
 \begin{equation} \label{eq:diff_eq_s}
  \frac{\dd s_i}{\dd t} = \displaystyle\sum_{j=1}^{N} v_{i,j} x_j
-\end{equation}
+\end{equation}}
 
+\update{
 which models the dynamics of the bacteria's environment \cite{zhuang_design_2012} where $i = 1,\dotsc,N$ is the index of metabolites in the shared environment and $j = 1,\dotsc,M$ is the index of bacteria.
 The bacteria density is modeled in $x_j$ with $\left[ x_j \right] = \si{\gram}$ and $\mu_j$ is the bacteria's growth rate with $[\mu_j] = \si{\gram\per\gram_{DW}\per\hour}$\footnote{$\si{\gram_{DW}}$ stands for grams dry weight, i.e. grams of bacteria after all water has evaporated}.
 Input and output fluxes of the bacteria's models are modeled in $v_{i,j}$ with $\left[ v_{i,j} \right] = \si{\milli\mole\per\gram_{DW}\per\hour}$,
-the densities of metabolites in the shared environment in $s_i$ with $\left[ s_i \right] = \si{\milli\mole\per\liter}$.
+the densities of metabolites in the shared environment in $s_i$ with $\left[ s_i \right] = \si{\milli\mole\per\liter}$.}
 
 In each time step each bacteria's metabolite intake must be changed dependent on the densities of the metabolites in the shared environment.
 To model saturation of metabolite intake for high metabolite densities Zhuang et al. implemented Michaelis-Menten kinetics \cite{johnson2011original}
@@ -239,12 +242,14 @@ $s_m$. The formula is characterized by two constants $\left[ v_{max,M,m} \right]
 for each bacteria and metabolite. $s_{m'}$ is the metabolite density of metabolite $m'$, $\mat{I}_{M,m,m'}$ is the inhibition constant of metabolite $m'$ and
 describes the inhibition of the intake of metabolite $m$ by metabolite $m'$ at model $M$.
 
+\update{
 Mortality is considered using a variable $\left[ \mu_{mort,j} \right] = \si{\milli\mole\per\gram_{DW}\per\hour}$ for each bacteria j in this implementation while Zhuang et al. modeled this
-using the output flux of bacteria out of the system.
+using the output flux of bacteria out of the system.}
 
 Algorithm \ref{alg:differential_equation_with_embedded_fba} shows a basic implementation of the differential equations solved by an ODE
 solver during the simulation similar to DMMM \cite{zhuang_genome-scale_2011}.
 
+\update{
 The algorithm expects a list of bacteria models consisting of
 \begin{itemize}
  \item GEM of this bacteria: A, $\bm{v_{min}}$, $\bm{v_{max}}$, $\bm{w_{growth}}$
@@ -252,7 +257,7 @@ The algorithm expects a list of bacteria models consisting of
  \item $\bm{k}$ (Michaelis-Menten K) for each exchange metabolite and species
  \item mortality $\mu_{mort}$
  \item inhibition constants $\mat{I}_a$
-\end{itemize}
+\end{itemize}}
 
 Furthermore a list of all exchange metabolites in the environment, the bacteria and metabolite densities.
 
@@ -301,10 +306,11 @@ In a first step, the absolute metabolite counts are converted to densities, and 
 
 Next, the lower bounds of the intake fluxes are updated for each bacteria $M$ and exchange metabolite $m$ according to the Michaelis-Menten formula \ref{eq:michaelis-menten}.
 
+\update{
 In a further step, the GEMs are optimized for growth using FBA, the results are used as biomass production $\bm{v}_\bio$ and actual input and output
 fluxes $\bm{v_j}$ of bacteria j in this time step.
 The mortality is considered by subtracting the constants $\bm{\mu}$ from the biomass production rates $\bm{v}_\bio$.
-The slopes $\dot{\bm{x}}$ and $\bm{\dot{s}}$ are calculated according to \ref{eq:diff_eq_x} and \ref{eq:diff_eq_s} and, if any of the populations or metabolites were negative, their derivatives are cut-off to be always larger than 0.
+The slopes $\dot{\bm{x}}$ and $\bm{\dot{s}}$ are calculated according to \ref{eq:diff_eq_x} and \ref{eq:diff_eq_s} and, if any of the populations or metabolites were negative, their derivatives are cut-off to be always larger than 0.}
 
 \subsection{Simulation Setup}\label{ssec:simulation_setup}
 
@@ -312,12 +318,15 @@ The goal of the simulation is to validate the basic functionality of the simulat
 simulation scenario. As defined in the project goals, this simulation scenario is the dynamic flux balance analysis (DFBA) of a
 co-culture of Saccharomyces cerevisiae and Lactobacillus plantarum.
 
+\update{
 As genome-scale models a model of Lactobacillus plantarum published by Teusink et al. \cite{teusink_analysis_2006}. A decision about
-a yeast model is not made yet.
+a yeast model is not made yet.}
 
+\update{
 The simulation will consider two main input metabolites: oxygen and glucose. Table \ref{tab:model_constants_simulation_setup} and table
-\ref{tab:simulation_parameters_simulation_setup} contain all values needed to define the initial metabolite conditions and kinetics.
+\ref{tab:simulation_parameters_simulation_setup} contain all values needed to define the initial metabolite conditions and kinetics.}
 
+\update{
 \begin{table}[h]
 \centering
 \caption{Model constants used in the simulation setup}
@@ -333,7 +342,7 @@ Mortability (?)                            & ? & ? \\
 Glucose uptake inhibition by ethanol constant (g/l)     & 10\cite{hjersted_genome-scale_2007} & - \\
 Glucose uptake inhibition by lactic acid constant (mol/mol ?)     & TBD & - \\
 \end{tabular}
-\end{table}
+\end{table}}
 
 % E-Mail from Steinn about model constants of L. plantarum from 12.04.2018:
 % ----------------------------------------------------------------------------------------------
@@ -345,7 +354,7 @@ Glucose uptake inhibition by lactic acid constant (mol/mol ?)     & TBD & - \\
 % as a first approximation I would assume that oxygen plays a minor role, hence the oxygen
 % saturation constant may not be too important.
 % ----------------------------------------------------------------------------------------------
-
+\update{
 \begin{table}[h]
 \centering
 \caption{Simulation parameters used in the simulation setup}
@@ -358,7 +367,8 @@ Initial oxygen density (mmol/l)  & 0.5039 & equation \ref{eq:init_oxygen_density
 Initial density of S. cerevisiae (mmol/l) & ? & - \\
 Initial density of L. plantarum (mmol/l) & ? & - \\
 \end{tabular}
-\end{table}
+\end{table}}
 
+\update{
 To verify the basic functionality of the simulator the resulting bacteria densities and metabolite densities of ethanol, d- and l-lactate,
-oxygen and glucose will be compared to existing data.
+oxygen and glucose will be compared to existing data.}
