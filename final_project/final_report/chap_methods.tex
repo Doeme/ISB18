@@ -215,10 +215,10 @@ for each GEM in the model and for each time step in the discretised simulation t
 bacteria densities in the shared environment. The results of the FBAs are used by the ODE solver to solve the differential equations
 
 \begin{equation} \label{eq:diff_eq_x}
- \frac{\dd x_j}{\dd t} = \mu_j x_j
+	\frac{\dd x_j}{\dd t} = (v_{v_\bio} - \mu(v_{\bio}) x_j
 \end{equation}
 \begin{equation} \label{eq:diff_eq_s}
- \frac{\dd s_i}{\dd t} = \displaystyle\sum_{j=1}^{N} v_{i,j} x_j
+	\frac{\dd s_i}{\dd t} = \displaystyle\sum_{j=1}^{N} v_{i,j} x_j
 \end{equation}
 
 which models the dynamics of the bacteria's environment \cite{zhuang_design_2012} where $i = 1,\dotsc,N$ is the index of metabolites in the shared environment and $j = 1,\dotsc,M$ is the index of bacteria.
@@ -238,7 +238,7 @@ $s_i$. The formula is characterized by two constants $\left[ v_{mm,i,j} \right] 
 for each bacteria and metabolite. $s_a$ is the metabolite density of metabolite $a$, $\mat{I}_{a,i,j}$ is the inhibition constant of metabolite $a$ and
 describes the inhibition of the intake of metabolite $i$ by metabolite $a$ at species $j$.
 
-Mortality is considered using a variable $\left[ \mu_{mort,j} \right] = \si{\milli\mole\per\gram_{DW}\per\hour}$ for each bacteria j in this implementation while Zhuang et al. modeled this
+Mortality is considered using a function $\mu_j(v_\bio)$ $\left[ \mu_{j} \right] = \si{\milli\mole\per\gram_{DW}\per\hour}$ for each bacteria $j$ in this implementation while Zhuang et al. modeled this
 using the output flux of bacteria out of the system.
 
 Algorithm \ref{alg:differential_equation_with_embedded_fba} shows a basic implementation of the differential equations solved by an ODE
@@ -249,7 +249,7 @@ The algorithm expects a list of bacteria models consisting of
  \item GEM of this bacteria: A, $\bm{v_{min}}$, $\bm{v_{max}}$, $\bm{w_{growth}}$
  \item $\bm{v_{mm}}$ (Michaelis-Menten $V_{max}$) for each exchange metabolite and species
  \item $\bm{k}$ (Michaelis-Menten K) for each exchange metabolite and species
- \item mortality $\mu_{mort}$
+ \item mortality $\mu(v_\bio)$
  \item inhibition constants $\mat{I}_a$
 \end{itemize}
 
@@ -284,7 +284,7 @@ Furthermore a list of all exchange metabolites in the environment, the bacteria 
 	
     \ForEach{Model $M$ in models}{
       $\bio, \bm{v}$ \KwAssign FBA($M$)\;
-      $\dot{x}_M = (\bio - \mu) \mul x_M$\;
+      $\dot{x}_M = (\bio - \mu(v_\bio)) \mul x_M$\;
       $\dot{\v S} = \dot{\v S} + \v v \mul x_M$\;
     }
     
@@ -302,7 +302,7 @@ Next, the lower bounds of the intake fluxes are updated for each bacteria $M$ an
 
 In a further step, the GEMs are optimized for growth using FBA, the results are used as biomass production $\bm{v}_\bio$ and actual input and output
 fluxes $\bm{v_j}$ of bacteria j in this time step.
-The mortality is considered by subtracting the constants $\bm{\mu}$ from the biomass production rates $\bm{v}_\bio$.
+The mortality is considered by subtracting the constants $\bm{\mu(\v{v}_\bio}$ from the biomass production rates $\bm{v}_\bio$.
 The slopes $\dot{\bm{x}}$ and $\bm{\dot{s}}$ are calculated according to \ref{eq:diff_eq_x} and \ref{eq:diff_eq_s} and, if any of the populations or metabolites were negative, their derivatives are cut-off to be always larger than 0.
 
 \subsection{Simulation Setup}\label{ssec:simulation_setup}
