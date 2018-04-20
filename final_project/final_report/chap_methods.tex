@@ -375,3 +375,8 @@ Initial density of L. plantarum (mmol/l) & ? & - \\
 \update{
 To verify the basic functionality of the simulator the resulting bacteria densities and metabolite densities of ethanol, d- and l-lactate,
 oxygen and glucose will be compared to existing data.}
+
+\subsection{Software Stack}
+	This DFBA simulator framework uses Python version 3 as programming language and builds on the CobraPy Framework \cite{ebrahim_cobrapy_2013}.
+	As solver for the linear programs during the FBA the GNU Linear Programming Kit (GLPK) is used.
+	To integrate the ODEs, the Python package scipy.integrate.ode is used, employing the dopri5 solver, which is a classical Runge-Kutta explicite ODE solver for non-stiff problems \cite{hairer1993solving}.
