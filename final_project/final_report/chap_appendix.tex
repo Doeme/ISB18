@@ -73,3 +73,30 @@ direct approach (DA)                                                            
 \begin{tabular}[c]{@{}l@{}}reformulation to a differential-glgebraic\\ equation system\end{tabular} & low-medium                                             & high                                                       & ?          
 \end{tabular}
 \end{table}
+
+\section{}
+\begin{table}[]
+\centering
+\caption{Variables, constants and their units}
+\label{tab:units_of_variables_and_constants}
+\begin{tabular}{lll}
+\rowcolor[HTML]{EFEFEF} 
+Symbol                 & Unit    & Description\\
+$M$                    & -       & bacteria model\\
+$m$                    & -       & metabolite in shared medium\\
+$X_M$                  & \si{\gram_{DW}} & dry weight of bacteria $M$ in shared medium\\
+$v_{M,m}$              & \si{\milli\mole\per\gram_{DW}\per\hour} & input/output flux of model $M$\\
+$\mu_M$                & \si{\gram\per\gram_{DW}\per\hour} & growth rate of bacteria $M$\\
+$S_m$                  & \si{\milli\mole} & amount of molecules of metabolite $m$ in shared medium\\
+$s_m$                  & \si{\milli\mole\per\liter} & molecular density of metabolite $m$ in shared medium\\
+$b_{M,m}$              & \si{\milli\mole\per\gram_{DW}\per\hour} & upper bound of input flux for metabolite $m$\\
+$v_{max,M,m}$          & \si{\milli\mole\per\gram_{DW}\per\hour} & maximum input flux of metabolite $m$ at bacteria $M$\\
+$k_{M,m}$              & \si{\milli\mole\per\liter} & Michaelis-Menten constant for metabolite $m$ at bacteria $M$\\
+$I_{M,m,m'}$           & \si{\milli\mole\per\liter} & inhibition constant of bacteria $M$\\
+$V$                    & \si{\liter} & total batch volume\\
+ &&\\
+
+\end{tabular}
+\end{table}
+
+% \footnote{$\si{\gram_{DW}}$ stands for grams dry weight, i.e. grams of bacteria after all water has evaporated}
