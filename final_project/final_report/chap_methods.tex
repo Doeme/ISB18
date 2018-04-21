@@ -394,7 +394,6 @@ Both models were modified to have a consistent naming of the (relevant) exchange
 The simulation will consider two main input metabolites: oxygen and glucose. Table \ref{tab:model_constants_simulation_setup} and table
 \ref{tab:simulation_parameters_simulation_setup} contain all values needed to define the initial metabolite conditions and kinetics.}
 
-\update{
 \begin{table}[h]
 \centering
 \caption{Model constants used in the simulation setup}
@@ -402,15 +401,14 @@ The simulation will consider two main input metabolites: oxygen and glucose. Tab
 \begin{tabular}{llllll}
 \rowcolor[HTML]{EFEFEF} 
 \cellcolor[HTML]{EFEFEF} Constant          & \cellcolor[HTML]{EFEFEF}S. cerevisiae & \cellcolor[HTML]{EFEFEF}L. plantarum\\
-Maximum glucose uptake rate (mmol/g/h)     & 18.5 & 18.5 \\
-Maximum oxygen uptake rate (mmol/g/h)      & 2.5 & 2.5 \\
-Glucose uptake saturation constant (g/l)   & 0.5 & 0.5 \\
-Oxygen uptake saturation constant (mmol/l)     & 0.005 & 0.005 \\
-Mortability (?)                            & ? & ? \\
-Glucose uptake inhibition by ethanol constant (g/l)     & 10\cite{hjersted_genome-scale_2007} & - \\
-Glucose uptake inhibition by lactic acid constant (mol/mol ?)     & TBD & - \\
+Maximum glucose uptake rate (\si{\milli\mole\per\gram\per\hour})     & 18.5 & 18.5 \\
+Maximum oxygen uptake rate (\si{\milli\mole\per\gram\per\hour})      & 2.5 & 2.5 \\
+Glucose uptake saturation constant (\si{\gram\per\liter})   & 0.5 & 0.5 \\
+Oxygen uptake saturation constant (\si{\milli\mole\per\liter})     & 0.005 & 0.005 \\
+Glucose uptake inhibition by ethanol constant (\si{\gram\per\liter})     & 10\cite{hjersted_genome-scale_2007} & - \\
+Glucose uptake inhibition by lactic acid constant (\si{\milli\mole\per\liter})     & 30 & - \\
 \end{tabular}
-\end{table}}
+\end{table}
 
 % E-Mail from Steinn about model constants of L. plantarum from 12.04.2018:
 % ----------------------------------------------------------------------------------------------
@@ -425,20 +423,20 @@ Glucose uptake inhibition by lactic acid constant (mol/mol ?)     & TBD & - \\
 \update{
 \begin{table}[h]
 \centering
-\caption{Simulation parameters used in the simulation setup}
+\caption{Initial values of the simulation}
 \label{tab:simulation_parameters_simulation_setup}
 \begin{tabular}{llllll}
 \rowcolor[HTML]{EFEFEF} 
 \cellcolor[HTML]{EFEFEF} Parameter          & \cellcolor[HTML]{EFEFEF}value & \cellcolor[HTML]{EFEFEF}reference\\
-Initial glucose density (mmol/l) & 272.9 ... 1230.755 & equation \ref{eq:ready_to_use_plato_to_metabolite_density}, table \ref{tab:constants_used_in_this_document} \\
-Initial oxygen density (mmol/l)  & 0.5039 & equation \ref{eq:init_oxygen_density}, table \ref{tab:constants_used_in_this_document}\\
-Initial density of S. cerevisiae (mmol/l) & ? & - \\
-Initial density of L. plantarum (mmol/l) & ? & - \\
+Glucose density (\si{\milli\mole\per\liter}) & 272.9 ... 1230.755 & equation \ref{eq:ready_to_use_plato_to_metabolite_density}, table \ref{tab:constants_used_in_this_document} \\
+Oxygen density (\si{\milli\mole\per\liter})  & 0.5039 & equation \ref{eq:init_oxygen_density}, table \ref{tab:constants_used_in_this_document}\\
+Density of S. cerevisiae (\si{\gram\per\liter}) & 0.5 & \cite{daniels1996designing} \\
+Density of L. plantarum (\si{\gram\per\liter}) & 0.05,0.5,5,50 & \cite{narendranath_effects_1997} \\
 \end{tabular}
 \end{table}}
 
 \update{
-To verify the basic functionality of the simulator the resulting bacteria densities and metabolite densities of ethanol, d- and l-lactate,
+To verify the basic functionality of the simulator the resulting bacteria densities and metabolite densities of ethanol, (l-)lactate, acetate,
 oxygen and glucose will be compared to existing data.}
 
 \subsection{Software Stack}
