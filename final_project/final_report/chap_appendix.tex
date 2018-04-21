@@ -32,41 +32,44 @@ Combining equation \ref{eq:grad_plato_to_density} and \ref{eq:total_density_to_m
 \label{tab:constants_used_in_this_document}
 \begin{tabular}{llllll}
 \rowcolor[HTML]{EFEFEF} 
-\cellcolor[HTML]{EFEFEF} Constant    & \cellcolor[HTML]{EFEFEF}symbol      & \cellcolor[HTML]{EFEFEF}value & \cellcolor[HTML]{EFEFEF}reference\\
-Oxygen saturation of water at 20\textdegree C (mg/l) & -  & 9.077 & \cite{fao_water_1987} \\
-Molar mass of water (g/mol)    & -   & 18.015 & \cite{pupchen_website}\\
-Molar mass of glucose (g/mol) & -  & 180.156 & \cite{pupchen_website}\\
-Density of water (g/l) & $d_w$ & 1.00 &  \cite{pupchen_website}\\
-Density of glucose (g/l) & $d_{glc}$ &  1.56 & \cite{pupchen_website}\\
-Typical glucose/water solution density to brew beer (\textdegree P) & - & 5...20 & - \\
+\cellcolor[HTML]{EFEFEF} Constant    & \cellcolor[HTML]{EFEFEF}value & \cellcolor[HTML]{EFEFEF}reference\\
+Oxygen saturation of water at 20\textdegree C (\si{\milli\gram\per\liter}) & 9.077 & \cite{fao_water_1987} \\
+Molar mass of water (\si{\gram\per\mole})       &  18.015 & \cite{pupchen_website}\\
+Molar mass of glucose (\si{\gram\per\mole})     & 180.156 & \cite{pupchen_website}\\
+Density of water (\si{\gram\per\liter})         &    1.00 & \cite{pupchen_website}\\
+Density of glucose (\si{\gram\per\liter})       &    1.56 & \cite{pupchen_website}\\
+Considered wort densities (\textdegree P)       & 5...20 & - \\
 \end{tabular}
 \end{table}
 
 To calculate the initial oxygen density in the solution it is assumed that the solution is at 20 \textdegree C and fully saturated
 with oxygen:
-\begin{equation} \label{eq:init_oxygen_density}
-s_{init,ox} = 9.077 \frac{mg}{l} = 9.077 \,\, 10^{-3}  \frac{g}{l} = \frac{9.077 \,\, 10^{-3} \frac{g}{l}}{18.015 \,\, 10^{-3} \frac{g}{mmol}} = 0,5039 \frac{mmol}{l} 
-\end{equation}
+\begin{align} \label{eq:init_oxygen_density}
+s_{o} & = 9.077 \frac{mg}{l} \nonumber\\
+            & = 9.077 \,\, 10^{-3}  \frac{g}{l} \nonumber\\
+            & = \frac{9.077 \,\, 10^{-3} \frac{g}{l}}{18.015 \,\, 10^{-3} \frac{g}{mmol}} \nonumber\\
+            & = 0,5039 \frac{mmol}{l} 
+\end{align}
 
 % you can choose not to have a title for an appendix
 % if you want by leaving the argument blank
 \section{}\label{ap:more_super_fancy_stuff}
 \begin{table}[]
 \centering
-\caption{Rating of considered DFBA methods}
+\caption{Rating of considered DFBA methods\\ (1: low, 2: medium, 3: high)}
 \label{tab:rating_of_DFBA_methods}
 \begin{tabular}{llll}
 \rowcolor[HTML]{EFEFEF} 
 Method                                                                                                 & \begin{tabular}[c]{@{}l@{}}comp.\\ effort\end{tabular} & \begin{tabular}[c]{@{}l@{}}impl.\\ complexity\end{tabular} & flexibility \\
-dynamic optimization approach (DOA)                                                                    & high                                                   & medium-high                                                & ?           \\
-static optimization approach (SOA)                                                                     & low                                                    & low                                                        & low         \\
-direct approach (DA)                                                                                   & medium                                                 & low                                                        & medium      \\
-\begin{tabular}[c]{@{}l@{}}reformulation to a differential-glgebraic\\ equation system\end{tabular} & low-medium                                             & high                                                       & ?          
+dynamic optimization approach (DOA)                                                                    & 3                                                   & 2-3                                                & ?           \\
+static optimization approach (SOA)                                                                     & 1                                                    & 1                                                        & 1         \\
+direct approach (DA)                                                                                   & 2                                                 & 1                                                        & 2      \\
+\begin{tabular}[c]{@{}l@{}}reformulation to a differential-glgebraic\\ equation system\end{tabular}    & 1-2                                             & 3                                                       & ?          
 \end{tabular}
 \end{table}
 
 \section{}
-\begin{table}[]
+\begin{table*}[t]
 \centering
 \caption{Variables, constants and their units}
 \label{tab:units_of_variables_and_constants}
