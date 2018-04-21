@@ -402,18 +402,33 @@ $I_{M,glc,lac}$          & TBD & -  & \si{\milli\mole\per\liter} & ? \\
 % as a first approximation I would assume that oxygen plays a minor role, hence the oxygen
 % saturation constant may not be too important.
 % ----------------------------------------------------------------------------------------------
+% \update{
+% \begin{table}[h]
+% \centering
+% \caption{Simulation parameters used in the simulation setup}
+% \label{tab:simulation_parameters_simulation_setup}
+% \begin{tabular}{llllll}
+% \rowcolor[HTML]{EFEFEF} 
+% \cellcolor[HTML]{EFEFEF} Parameter          & \cellcolor[HTML]{EFEFEF}value & \cellcolor[HTML]{EFEFEF}reference\\
+% Initial glucose density (mmol/l) & 272.9 ... 1230.755 & equation \ref{eq:ready_to_use_plato_to_metabolite_density}, table \ref{tab:constants_used_in_this_document} \\
+% Initial oxygen density (mmol/l)  & 0.5039 & equation \ref{eq:init_oxygen_density}, table \ref{tab:constants_used_in_this_document}\\
+% Initial density of S. cerevisiae (mmol/l) & ? & - \\
+% Initial density of L. plantarum (mmol/l) & ? & - \\
+% \end{tabular}
+% \end{table}}
+
 \update{
 \begin{table}[h]
 \centering
-\caption{Simulation parameters used in the simulation setup}
+\caption{Initial values for simulation}
 \label{tab:simulation_parameters_simulation_setup}
 \begin{tabular}{llllll}
 \rowcolor[HTML]{EFEFEF} 
-\cellcolor[HTML]{EFEFEF} Parameter          & \cellcolor[HTML]{EFEFEF}value & \cellcolor[HTML]{EFEFEF}reference\\
-Initial glucose density (mmol/l) & 272.9 ... 1230.755 & equation \ref{eq:ready_to_use_plato_to_metabolite_density}, table \ref{tab:constants_used_in_this_document} \\
-Initial oxygen density (mmol/l)  & 0.5039 & equation \ref{eq:init_oxygen_density}, table \ref{tab:constants_used_in_this_document}\\
-Initial density of S. cerevisiae (mmol/l) & ? & - \\
-Initial density of L. plantarum (mmol/l) & ? & - \\
+\cellcolor[HTML]{EFEFEF} Parameter          & \cellcolor[HTML]{EFEFEF}Value & \cellcolor[HTML]{EFEFEF}Unit & \cellcolor[HTML]{EFEFEF}Reference\\
+$s_{glc}$ (mmol/l) & 272.9 ... 1230.755 & \si{\milli\mole\per\liter} & eq. \ref{eq:ready_to_use_plato_to_metabolite_density}, tab. \ref{tab:constants_used_in_this_document} \\
+$s_o$ (mmol/l)  & 0.5039 & \si{\milli\mole\per\liter} & eq. \ref{eq:init_oxygen_density}, ta. \ref{tab:constants_used_in_this_document}\\
+$x_{yeast}$ & ? & \si{\gram_{DW}\per\liter} & - \\
+$x_{lac}$ & ? & \si{\gram_{DW}\per\liter} & - \\
 \end{tabular}
 \end{table}}
 
