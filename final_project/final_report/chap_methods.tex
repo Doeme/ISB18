@@ -43,8 +43,8 @@ A genome-scale model (GEM) is an analytical reconstruction of ideally all cellul
 All available biochemical, genetic and genomic (BiGG) information of the processes are analyzed to
 identify gene-to-protein-to-reaction (GPR) associations and involved compounds. 
 Based on this data a network composed of compounds (nodes) and reactions (links) is created and added
-to the reconstruction.
-\cite{palsson2015systems}
+to the reconstruction\cite{palsson2015systems}. Figure \ref{subfig:GEM_graph} shows an example for a
+metabolic network. The GPR association is shown for the enzymatic process \textit{PGI}.
 
 Tools like \textit{Pathway Tools}\cite{karp2009pathway},
 \textit{SEED}\cite{henry2010high} or \textit{AUTOGRAPH}\cite{notebaart2006accelerating} are used to
@@ -57,6 +57,8 @@ The reconstruction is the basis to create geno- and phenotypes of a cell and to 
 mathematical models for further analysis.
 An important mathematical representation is the stoichiometric matrix. It uniquely represents the metabolic
 network of the cell, based on the stoichiometric constants of its reactions\cite{palsson2015systems}.
+Figure \ref{subfig:s_matrix_of_GEM_example} shows a possible stoichiometric matrix for the exemplary
+metabolic network in figure \ref{subfig:GEM_graph}.
 
 \begin{figure}
 \begin{subfigure}{.8\linewidth}
