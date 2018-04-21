@@ -1,31 +1,22 @@
 \appendices
 \section{}\label{ap:super_fancy_stuff}
-The following approximation is used to convert \textdegree C (``degree plato'') to a density measure (g/l)\cite{bubnik1995sugar}.
+The following approximation is used to convert \textdegree P (``degree plato'') to a density measure (\si{\gram\per\liter})\cite{bubnik1995sugar}.
 \begin{equation} \label{eq:grad_plato_to_density}
  d_{total} = 4.13 \frac{g}{l \,\,\, ^\circ P} p + 997 \frac{g}{l}
 \end{equation}
 
 As the simulation framework expects metabolite densities relative to the total volume of the solution (mmol of metabolite per liter
-solution, mmol/l) the total density $d_{total}$ must to converted to a density $s_{glc}$. It is assumed that $V_{total} = V_{glc} + V_W$.
+solution, mmol/l) the total density $d_{total}$ must to converted to a density $s_{glc}$.
+It is assumed that $V_{total} = V_{glc} + V_W$. Furthermore $m$ is used in the following equations as a measure of mass.
 
-\begin{equation*}
- d_{total} = \frac{m_{total}}{V_{total}}
-\end{equation*}
-\begin{equation*}
- d_{total} = \frac{m_{glc} + m_w}{V_{total}}
-\end{equation*}
-\begin{equation*}
- d_{total} = \frac{m_{glc} + d_w V_w}{V_{total}}
-\end{equation*}
-\begin{equation*}
- d_{total} = \frac{m_{glc} + d_w \left(V_{total} - V_{glc}\right)}{V_{total}}
-\end{equation*}
-\begin{equation*}
- d_{total} = \frac{m_{glc} + d_w \left(V_{total} - \frac{m_{glc}}{d_{glc}}\right)}{V_{total}}
-\end{equation*}
-\begin{equation} \label{eq:total_density_to_metabolite_density}
- s_{glc} = \frac{m_{glc}}{V_{total}} = \frac{d_{total} - d_w}{1 - \frac{d_w}{d_{glc}}}
-\end{equation}
+\begin{align}\label{eq:total_density_to_metabolite_density}
+ d_{total} & = \frac{m_{total}}{V_{total}} \nonumber \\
+           & = \frac{m_{glc} + m_w}{V_{total}} \nonumber \\
+           & = \frac{m_{glc} + d_w V_w}{V_{total}} \nonumber \\
+           & = \frac{m_{glc} + d_w \left(V_{total} - V_{glc}\right)}{V_{total}} \nonumber \\
+           & = \frac{m_{glc} + d_w \left(V_{total} - \frac{m_{glc}}{d_{glc}}\right)}{V_{total}} \nonumber \\
+ \Leftrightarrow \quad s_{glc}   & = \frac{m_{glc}}{V_{total}} = \frac{d_{total} - d_w}{1 - \frac{d_w}{d_{glc}}}
+\end{align}
 
 Combining equation \ref{eq:grad_plato_to_density} and \ref{eq:total_density_to_metabolite_density}, including all constants and converting it to mmol/l leads to:
 \begin{equation} \label{eq:ready_to_use_plato_to_metabolite_density}
