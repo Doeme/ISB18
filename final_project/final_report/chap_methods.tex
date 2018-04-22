@@ -257,6 +257,13 @@ the bacteria masses $X_M$ in the shared medium where $M$ are the bacteria models
 $\mathrm{Mort}()$ models the mortability of that bacteria dependent on its growth rate.
 Equation \ref{eq:diff_eq_s} updates the amount of molecules $S_m$ of metabolites in the shared medium where $v_{M,m}$ are the
 output fluxes of metabolite $m$ by bacteria model $M$.
+\update{
+Mortality is considered using a function $\mu_M(v_\bio)$ $\left[ \mu_{M} \right] = \si{\milli\mole\per\gram_{DW}\per\hour}$ for each organism $M$ in this implementation while Zhuang et al. modeled this
+using the output flux of bacteria out of the system.
+Yeast cells have a mean lifetime of 26 cell divisions, making the mortality dependant on the biomass production $v_\bio$.
+We have a doubling rate of $t_d=\frac{\log(2)}{b}$, i.e. every cell doubles every $t_d$ hours. Hence, cells have a lifetime of $t_l=26\mul t_d$ hours.
+Consider a population of $N$ cells, which have been born equidistantly. On average, $\frac{N}{t}$ cells die every hour.
+The populations mortality is therefore $\frac{N}{t} \mul \frac{1}{N}=\frac{1}{t_l}=\frac{b}{26\mul \log(2)}$.}
 
 In each time step each bacteria's metabolite intake must be changed dependent on the densities of the metabolites in the shared environment.
 To model saturation of metabolite intake for high metabolite densities Zhuang et al. implemented Michaelis-Menten kinetics \cite{johnson2011original}
@@ -281,13 +288,6 @@ models the inhibition of the input flux of metabolite $m$ of bacteria $M$ by ano
 This expression can be used to add toxic effects of certain compounds on the metabolism of a bacteria. This therm is defined
 by the inhibition constant $I_{M,m,m'}$ which, similar to the Michaelis-Menten constant, defines the metabolite density $s_{m'}$
 where the value of this therm is exactly 0.5.
-
-Mortality is considered using a function $\mu_M(v_\bio)$ $\left[ \mu_{M} \right] = \si{\milli\mole\per\gram_{DW}\per\hour}$ for each organism $M$ in this implementation while Zhuang et al. modeled this
-using the output flux of bacteria out of the system.
-Yeast cells have a mean lifetime of 26 cell divisions, making the mortality dependant on the biomass production $v_\bio$.
-We have a doubling rate of $t_d=\frac{\log(2)}{b}$, i.e. every cell doubles every $t_d$ hours. Hence, cells have a lifetime of $t_l=26\mul t_d$ hours.
-Consider a population of $N$ cells, which have been born equidistantly. On average, $\frac{N}{t}$ cells die every hour.
-The populations mortality is therefore $\frac{N}{t} \mul \frac{1}{N}=\frac{1}{t_l}=\frac{b}{26\mul \log(2)}$
 
 Algorithm \ref{alg:differential_equation_with_embedded_fba} shows a basic implementation of the differential equations solved by an ODE
 solver during the simulation similar to DMMM \cite{zhuang_genome-scale_2011}.
