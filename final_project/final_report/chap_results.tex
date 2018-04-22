@@ -56,3 +56,34 @@
 			\caption{The ethanol and glucose concentration at different concentrations of lactate with the improved constants}
 			\label{fig:yeast_better_simfig}
 		\end{figure}
+		
+	\subsection{Lactobacillus Plantarum}
+		If we add Lactobacillus Plantarum to the same medium, we get the population curves in Figure \ref{fig:lb_pop}.
+		These, too, are what can be expected (i.e. exponential growth that gets dampened as the glucose runs out and ad the environment becomes more toxic).
+		
+		An interesting side-effect of the Lactobacilli is that they not only produce lactate and acetate, but also a rather large amount of ethanol.
+		\begin{figure}[h]
+			\centering
+			\includegraphics[width=\linewidth]{figures/results/lactobacillus/lactobacillus_populations.pdf}
+			\caption{The growth of Lactobacillus Plantarum in the medium in a logarithmic scale}
+			\label{fig:lb_pop}
+		\end{figure}
+		
+		\begin{figure}[h]
+			\centering
+			\includegraphics[width=\linewidth]{figures/results/lactobacillus/lactobacillus_metabolites.pdf}
+			\caption{The concentrations of interesting metabolites in the simulated medium for Lactobacillus Plantarum monocultures}
+			\label{fig:lb_met}
+		\end{figure}
+	
+	\subsection{Cocultures}
+		The simulation of the cocultures shows many effects known by experiment.
+		The yeast shows much higher activity relative to the lactic bacteria when the medium contains oxygen.
+		This is congruent with the common brewing practice of aerating the wort before actually fermenting it \cite[P. 168]{daniels1996designing}.
+		More oxygen gives the yeast an additional head start in population.
+		
+		\begin{figure}[h]
+			\includegraphics[width=\linewidth]{figures/results/cocultures/0.1_populations.pdf};
+			\caption{The population of the two organisms with \SI{0.05}{\gram\per\litre} initial lactobacillus population}
+			
+		\end{figure}
