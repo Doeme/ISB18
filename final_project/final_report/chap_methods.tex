@@ -290,15 +290,15 @@ The populations mortality is therefore $\frac{N}{t} \mul \frac{1}{N}=\frac{1}{t_
 Algorithm \ref{alg:differential_equation_with_embedded_fba} shows a basic implementation of the differential equations solved by an ODE
 solver during the simulation similar to DMMM \cite{zhuang_genome-scale_2011}.
 
-\update{
-The algorithm expects a list of bacteria models consisting of
-\begin{itemize}
- \item GEM of this bacteria: A, $\bm{v_{min}}$, $\bm{v_{max}}$, $\bm{w_{growth}}$
- \item $\bm{v_{mm}}$ (Michaelis-Menten $V_{max}$) for each exchange metabolite and species
- \item $\bm{k}$ (Michaelis-Menten K) for each exchange metabolite and species
- \item mortality $\mu(v_\bio)$
- \item inhibition constants $\mat{I}_a$
-\end{itemize}}
+% \update{
+% The algorithm expects a list of bacteria models consisting of
+% \begin{itemize}
+%  \item GEM of this bacteria: A, $\bm{v_{min}}$, $\bm{v_{max}}$, $\bm{w_{growth}}$
+%  \item $\bm{v_{mm}}$ (Michaelis-Menten $V_{max}$) for each exchange metabolite and species
+%  \item $\bm{k}$ (Michaelis-Menten K) for each exchange metabolite and species
+%  \item mortality $\mu(v_\bio)$
+%  \item inhibition constants $\mat{I}_a$
+% \end{itemize}}
 
 Furthermore a list of all exchange metabolites in the environment, the bacteria and metabolite densities.
 
