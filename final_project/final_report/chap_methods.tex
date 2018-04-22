@@ -338,11 +338,10 @@ In a first step, the absolute metabolite counts are converted to densities, and 
 
 Next, the lower bounds of the intake fluxes are updated for each bacteria $M$ and exchange metabolite $m$ according to the Michaelis-Menten formula \ref{eq:michaelis-menten}.
 
-\update{
-In a further step, the GEMs are optimized for growth using FBA, the results are used as biomass production $\bm{v}_\bio$ and actual input and output
-fluxes $\bm{v_j}$ of bacteria j in this time step.
-The mortality is considered by subtracting the constants $\bm{\mu}(\v{v}_\bio)$ from the biomass production rates $\bm{v}_\bio$.
-The slopes $\dot{\bm{x}}$ and $\bm{\dot{s}}$ are calculated according to \ref{eq:diff_eq_x} and \ref{eq:diff_eq_s} and, if any of the populations or metabolites were negative, their derivatives are cut-off to be always larger than 0.}
+In a further step, the GEMs are optimized for growth using FBA, the results are used as biomass production $\mu_M$ and actual input and output
+fluxes $\v{v_M}$ of bacteria M in this time step.
+The mortality is considered by subtracting the constants $\mathrm{Mort}(\mu_M)$ from the biomass production rates $\v{v_M}$.
+The slopes $\dot{X}_M$ and $\dot{\v S}$ are calculated according to \ref{eq:diff_eq_x} and \ref{eq:diff_eq_s}.
 
 \subsection{Simulation Setup}\label{ssec:simulation_setup}
 
