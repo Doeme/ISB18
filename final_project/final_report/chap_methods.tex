@@ -253,17 +253,15 @@ bacteria densities in the shared environment. The results of the FBAs are used b
 \end{equation}
 
 which models the dynamics of the bacteria's environment \cite{zhuang_design_2012}. Equation \ref{eq:diff_eq_x} updates
-the bacteria masses $X_M$ in the shared medium where $M$ are the bacteria models, $\mu_M$ the growth rate of bacteria $M$ and the function
-$\mathrm{Mort}()$ models the mortability of that bacteria dependent on its growth rate.
-Equation \ref{eq:diff_eq_s} updates the amount of molecules $S_m$ of metabolites in the shared medium where $v_{M,m}$ are the
-output fluxes of metabolite $m$ by bacteria model $M$.
-\update{
-Mortality is considered using a function $\mu_M(v_\bio)$ $\left[ \mu_{M} \right] = \si{\milli\mole\per\gram_{DW}\per\hour}$ for each organism $M$ in this implementation while Zhuang et al. modeled this
+the bacteria masses $X_M$ in the shared medium where $M$ are the bacteria models and $\mu_M$ the growth rate of bacteria $M$.
+Mortality is considered using a function $\mathrm{Mort}()$ dependent on the growth rate $\mu_M$ for each organism $M$ in this implementation while Zhuang et al. modeled this
 using the output flux of bacteria out of the system.
-Yeast cells have a mean lifetime of 26 cell divisions \cite{Kaeberlein1193}, making the mortality dependant on the biomass production $v_\bio$.
+Yeast cells have a mean lifetime of 26 cell divisions \cite{Kaeberlein1193}, making the mortality dependent on the biomass production $\mu_M$.
 We have a doubling rate of $t_d=\frac{\log(2)}{b}$, i.e. every cell doubles every $t_d$ hours. Hence, cells have a lifetime of $t_l=26\mul t_d$ hours.
 Consider a population of $N$ cells, which have been born equidistantly. On average, $\frac{N}{t}$ cells die every hour.
-The populations mortality is therefore $\frac{N}{t} \mul \frac{1}{N}=\frac{1}{t_l}=\frac{b}{26\mul \log(2)}$.}
+The populations mortality is therefore $\frac{N}{t} \mul \frac{1}{N}=\frac{1}{t_l}=\frac{b}{26\mul \log(2)}$.
+Equation \ref{eq:diff_eq_s} updates the amount of molecules $S_m$ of metabolites in the shared medium where $v_{M,m}$ are the
+output fluxes of metabolite $m$ by bacteria model $M$.
 
 In each time step each bacteria's metabolite intake must be changed dependent on the densities of the metabolites in the shared environment.
 To model saturation of metabolite intake for high metabolite densities Zhuang et al. implemented Michaelis-Menten kinetics \cite{johnson2011original}
@@ -272,12 +270,6 @@ To model saturation of metabolite intake for high metabolite densities Zhuang et
 % b_{M,m} = \frac{v_{max,M,m} s_m}{s_m + k_{M,m}} \prod_{a=1}^M \frac{1}{1 + \frac{s_a}{\mat{I}_{a,i,j}}}
  b_{M,m} = v_{max,M,m} \; \frac{s_m}{k_{M,m}+s_m} \; \prod_{m'} \cfrac{1}{1+\cfrac{s_{m'}}{I_{M,m,m'}}}
 \end{equation}
-
-\update{
-This formula describes the upper bound of the input flux $b_{M,m}$ for metabolite m of model M dependent on the metabolite density
-$s_m$. The formula is characterized by two constants $\left[ v_{max,M,m} \right] = \si{\milli\mole\per\gram_{DW}\per\hour}$ and $\left[ k_{M,m} \right] = \si{\milli\mole\per\liter}$
-for each bacteria and metabolite. $s_{m'}$ is the metabolite density of metabolite $m'$, $\mat{I}_{M,m,m'}$ is the inhibition constant of metabolite $m'$ and
-describes the inhibition of the intake of metabolite $m$ by metabolite $m'$ at model $M$.}
 
 Formula \ref{eq:michaelis-menten} describes the the dependency of the upper bound of the input flux $b_{M,m}$ for metabolite $m$ of model $M$ on the metabolite density
 $s_m$ in the shared medium. The formula is the product of two expressions. The left expression describes the actual dependency
