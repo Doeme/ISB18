@@ -256,7 +256,7 @@ which models the dynamics of the bacteria's environment \cite{zhuang_design_2012
 the bacteria masses $X_M$ in the shared medium where $M$ are the bacteria models and $\mu_M$ the growth rate of bacteria $M$.
 Mortality is considered using a function $\mathrm{Mort}()$ dependent on the growth rate $\mu_M$ for each organism $M$ in this implementation while Zhuang et al. modeled this
 using the output flux of bacteria out of the system.
-Yeast cells have a mean lifetime of 26 cell divisions, making the mortality dependent on the biomass production $\mu_M$.
+Yeast cells have a mean lifetime of 26 cell divisions \cite{Kaeberlein1193}, making the mortality dependent on the biomass production $\mu_M$.
 We have a doubling rate of $t_d=\frac{\log(2)}{b}$, i.e. every cell doubles every $t_d$ hours. Hence, cells have a lifetime of $t_l=26\mul t_d$ hours.
 Consider a population of $N$ cells, which have been born equidistantly. On average, $\frac{N}{t}$ cells die every hour.
 The populations mortality is therefore $\frac{N}{t} \mul \frac{1}{N}=\frac{1}{t_l}=\frac{b}{26\mul \log(2)}$.
