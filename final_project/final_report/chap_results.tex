@@ -3,13 +3,13 @@
 	At the second stage, the coculture was simulated to show.
 	
 	The mediums used contain \SI{50}{\litre} of water mixed with an inital glucose concentration of \SI{1000}{\milli\mole\per\litre}.
-	\subsection{Yeast Monoculture}
+	\subsection{Yeast Monoculture}\label{ssec:yeast_monoculture}
 		The yeast monocolture is well-behaved, until the very edges of metabolic activity, where the GEM is blocked.
 		But its growth is almost exponential, as can be seen in Figure \ref{fig:yeast_0lac_pop}.
 		The steep curve at the beginning marks the region where oxygen can be metabolised.
 		The slight curvature of the following section can be explained by the self-inhibition of the organism,
 		caused by the toxicity of ethanol, and by the sinking glucose concentration.
-		Concentrations of the relevant metabolites that can be seen in Figure \ref{fig:yeast_0lac_met}
+		Concentrations of the relevant metabolites that can be seen in Figure \ref{fig:yeast_0lac_met}.
 		
 		At time $t\approx 25$ the GEM is blocked since the glucose uptake can not satisfy the ATP maintenance reactions anymore;
 		the population starts to die.
@@ -27,9 +27,9 @@
 		\end{figure}
 		
 		In further simulations the concentration of lactate was increased, and the toxicity of the lactate was tuned to best fit the curves given in Figure \ref{fig:yeast_real}.
-		This was achieved with a number of $I_{Y,\mathrm{glc,lac}}=\SI{30}{\milli\mole\per\litre}$. The Figure \ref{fig:yeast_simfig} shows the tuned curves.
+		This was achieved with a number of $I_{Y,\mathrm{glc,lac}}=\SI{30}{\milli\mole\per\litre}$. Figure \ref{fig:yeast_simfig} shows the tuned curves.
 		
-		The fit is not perfect on multiple accounts: Firstly, the organism takes longer to metabolise the glucose, which can be traced back to a too high ethanol inhibition constant $i_{Y,\mathrm{glc,etoh}}$
+		The fit is not perfect on multiple accounts: Firstly, the organism takes longer to metabolise the glucose, which can be traced back to a too high ethanol inhibition constant $I_{Y,\mathrm{glc,etoh}}$
 		Secondly, there are sharp, seemingly non-smooth corners in the plot. These can be explained by wrong Michaelis-Menten constants $k_{Y,m}$
 		
 		Adapting these constants to $k_{Y,\mathrm{glc}}=\SI{15}{\milli\mole\per\litre}$ and the inhibition constant to $I_{Y,\mathrm{glc,etoh}}=\SI{350}{\gram\per\liter}$ yields a better fitting result
