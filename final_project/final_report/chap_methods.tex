@@ -260,7 +260,7 @@ output fluxes of metabolite $m$ by bacteria model $M$.
 \update{
 Mortality is considered using a function $\mu_M(v_\bio)$ $\left[ \mu_{M} \right] = \si{\milli\mole\per\gram_{DW}\per\hour}$ for each organism $M$ in this implementation while Zhuang et al. modeled this
 using the output flux of bacteria out of the system.
-Yeast cells have a mean lifetime of 26 cell divisions, making the mortality dependant on the biomass production $v_\bio$.
+Yeast cells have a mean lifetime of 26 cell divisions \cite{Kaeberlein1193}, making the mortality dependant on the biomass production $v_\bio$.
 We have a doubling rate of $t_d=\frac{\log(2)}{b}$, i.e. every cell doubles every $t_d$ hours. Hence, cells have a lifetime of $t_l=26\mul t_d$ hours.
 Consider a population of $N$ cells, which have been born equidistantly. On average, $\frac{N}{t}$ cells die every hour.
 The populations mortality is therefore $\frac{N}{t} \mul \frac{1}{N}=\frac{1}{t_l}=\frac{b}{26\mul \log(2)}$.}
