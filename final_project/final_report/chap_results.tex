@@ -78,9 +78,12 @@
 	
 	\subsection{Cocultures}
 		The simulation of the cocultures shows many effects known by experiment.
-		The yeast shows much higher activity relative to the lactic bacteria when the medium contains oxygen.
+		The yeast shows much higher activity relative to the lactic bacteria when the medium contains oxygen, as can be seen in both Figure \ref{fig:cocult_0.1_met} and \ref{fig:cocult_1_met}.
 		This is congruent with the common brewing practice of aerating the wort before actually fermenting it \cite[P. 168]{daniels1996designing}.
 		More oxygen gives the yeast an additional head start in population.
+		
+		Additionally, whether the Lactobacilli overtake the yeast is dependant on the initial concentration of Lactobacillus Plantarum.
+		This can be seen in Figure \ref{fig:cocult_pops}.
 		
 		\begin{figure}[h]
 			\includegraphics[width=\linewidth]{figures/results/cocultures/0.1_populations.pdf};
@@ -104,4 +107,10 @@
 			\includegraphics[width=\linewidth]{figures/results/cocultures/1_metabolites.pdf};
 			\caption{The metabolites in the medium with \SI{0.5}{\gram\per\litre} initial lactobacillus population}
 			\label{fig:cocult_1_met}
+		\end{figure}
+		
+		\begin{figure}[h]
+			\includegraphics[width=\linewidth]{figures/results/cocultures/1_metabolites.pdf};
+			\caption{The populations over multiple initial Lactobacillus concentrations (0.05, 0.5, 5, 50)}
+			\label{fig:cocult_pops}
 		\end{figure}
